@@ -1,0 +1,105 @@
+const schedule = require('node-schedule')
+const DB = require('../../modules/db')
+module.exports = {
+
+  colors: function(message, command, args) {
+    try {
+      let response = "\n\n";
+      let colors = config.roles.colors;
+      for (var key in colors) {
+        response += colors[key] + "\n";
+      }
+      message.reply(response);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  rewards: async function(message, command, args) {
+    try{
+      //Addcoins
+      message.channel.send({embed:{
+          title: "Arkhos Server Rewards",
+          description: "Total Arkoins: ",
+          url: "https://beta.arkhos.net/",
+          color: 0x33FFBB,
+          fields:[
+            {
+                name: "Tier 1 | Color - 5,000 Arkoins",
+                value: "Gain permanent access to the !color command and change your color at will! \nHow progressive of us...",
+                inline: false
+            },
+            {
+                name: "Tier 2 | Roles - 25,000 Arkoins",
+                value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins!",
+                inline: false
+            },
+            {
+                name: "Tier 3 | GIFs - 50,000 Arkoins",
+                value: "No longer will your memes be dreams with this amazing GIF command! \nFind a pic and let it rip :smiling_imp:",
+                inline: false
+            },
+            {
+                name: "Tier 4 | Sound - 100,000 Arkoins",
+                value: "Create a custom sound command to use in Voice Channels, Arkhos will personally come in and play a sound (.mp3) of your choosing! (PS: Batteries not included)",
+                inline: false
+            },
+            {
+              name: "Tier 5 | Music - 500,000 Arkoins",
+              value: "A Private Music Bot you say?! Deal. \nHere's your very own Music Bot to use and abuse as you please! \n#EnslaveTheBots",
+              inline: false
+            },
+            {
+              name: "Patreon Rewards",
+              value: "Tired of farming Arkoins? Not getting anything done hoe-ing like that? \nWorry not, much like EA we have our very own pay to win loot boxes!\nClick the link, give us all your credit card info and TADA, you just became the coolest monkey in the jungle! GG\n\nhttps://www.patreon.com/Arkhos\n\nPS: In all seriousness though, thank you! We really appreciate the support < 3",
+              inline: false
+            }
+            ],
+          timestamp: new Date(),
+          footer: {
+              text: "This is a footer. No feet were harmed in the making of this description",
+              icon_url: "https://cdn.discordapp.com/attachments/233701911168155649/419476816244375563/Arkhos_Black3.png"
+          }
+      }})
+    
+    }
+    catch(e){
+      console.log(e)
+    }
+  },
+  daily: async function(message, command, args) {
+    try{
+      if(!dailyUsers.includes(message.author.id)){
+        dailyUsers.push(message.author.id)
+        if(!DB.getCoins(message.author.id))
+          DB.addCoins(message.author.id)
+        var coins = DB.getCoins(message.author.id).amount
+        message.reply("+200 Arkoins have been added to your stash, spend them wisely!")
+        DB.setCoins(message.author.id, coins+200)
+        
+      }
+      else{
+        var now = new Date().getTime();
+        var countDownDate = new Date();
+        countDownDate.setDate(countDownDate.getDate()+1)
+        countDownDate.setHours(0,0,0,0);
+        var distance = countDownDate - now;
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        message.reply("You've already requested your daily ration... Come back in **" + hours + "h:" + minutes+"m:"+seconds+ "s**")
+      }
+      
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+}
+
+schedule.scheduleJob('0 6 * * *', () => {
+  dailyUsers = []
+}) 
+
+
+var dailyUsers = []

@@ -1,0 +1,30 @@
+{
+  "name": "zephir",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "^1.4.3",
+    "discord.js": "^11.3.2",
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "lowdb": "^1.0.0",
+    "node-horseman": "^3.3.0",
+    "node-opus": "^0.3.0",
+    "node-schedule": "^1.3.0",
+    "phantomjs": "^2.1.7",
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1",
+    "sqlite3": "^4.0.1",
+    "uws": "^10.148.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
