@@ -137,7 +137,6 @@ function getChannels() {
         `
         <tr>
           <td style="vertical-align: middle;">${com.alias}</td>
-          <td style="vertical-align: middle;">${com.id}</td>
           <td class="text-right">
               <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteChannel('${com.alias}')" class="btn btn-secondary mb-1 del-btn com-del">
                       <i class="fas fa-trash-alt" style="position: absolute;top: 6px;left: 7px;"></i>
@@ -156,7 +155,7 @@ function addChannel(data) {
   socket.emit('addChannel', {jwt: getCookie("jwt"), data: data});
 }
 $('#addChannel').click(function(e) {
-  addChannel({alias: $('#channelAlias').val(), id: $('#channelID').val()})
+  addChannel({alias: $('#channelAlias').val()})
   location.reload();
 })
 function deleteChannel(data) {

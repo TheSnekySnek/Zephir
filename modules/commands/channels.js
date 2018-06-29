@@ -8,7 +8,7 @@ module.exports = {
         message.reply("You can not hide **#" + args[i] + "**")
         return false;
       }
-      let permission = message.guild.channels.get(DB.getChannel(args[i]).id).permissionOverwrites.get(message.author.id);
+      let permission = message.guild.channels.find("name", DB.getChannel(args[i]).alias).permissionOverwrites.get(message.author.id);
       if(permission){
         await permission.delete()
         message.reply("The channel **#" + args[i] + "** is now **visible** for **" + message.author.username + "**")
@@ -29,7 +29,7 @@ module.exports = {
       }
       let selChannel = message.guild.channels.find('name', args[i]);
       if(selChannel){
-        await message.guild.channels.get(DB.getChannel(args[i]).id).overwritePermissions(message.author, {
+        await message.guild.channels.find("name", DB.getChannel(args[i]).alias).overwritePermissions(message.author, {
          'READ_MESSAGES': false,
          'READ_MESSAGE_HISTORY': false
         })
@@ -42,7 +42,6 @@ module.exports = {
   },
 
   hideall: function(message, command, args) {
-    let hideables = config.channels;
     let guildchannels = message.guild.channels.array()
     for (var i = 0; i < guildchannels.length; i++) {
       if(guildchannels[i].type == "text" && DB.getChannel(guildchannels[i].name)){
@@ -60,9 +59,7 @@ module.exports = {
   },
 
   showall: function(message, command, args) {
-    let hideables = config.channels;
     let guildchannels = message.guild.channels.array()
-    let keys = Object.keys(hideables)
     for (var i = 0; i < guildchannels.length; i++) {
       if(guildchannels[i].type == "text" && DB.getChannel(guildchannels[i].name)){
         message.guild.channels.find('name', guildchannels[i].name).overwritePermissions(message.author, {

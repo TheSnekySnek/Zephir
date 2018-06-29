@@ -10,7 +10,7 @@ module.exports = {
         var groles = message.guild.roles.array()
         for (let index = 0; index < groles.length; index++) {
           if(groles[index].name.toLowerCase() == role.name.toLowerCase()){
-            message.reply(" joined " + args[i])
+            message.reply(" joined " + groles[index].name)
             message.member.addRole(groles[index])
           }
         }
@@ -28,7 +28,7 @@ module.exports = {
         var groles = message.guild.roles.array()
         for (let index = 0; index < groles.length; index++) {
           if(groles[index].name.toLowerCase() == role.name.toLowerCase()){
-            message.reply(" left " + args[i])
+            message.reply(" left " + groles[index].name)
             message.member.removeRole(groles[index])
           }
         }
