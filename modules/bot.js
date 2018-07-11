@@ -39,31 +39,31 @@ function checkForDiscord(msg) {
 }
 
 function checkForCommand(msg) {
-    var commands = DB.getCommands()
-    commands.forEach(com => {
-        if(msg.content.indexOf(com.command) == 0){
-            console.log(com)
-            if(com.reply.indexOf(",") > 0)
-            {
-                var replies = com.reply.split(',')
-                var reply = replies[Math.floor(Math.random()*replies.length)]
-                console.log(replies)
-                console.log(com.reply)
-                if(reply.indexOf("http") > -1 && (reply.indexOf("gif") > -1 || reply.indexOf("png") > -1 || reply.indexOf("jpg") > -1)){
-                    msg.channel.send({file: reply})
+    if(msg.content.indexOf('!') == 0){
+        var commands = DB.getCommands()
+        commands.forEach(com => {
+            if(msg.content == com.command){
+                if(com.reply.indexOf(",") > 0)
+                {
+                    var replies = com.reply.split(',')
+                    var reply = replies[Math.floor(Math.random()*replies.length)]
+                    if(reply.indexOf("http") > -1 && (reply.indexOf("gif") > -1 || reply.indexOf("png") > -1 || reply.indexOf("jpg") > -1)){
+                        msg.channel.send({file: reply})
+                    }
+                    else{
+                        msg.channel.send(reply)
+                    }
+                }
+                else if(com.reply.indexOf("http") > -1 && (com.reply.indexOf("gif") > -1 || com.reply.indexOf("png") > -1 || com.reply.indexOf("jpg") > -1)){
+                    msg.channel.send({file: com.reply})
                 }
                 else{
-                    msg.channel.send(reply)
+                    msg.channel.send(com.reply)
                 }
+                return
             }
-            else if(com.reply.indexOf("http") > -1 && (com.reply.indexOf("gif") > -1 || com.reply.indexOf("png") > -1 || com.reply.indexOf("jpg") > -1)){
-                msg.channel.send({file: com.reply})
-            }
-            else{
-                msg.channel.send(com.reply)
-            }
-            return
-        }
-    });
+        });
+    }
+    
     commandsHandler.handle(msg);
 }
