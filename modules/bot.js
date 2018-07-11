@@ -33,7 +33,7 @@ function checkNickname() {
 }
 
 function checkForDiscord(msg) {
-    if(msg.content.includes("gg/")){
+    if(msg.content.includes("gg/") && msg.content.includes("discord")){
         msg.delete()
     }
 }
