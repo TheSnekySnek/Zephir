@@ -34,7 +34,7 @@ function checkNickname() {
 
 function checkForDiscord(msg) {
     if(msg.content.includes("gg/")){
-        msg.destroy()
+        msg.delete()
     }
 }
 
