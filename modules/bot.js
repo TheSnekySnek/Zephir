@@ -42,10 +42,12 @@ function checkForCommand(msg) {
     var commands = DB.getCommands()
     commands.forEach(com => {
         if(msg.content.indexOf(com.command) == 0){
-            if(com.reply.indexOf(","))
+            if(com.reply.indexOf(",") > 0)
             {
                 var replies = com.reply.split(',')
                 com.reply = replies[Math.floor(Math.random()*replies.length)]
+                console.log(replies)
+                console.log(com.reply)
             }
             if(com.reply.indexOf("http") > -1 && (com.reply.indexOf("gif") > -1 || com.reply.indexOf("png") > -1 || com.reply.indexOf("jpg") > -1)){
                 msg.channel.send({file: com.reply})
