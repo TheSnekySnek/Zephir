@@ -1,5 +1,7 @@
 var fs = require("fs")
 const DB = require('../../modules/db')
+var qr = require('qr-image');
+var uuid = require('uuid/v4');
 module.exports = {
 
   avatar: function(message, command, args) {
@@ -11,6 +13,33 @@ module.exports = {
       else {
         message.reply("User " + args[0] + " does not exist")
       }
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  mobile: function(message, command, args) {
+    try {
+      var mid = message.author.id
+      var mUser = DB.getMobileUser(mid)
+      if(mUser){
+        var qr_svg = qr.image(mUser.token);
+        qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
+      }
+      else{
+        var tk = uuidv4();
+        DB.addMobileUser({user: mid, token: tk})
+        var qr_svg = qr.image(tk);
+        qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
+      }
+      message.author.send("Please scan this code using the Arkhos mobile app", {
+        files: [{
+          attachment: mid + '.png',
+          name: 'UserToken.jpg'
+        }]
+      })
+      .then(console.log)
+      .catch(console.error);
     } catch (e) {
       console.error(e);
     }

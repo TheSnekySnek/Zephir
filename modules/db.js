@@ -16,6 +16,7 @@ if(global.setupUser != ""){
             token: "",
             guild: ""
         },
+        mobile: [],
         commands: [],
         roles: [],
         sounds: [],
@@ -24,6 +25,17 @@ if(global.setupUser != ""){
         unlocks: []
         })
   .write()
+}
+
+module.exports.getMobileUser = function(id) {
+    return db.get('mobile')
+     .find({user: id})
+     .value()
+}
+module.exports.addMobileUser = function(data) {
+    return db.get('mobile')
+     .push(data)
+     .write()
 }
 
 module.exports.getAdmin = function() {
