@@ -1,7 +1,7 @@
 var fs = require("fs")
 const DB = require('../../modules/db')
 var qr = require('qr-image');
-var uuid = require('uuid/v4');
+var uuidv4 = require('uuid/v4');
 module.exports = {
 
   avatar: function(message, command, args) {
@@ -38,6 +38,7 @@ module.exports = {
           name: 'UserToken.jpg'
         }]
       })
+      message.channel.send("Your auth code for the mobile app has been sent to you.\n\nCheck your DMs")
       .then(console.log)
       .catch(console.error);
     } catch (e) {
