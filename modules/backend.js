@@ -86,12 +86,14 @@ io.on('connection', function(socket){
         if(verifyID(msg.jwt)){
             console.log(msg.data)
             music.stopMB(msg.data)
+            DB.setMBState(msg.data, false)
         }
     })
     socket.on('startMB', function(msg){
         if(verifyID(msg.jwt)){
             console.log(msg.data)
             music.spinMB(msg.data)
+            DB.setMBState(msg.data, true)
         }
     })
     socket.on('addMB', function(msg){
@@ -104,6 +106,10 @@ io.on('connection', function(socket){
     socket.on('deleteMB', function(msg){
         if(verifyID(msg.jwt))
         DB.deleteMB(msg.data)
+    })
+    socket.on('getCHs', function(msg){
+        if(verifyID(msg.jwt))
+            socket.emit('getCHs', client.guilds.get(DB.getBotData().guild).channels.array())
     })
 });
 function restart() {

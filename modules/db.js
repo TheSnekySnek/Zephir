@@ -62,6 +62,12 @@ module.exports.setMBQueue = function(botId, queue) {
      .assign({"queue": queue})
      .write()
  }
+ module.exports.setMBState = function(botId, state) {
+    return db.get('music.mb')
+     .find({"id": botId})
+     .assign({"enabled": state})
+     .write()
+ }
  module.exports.setMBPlaying = function(botId, data) {
     return db.get('music.mb')
      .find({"id": botId})

@@ -183,7 +183,7 @@ function getMBs() {
           <tr>
             <td style="vertical-align: middle;">${com.id}</td>
             <td style="vertical-align: middle;">
-            <input type="checkbox" class="js-switch mb-enable" checked onchange="manMB(${!com.enabled}, '${com.id}')" />
+            <input type="checkbox" class="js-switcher mb-enable" checked onchange="manMB(${!com.enabled}, '${com.id}')" />
             </td>
             <td class="text-right">
                 <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
@@ -200,7 +200,7 @@ function getMBs() {
           <tr>
             <td style="vertical-align: middle;">${com.id}</td>
             <td style="vertical-align: middle;">
-            <input type="checkbox" class="js-switch mb-enable" onchange="manMB(this.checked, '${com.id}')" />
+            <input type="checkbox" class="js-switcher mb-enable" onchange="manMB(this.checked, '${com.id}')" />
             </td>
             <td class="text-right">
                 <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
@@ -215,11 +215,13 @@ function getMBs() {
       i++
     });
     
-    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+    
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switcher'));
 
-    elems.forEach(function(html) {
-      var switchery = new Switchery(html);
-    });
+  elems.forEach(function(html) {
+    var switchery = new Switchery(html);
+  });
+
   });
   socket.emit('getMBs', {jwt: getCookie("jwt")});
 }
@@ -238,18 +240,15 @@ function addMB(data) {
   socket.emit('addMB', {jwt: getCookie("jwt"), data: data});
 }
 $('#addMB').click(function(e) {
-  var isEnabled = false
-  if($("#MBenabled").is(':checked'))
-    isEnabled = true
   addMB({
       "id": $('#MBname').val(),
       "token": $('#MBtoken').val(),
-      "vc": $('#MBvc').val(),
-      "tc": $('#MBtc').val(),
+      "vc": $('#MBvcs').val(),
+      "tc": $('#MBtcs').val(),
       "playlist": "default",
       "queue": [],
       "playing": {},
-      "enabled": isEnabled
+      "enabled": $("#MBenable").get(0).checked
   })
   location.reload();
 })
@@ -257,3 +256,42 @@ function deleteMB(data) {
   socket.emit('deleteMB', {jwt: getCookie("jwt"), data: data});
   location.reload();
 }
+
+function getCHs(el1, el2) {
+  socket.on('getCHs', function(msg){
+    var vcs = []
+    var tcs = []
+    msg.forEach(ch => {
+      if(ch.type == "voice"){
+        vcs.push(ch) 
+      }
+      if(ch.type == "text"){
+        tcs.push(ch) 
+      }
+    });
+    vcs.sort(compare)
+    tcs.sort(compare)
+    console.log(vcs)
+    console.log(tcs)
+    vcs.forEach(vc => {
+      $(el1).append(
+        `<option value="${vc.id}">${vc.name}</option>`
+      )
+    });
+    tcs.forEach(tc => {
+      $(el2).append(
+        `<option value="${tc.id}">${tc.name}</option>`
+      )
+    });
+    
+  })
+  socket.emit('getCHs', {jwt: getCookie("jwt")});
+}
+function compare(a,b) {
+  if (a.position < b.position)
+    return -1;
+  if (a.position > b.position)
+    return 1;
+  return 0;
+}
+

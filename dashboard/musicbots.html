@@ -236,19 +236,19 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Voice Channel ID</label>
+                                            <div class="col col-md-3">
+                                                <label for="text-input" class=" form-control-label">Voice Channel</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <select id="MBvcs"></select>
+                                            </div>
                                         </div>
-                                        <div class="col-12 col-md-9">
-                                            <input required type="text" id="MBvc" name="text-input" placeholder="" class="form-control">
-                                        </div>
-                                    </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Text Channel ID</label>
+                                            <label for="text-input" class=" form-control-label">Text Channel</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input required type="text" id="MBtc" name="text-input" placeholder="" class="form-control">
+                                            <select id="MBtcs"></select>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -256,7 +256,7 @@
                                                 <label for="text-input" class=" form-control-label">Enabled</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                                <input id="MBenable" type="checkbox" class="js-switcher" checked /> 
+                                                <input id="MBenable" type="checkbox" class="js-switch" checked /> 
                                         </div>
                                     </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" id="addMB" style="width: 130px;margin: 0 auto;">ADD</button>
@@ -298,8 +298,8 @@
     <script src="js/zephir.js"></script>
     <script>
         getMBs()
-        
-        var elem = document.querySelector('.js-switcher');
+        getCHs($("#MBvcs").get(), $("#MBtcs").get())
+        var elem = document.querySelector('.js-switch');
         var init = new Switchery(elem);
 
     </script>
