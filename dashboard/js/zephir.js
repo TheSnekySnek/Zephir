@@ -183,7 +183,7 @@ function getMBs() {
           <tr>
             <td style="vertical-align: middle;">${com.id}</td>
             <td style="vertical-align: middle;">
-            <input type="checkbox" class="js-switcher mb-enable" checked onchange="manMB(${!com.enabled}, '${com.id}')" />
+            <input type="checkbox" class="js-switcher mb-enable" checked onchange="manMB(this.checked, '${com.id}')" />
             </td>
             <td class="text-right">
                 <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
