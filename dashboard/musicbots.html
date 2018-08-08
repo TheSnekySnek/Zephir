@@ -21,6 +21,7 @@
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
+    <link rel="stylesheet" href="css/switchery.css" />
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
     <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
     <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
@@ -32,6 +33,10 @@
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
     <link href="css/zephir.css" rel="stylesheet" media="all">
+    
+
+
+
 
 </head>
 
@@ -71,6 +76,10 @@
                         <li>
                             <a href="roles.html">
                                 <i class="far fa-check-square"></i>Roles</a>
+                        </li>
+                        <li>
+                            <a href="musicbots.html">
+                                <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
@@ -138,14 +147,14 @@
                                 <i class="fas fa-sitemap fa-lg"></i>Roles</a>
                         </li>
                         <li>
-                                <a href="sounds.html">
-                                    <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
-                        </li>
-                        <li  class="active">
-                                <a href="channels.html">
-                                    <i class="fas fa-hashtag fa-lg"></i>Channels</a>
+                            <a href="sounds.html">
+                                <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
                         </li>
                         <li>
+                                <a href="channels.html">
+                                        <i class="fas fa-hashtag fa-lg"></i>Channels</a>
+                        </li>
+                        <li class="active">
                             <a href="musicbots.html">
                                 <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
@@ -172,8 +181,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Hideable Channels</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#largeModal"><i class="zmdi zmdi-plus"></i>add channel</button>
+                                    <h2 class="title-1">Music Bots</h2>
+                                    <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#largeModal"><i class="zmdi zmdi-plus"></i>add bot</button>
                                 </div>
                             </div>
                         </div>
@@ -184,10 +193,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
+                                                <th>Started</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="channels">
+                                        <tbody id="MBs">
                                         </tbody>
                                     </table>
                                 </div>
@@ -202,7 +212,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="largeModalLabel">New Channel</h5>
+							<h5 class="modal-title" id="largeModalLabel">New Role</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -210,13 +220,46 @@
 						<div class="modal-body">
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Alias</label>
+                                            <label for="text-input" class=" form-control-label">Name</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="channelAlias" name="text-input" placeholder="Alias" class="form-control">
+                                            <input required type="text" id="MBname" name="text-input" placeholder="" class="form-control">
                                         </div>
                                     </div>
-                                    <button class="au-btn au-btn--block au-btn--green m-b-20" id="addChannel" style="width: 130px;margin: 0 auto;">ADD</button>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="password-input" class=" form-control-label">Token</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input required type="password" id="MBtoken" name="password-input" placeholder="" class="form-control">
+                                            <small class="help-block form-text">You can find it in your developer dashboard</small>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">Voice Channel ID</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input required type="text" id="MBvc" name="text-input" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">Text Channel ID</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input required type="text" id="MBtc" name="text-input" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                                <label for="text-input" class=" form-control-label">Enabled</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                                <input id="MBenable" type="checkbox" class="js-switcher" checked /> 
+                                        </div>
+                                    </div>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" id="addMB" style="width: 130px;margin: 0 auto;">ADD</button>
 						</div>
 					</div>
 				</div>
@@ -247,14 +290,18 @@
     <script src="vendor/circle-progress/circle-progress.min.js"></script>
     <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="js/switchery.js"></script>
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
     <script src="js/zephir.js"></script>
     <script>
-        getChannels()
+        getMBs()
+        
+        var elem = document.querySelector('.js-switcher');
+        var init = new Switchery(elem);
+
     </script>
 
 </body>

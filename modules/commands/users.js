@@ -2,6 +2,7 @@ var fs = require("fs")
 const DB = require('../../modules/db')
 var qr = require('qr-image');
 var uuidv4 = require('uuid/v4');
+var music = require('../../modules/music/music')
 module.exports = {
 
   avatar: function(message, command, args) {
@@ -13,6 +14,14 @@ module.exports = {
       else {
         message.reply("User " + args[0] + " does not exist")
       }
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  mb: function(message, command, args) {
+    try {
+      music.spinMB(args[0])
     } catch (e) {
       console.error(e);
     }

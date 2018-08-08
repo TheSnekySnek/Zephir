@@ -1,0 +1,41 @@
+{
+  "name": "musicbotv2",
+  "version": "2.0.0",
+  "description": "Musicbot for Arkhos",
+  "main": "index.js",
+  "scripts": {
+    "1": "pm2 start index.js --name MusicBot1 -- 598a38ba4cc5c01ca03c3d36 ",
+    "2": "pm2 start index.js --name MusicBot2 -- 59b7c7b3d3990829f2af6413",
+    "3": "pm2 start index.js --name MusicBot3 -- 59b93814d3990829f2af64dc",
+    "4": "pm2 start index.js --name MusicBot4 -- 59b93896d3990829f2af64de",
+    "5": "pm2 start index.js --name MusicBot5 -- 59bed8afcc86920f032ce0d1",
+    "6": "pm2 start index.js --name WabbitBot -- 59c13bd8643dcb5f37e07d0f",
+    "7": "pm2 start index.js --name RobBot -- 59c900df1c234d61331bac71",
+    "all": "npm-run-all -p 1 2 3 4 5 6 7",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://icreatemac@bitbucket.org/icreatemac/musicbotv2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/icreatemac/musicbotv2#readme",
+  "dependencies": {
+    "bufferutil": "^3.0.2",
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.3.2",
+    "erlpack": "github:hammerandchisel/erlpack",
+    "lyricist": "^0.1.2",
+    "mongoose": "^4.11.5",
+    "node-opus": "latest",
+    "node-schedule": "^1.2.5",
+    "pm2": "^2.6.1",
+    "random-js": "^1.0.8",
+    "request": "^2.81.0",
+    "socket.io-client": "latest",
+    "uws": "latest",
+    "ytdl-core": "latest",
+    "ytpl": "^0.1.8"
+  }
+}

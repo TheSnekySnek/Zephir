@@ -17,6 +17,11 @@ if(global.setupUser != ""){
             guild: ""
         },
         mobile: [],
+        music: {
+            mb: [],
+            live: [],
+            playlist: []
+        },
         commands: [],
         roles: [],
         sounds: [],
@@ -26,6 +31,49 @@ if(global.setupUser != ""){
         })
   .write()
 }
+
+module.exports.getMBs = function() {
+    return db.get('music.mb')
+     .value()
+}
+module.exports.getMB = function(botId) {
+    return db.get('music.mb')
+     .find({id: botId})
+     .value()
+}
+module.exports.getMBPlaylist = function(plId) {
+    return db.get('music.playlist')
+     .find({id: plId})
+     .value()
+}
+module.exports.addMB = function(data) {
+    return db.get('music.mb')
+     .push(data)
+     .write()
+}
+module.exports.deleteMB = function(data) {
+    return db.get('music.mb')
+     .remove({ id: data })
+     .write()
+ }
+module.exports.setMBQueue = function(botId, queue) {
+    return db.get('music.mb')
+     .find({"id": botId})
+     .assign({"queue": queue})
+     .write()
+ }
+ module.exports.setMBPlaying = function(botId, data) {
+    return db.get('music.mb')
+     .find({"id": botId})
+     .assign({"playing": data})
+     .write()
+ }
+ module.exports.setMBPlaylist = function(id, pl) {
+    return db.get('music.playlist')
+     .find({"id": id})
+     .assign({"playlist": pl})
+     .write()
+ }
 
 module.exports.getMobileUser = function(id) {
     return db.get('mobile')

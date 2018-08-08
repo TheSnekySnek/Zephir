@@ -7,6 +7,7 @@ var spawn = require('child_process').spawn;
 const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var music = require('../modules/music/music')
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -75,6 +76,34 @@ io.on('connection', function(socket){
     socket.on('deleteChannel', function(msg){
         if(verifyID(msg.jwt))
         DB.deleteChannel(msg.data)
+    })
+
+    socket.on('getMBs', function(msg){
+        if(verifyID(msg.jwt))
+        socket.emit('getMBs', DB.getMBs())
+    })
+    socket.on('stopMB', function(msg){
+        if(verifyID(msg.jwt)){
+            console.log(msg.data)
+            music.stopMB(msg.data)
+        }
+    })
+    socket.on('startMB', function(msg){
+        if(verifyID(msg.jwt)){
+            console.log(msg.data)
+            music.spinMB(msg.data)
+        }
+    })
+    socket.on('addMB', function(msg){
+        if(verifyID(msg.jwt))
+        DB.addMB(msg.data)
+        if(msg.data.enabled){
+            music.spinMB(msg.data.id)
+        }
+    })
+    socket.on('deleteMB', function(msg){
+        if(verifyID(msg.jwt))
+        DB.deleteMB(msg.data)
     })
 });
 function restart() {

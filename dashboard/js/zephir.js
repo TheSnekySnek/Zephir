@@ -169,3 +169,91 @@ function getCookie(name) {
   if (parts.length == 2)
   return parts.pop().split(";").shift();
 }
+
+
+function getMBs() {
+  socket.on('getMBs', function(msg){
+    console.log(msg)
+    var i = 0
+    msg.forEach(com => {
+      console.log(com.id, com.enabled)
+      if(com.enabled){
+        $('#MBs').append(
+          `
+          <tr>
+            <td style="vertical-align: middle;">${com.id}</td>
+            <td style="vertical-align: middle;">
+            <input type="checkbox" class="js-switch mb-enable" checked onchange="manMB(${!com.enabled}, '${com.id}')" />
+            </td>
+            <td class="text-right">
+                <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
+                        <i class="fas fa-trash-alt" style="position: absolute;top: 6px;left: 7px;"></i>
+                </button>
+            </td>
+          </tr>
+          `
+        )
+      }
+      else{
+        $('#MBs').append(
+          `
+          <tr>
+            <td style="vertical-align: middle;">${com.id}</td>
+            <td style="vertical-align: middle;">
+            <input type="checkbox" class="js-switch mb-enable" onchange="manMB(this.checked, '${com.id}')" />
+            </td>
+            <td class="text-right">
+                <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
+                        <i class="fas fa-trash-alt" style="position: absolute;top: 6px;left: 7px;"></i>
+                </button>
+            </td>
+          </tr>
+          `
+        )
+      }
+      
+      i++
+    });
+    
+    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+    elems.forEach(function(html) {
+      var switchery = new Switchery(html);
+    });
+  });
+  socket.emit('getMBs', {jwt: getCookie("jwt")});
+}
+function manMB(state, id) {
+  if(state) {
+    console.log("START")
+    socket.emit('startMB', {jwt: getCookie("jwt"), data: id});
+  }
+  else{
+    console.log("STOP")
+    socket.emit('stopMB', {jwt: getCookie("jwt"), data: id});
+  } 
+}
+
+function addMB(data) {
+  socket.emit('addMB', {jwt: getCookie("jwt"), data: data});
+}
+$('#addMB').click(function(e) {
+  var isEnabled = false
+  if($("#MBenabled").is(':checked'))
+    isEnabled = true
+  addMB({
+      "id": $('#MBname').val(),
+      "token": $('#MBtoken').val(),
+      "vc": $('#MBvc').val(),
+      "tc": $('#MBtc').val(),
+      "playlist": "default",
+      "queue": [],
+      "playing": {},
+      "enabled": isEnabled
+  })
+  location.reload();
+})
+function deleteMB(data) {
+  socket.emit('deleteMB', {jwt: getCookie("jwt"), data: data});
+  location.reload();
+}
