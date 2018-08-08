@@ -259,26 +259,12 @@ function deleteMB(data) {
 
 function getCHs(el1, el2) {
   socket.on('getCHs', function(msg){
-    var vcs = []
-    var tcs = []
-    msg.forEach(ch => {
-      if(ch.type == "voice"){
-        vcs.push(ch) 
-      }
-      if(ch.type == "text"){
-        tcs.push(ch) 
-      }
-    });
-    vcs.sort(compare)
-    tcs.sort(compare)
-    console.log(vcs)
-    console.log(tcs)
-    vcs.forEach(vc => {
+    msg.vcs.forEach(vc => {
       $(el1).append(
         `<option value="${vc.id}">${vc.name}</option>`
       )
     });
-    tcs.forEach(tc => {
+    msg.tcs.forEach(tc => {
       $(el2).append(
         `<option value="${tc.id}">${tc.name}</option>`
       )
@@ -287,11 +273,5 @@ function getCHs(el1, el2) {
   })
   socket.emit('getCHs', {jwt: getCookie("jwt")});
 }
-function compare(a,b) {
-  if (a.position < b.position)
-    return -1;
-  if (a.position > b.position)
-    return 1;
-  return 0;
-}
+
 

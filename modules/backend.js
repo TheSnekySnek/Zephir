@@ -108,10 +108,32 @@ io.on('connection', function(socket){
         DB.deleteMB(msg.data)
     })
     socket.on('getCHs', function(msg){
-        if(verifyID(msg.jwt))
-            socket.emit('getCHs', client.guilds.get(DB.getBotData().guild).channels.array())
+        if(verifyID(msg.jwt)){
+            var vcs = []
+            var tcs = []
+            var CHs = client.guilds.get(DB.getBotData().guild).channels.array()
+            CHs.forEach(ch => {
+            if(ch.type == "voice"){
+                vcs.push(ch) 
+            }
+            if(ch.type == "text"){
+                tcs.push(ch) 
+            }
+            });
+            vcs.sort(compare)
+            tcs.sort(compare)
+        }
+            socket.emit('getCHs', {vcs: vcs, tcs, tcs})
     })
 });
+
+function compare(a,b) {
+    if (a.position < b.position)
+      return -1;
+    if (a.position > b.position)
+      return 1;
+    return 0;
+  }
 function restart() {
     global.bot.logout();
     global.bot.login(DB.getBotData().token)
