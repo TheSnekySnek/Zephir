@@ -2,7 +2,6 @@
   
 module.exports.handle = function(m){
   var msg = JSON.parse(m)
-  console.log(m)
   if(msg.type){
     switch (msg.type) {
       case "start":

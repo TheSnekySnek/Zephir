@@ -21,7 +21,6 @@ module.exports = {
         });
         child.on('message', message => {
             var m = JSON.parse(message)
-            console.log(m);
             switch (m.type) {
                 case "ready":
                     child.send(JSON.stringify({
@@ -53,7 +52,6 @@ module.exports = {
 
                 case "getplaylist":
                     var pl = DB.getMBPlaylist(m.plId)
-                    console.log(pl)
                     child.send(JSON.stringify({
                         type: "playlist",
                         data: pl
@@ -89,3 +87,10 @@ module.exports = {
     }
 
 }
+
+var MusicBots = DB.getMBs()
+MusicBots.forEach(mb => {
+    if(mb.enabled){
+        module.exports.spinMB(mb.id)
+    }
+});
