@@ -127,13 +127,10 @@ function updateTime() {
 })*/
 
 function playSong(song) {
-  if (voice_stream && !voice_stream.destroyed) {
-    return
-  }
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
-  const stream = ytdl(song.link, { filter: 'audioonly', quality: 'highest', highWaterMark: 32768 });
+  const stream = ytdl(song.link);
   voice_stream = voice_connection.playStream(stream, { seek: 0, volume: 0.3, bitrate: 'auto' });
   /*if(!updatingTime){
     updateTime();
@@ -157,7 +154,7 @@ function playSong(song) {
       console.log("DST YTDL")
       stream.destroy()
     }
-      
+    voice_connection.sendVoiceStateUpdate()
     if (startPlaying) {
       playNextSong();
     }

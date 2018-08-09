@@ -9,7 +9,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       if(parseInt(term)){
         let plNum = parseInt(term);
-        api.getMBPlaylist(botId, playlistID).then((pl) => {
+        api.getPlaylist().then((pl) => {
           if(pl.playlist.length > plNum){
             ytdl.getInfo(pl.playlist[plNum].link, (error, info) => {
               if(error) {
@@ -62,7 +62,7 @@ module.exports = {
               let so = $(this).find('td > a').text().replace('#', '')
               songArr.push(so)
             });
-            let qu = await api.getMBQueue(botId)
+            let qu = await api.getQueue()
             let mse = await message.channel.send("Adding " + songArr.length + " songs - Aproximate time: " + parseInt(songArr.length*0.5) + " seconds")
             for (var i = 0; i < songArr.length; i++) {
               if(songArr[i]){
@@ -88,7 +88,7 @@ module.exports = {
               }
             }
             mse.delete()
-            await api.updateMBQueue(botId, qu)
+            await api.updateQueue(botId, qu)
             message.channel.send("Success: Playlist has been added to the queue")
           }
         })
