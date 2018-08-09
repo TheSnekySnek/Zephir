@@ -7,66 +7,66 @@ var startPlaying = true;
 var updatingTime = false;
 
 module.exports = {
-  start: function(connection) {
+  start: function (connection) {
     voice_connection = connection;
     playNextSong()
     //managePlayer();
     //watchListeners();
   },
-  
-  skip: function(message) {
-      if(mods.includes(message.author.id)){
-        message.channel.send("Skipping song...")
-        if (voice_stream && !voice_stream.destroyed) {
-          voice_stream.destroy();
-        }
-        else{
-          playNextSong();
-        }
+
+  skip: function (message) {
+    if (mods.includes(message.author.id)) {
+      message.channel.send("Skipping song...")
+      if (voice_stream && !voice_stream.destroyed) {
+        voice_stream.destroy();
       }
-      else{
-        let usersInChannel = voiceChannel.members.array().length;
-        if(!songSkipPoll.includes(message.author.id)){
-          songSkipPoll.push(message.author.id)
-          if(songSkipPoll.length >= (usersInChannel-1)/ 2){
-            message.channel.send("Skipping song...")
-            songSkipPoll = [];
-            if (voice_stream && !voice_stream.destroyed) {
-              voice_stream.destroy();
-            }
-            else{
-              playNextSong();
-            }
+      else {
+        playNextSong();
+      }
+    }
+    else {
+      let usersInChannel = voiceChannel.members.array().length;
+      if (!songSkipPoll.includes(message.author.id)) {
+        songSkipPoll.push(message.author.id)
+        if (songSkipPoll.length >= (usersInChannel - 1) / 2) {
+          message.channel.send("Skipping song...")
+          songSkipPoll = [];
+          if (voice_stream && !voice_stream.destroyed) {
+            voice_stream.destroy();
           }
-          else{
-            message.reply("You need " + Math.ceil(((usersInChannel-1)/ 2) - songSkipPoll.length) + " more vote(s) to skip");
+          else {
+            playNextSong();
           }
         }
-        else{
-          message.reply("You already voted")
+        else {
+          message.reply("You need " + Math.ceil(((usersInChannel - 1) / 2) - songSkipPoll.length) + " more vote(s) to skip");
         }
       }
+      else {
+        message.reply("You already voted")
+      }
+    }
   },
 
-  time: function() {
-    var obj = {time: 0, song: currSong.duration, total: 0};
-    if(voice_stream){
-      obj = {time: Math.floor(voice_stream.time/1000), song: currSong.duration, total: Math.floor(voice_stream.totalStreamTime/1000)};
+  time: function () {
+    var obj = { time: 0, song: currSong.duration, total: 0 };
+    if (voice_stream) {
+      obj = { time: Math.floor(voice_stream.time / 1000), song: currSong.duration, total: Math.floor(voice_stream.totalStreamTime / 1000) };
     }
     return obj;
   }
 };
 
 function managePlayer() {
-  if(voiceChannel.members.array().length > 1){
-    if (!startPlaying){
+  if (voiceChannel.members.array().length > 1) {
+    if (!startPlaying) {
       startPlaying = true;
       console.log("New Users - Start")
       playNextSong();
     }
   }
-  else{
-    if (startPlaying){
+  else {
+    if (startPlaying) {
       startPlaying = false;
       queue.clearPlayedSongs()
       console.log("No Users - Stop")
@@ -76,14 +76,14 @@ function managePlayer() {
       }
     }
   }
-  setTimeout(function() {
+  setTimeout(function () {
     managePlayer();
   }, 3000)
 }
 
 function updateTime() {
-  setInterval(function() {
-    let time = Math.floor(voice_stream.totalStreamTime/1000)
+  setInterval(function () {
+    let time = Math.floor(voice_stream.totalStreamTime / 1000)
     api.updateTime(botId, time)
   }, 1000)
 }
@@ -133,19 +133,32 @@ function playSong(song) {
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
-  const stream = ytdl(song.link, { filter : 'audioonly', quality: 'highest', highWaterMark: 32768 });
+  const stream = ytdl(song.link, { filter: 'audioonly', quality: 'highest', highWaterMark: 32768 });
   voice_stream = voice_connection.playStream(stream, { seek: 0, volume: 0.3, bitrate: 'auto' });
   /*if(!updatingTime){
     updateTime();
     updatingTime = true;
   }*/
+  var dtn = 0
+  /*stream.on('data', (data) => { 
+    console.log(dtn) 
+    dtn++
+  })*/
   voice_stream.on('start', () => {
-     voice_connection.player.streamingData.pausedTime = 0;
-     api.setPlaying(currSong)
+    voice_connection.player.streamingData.pausedTime = 0;
+    api.setPlaying(currSong)
+  });
+  voice_stream.on('debug', (data) => {
+    console.log(data)
   });
   voice_stream.once("end", reason => {
     console.log("player stopped because of " + reason);
-    if(startPlaying){
+    if(stream){
+      //console.log("DST YTDL")
+      stream.destroy()
+    }
+      
+    if (startPlaying) {
       playNextSong();
     }
   });
@@ -156,6 +169,12 @@ function playSong(song) {
 }
 
 function playNextSong() {
+  /*playSong({ "yt": "opPV1-IUmGw",
+  "link": "https://www.youtube.com/watch?v=opPV1-IUmGw",
+  "name": "Viva la Vida Lyrics - Coldplay",
+  "duration": 241,
+  "thumbnail": "http://img.youtube.com/vi/opPV1-IUmGw/default.jpg",
+  "added_by": "TheSnekySnek" })*/
   queue.getNextSong()
   .catch(err => {
     console.error(err)
