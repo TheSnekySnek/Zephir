@@ -17,7 +17,8 @@ module.exports = {
         var child = fork(program, parameters, options);
         console.log("Child Forked")
         child.stdout.on('data', function(data) {
-            console.log(data.toString()); 
+            console.log(data.toString());
+            socketC.emit("mbdebug", data.toString())
         });
         child.on('message', message => {
             var m = JSON.parse(message)

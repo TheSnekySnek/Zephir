@@ -257,6 +257,10 @@ function deleteMB(data) {
   location.reload();
 }
 
+socket.on('mbdebug', function(msg){
+ console.log("MB Debug: " + msg)
+})
+
 function getCHs(el1, el2) {
   socket.on('getCHs', function(msg){
     msg.vcs.forEach(vc => {

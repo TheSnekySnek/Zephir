@@ -13,6 +13,8 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+global.socketC = io
+
 io.on('connection', function(socket){
     socket.on('getBot', function(msg){
         if(verifyID(msg.jwt))

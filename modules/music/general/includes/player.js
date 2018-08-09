@@ -140,10 +140,10 @@ function playSong(song) {
     updatingTime = true;
   }*/
   var dtn = 0
-  /*stream.on('data', (data) => { 
+  stream.on('data', (data) => { 
     console.log(dtn) 
     dtn++
-  })*/
+  })
   voice_stream.on('start', () => {
     voice_connection.player.streamingData.pausedTime = 0;
     api.setPlaying(currSong)
@@ -154,7 +154,7 @@ function playSong(song) {
   voice_stream.once("end", reason => {
     console.log("player stopped because of " + reason);
     if(stream){
-      //console.log("DST YTDL")
+      console.log("DST YTDL")
       stream.destroy()
     }
       
