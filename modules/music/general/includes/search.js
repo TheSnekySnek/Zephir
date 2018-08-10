@@ -88,7 +88,7 @@ module.exports = {
               }
             }
             mse.delete()
-            await api.updateQueue(botId, qu)
+            await api.setQueue(qu)
             message.channel.send("Success: Playlist has been added to the queue")
           }
         })
