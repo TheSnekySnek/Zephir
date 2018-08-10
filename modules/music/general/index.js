@@ -45,6 +45,33 @@ console.log("mb ready")
 
 process.send(JSON.stringify({type: "ready"}))
 
+function ping() {
+  var hasPong = false
+  process.on('message',rcv);
+  function rcv(m) {
+    var msg = JSON.parse(m)
+    if(msg.type == "pong"){
+       hasPong = true
+    }
+  }
+
+  process.send(JSON.stringify({
+      type: "ping"
+  }))
+
+  setTimeout(function(){
+    if(!hasPong){
+      console.log("Disconnecting...");
+      client.destroy();
+      setTimeout(function() {
+        process.exit();
+      },1000)
+    }
+    process.removeListener("message", rcv)
+  }, 1000);
+}
+setInterval(ping, 4000);
+
 //start("Snek", "NDQyMzUxMDgyMDQwMTk3MTIw.Dk2EHQ.6jxkiN29KZCDry-5S4EVR3qiivU", "227129311067504640", "227137001990651904", "377149337886785536", "default")
 
 function start(botId, token, guild, tChannel, vChannel, playlist) {

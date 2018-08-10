@@ -69,6 +69,11 @@ module.exports = {
                 case "setplaying":
                     DB.setMBPlaying(id, m.data)
                     break;
+                case "ping":
+                    child.send(JSON.stringify({
+                        type: "pong"
+                    }))
+                    break;
                 default:
                     console.log(m)
                     break;
