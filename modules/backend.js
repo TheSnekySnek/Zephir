@@ -127,6 +127,65 @@ io.on('connection', function(socket){
         }
             socket.emit('getCHs', {vcs: vcs, tcs, tcs})
     })
+    socket.on('getSong', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+                if(vc){
+                    vcID = vc.id
+                    if(vcID){
+                        var mb = DB.getMBinVC(vcID)
+                        if(mb.id && mb.playing){
+                            if(mb.playing.thumbnail.indexOf("sddefault") < 0)
+                                mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
+                            socket.emit('gsong', {id: mb.id, data: mb.playing})
+                            return
+                        }
+                    }
+                }     
+            }
+        }
+        socket.emit('disco')
+    })
+    socket.on('skipSong', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+                if(vc){
+                    vcID = vc.id
+                    if(vcID){
+                        var mb = DB.getMBinVC(vcID)
+                        if(mb.id && mb.playing){
+                            console.log(mb.id, userID)
+                            music.skipMB(mb.id, userID)
+                            return
+                        }
+                    }
+                }     
+            }
+        }
+        socket.emit('disco')
+    })
+    socket.on('getUserInfo', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var user = client.guilds.get(DB.getBotData().guild).members.get(userID)
+                if(user){
+                    console.log(user.user.avatarURL)
+                    socket.emit('userInfo', {name: user.displayName, pic: user.user.avatarURL})
+                    return
+                }
+                
+            }
+        }
+        socket.emit('invalidUser')
+    })
 });
 
 function compare(a,b) {
@@ -216,6 +275,12 @@ function verifyID(tok) {
     return false
 }
 
+function verifyMobile(tok) {
+    var user = DB.getMobileUserToken(tok)
+    if(user.name)
+        return true
+    return false
+}
 
 
 

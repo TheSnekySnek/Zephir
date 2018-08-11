@@ -68,6 +68,9 @@ module.exports = {
                     break;
                 case "setplaying":
                     DB.setMBPlaying(id, m.data)
+                    if(m.data.thumbnail.indexOf("sddefault") < 0)
+                        m.data.thumbnail = m.data.thumbnail.replace("default", "sddefault")
+                    socketC.emit("song", {id: id, data: m.data})
                     break;
                 case "ping":
                     child.send(JSON.stringify({
@@ -88,6 +91,17 @@ module.exports = {
                     type: "stop"
                 }))
                 mbs.splice(index, 1);
+            }
+        });
+    },
+    skipMB: function(id, user) {
+        mbs.forEach((mb, index) => {
+            if(mb.id == id){
+                mb.proc.send(JSON.stringify({
+                    type: "skip",
+                    user: user
+                }))
+                return
             }
         });
     }

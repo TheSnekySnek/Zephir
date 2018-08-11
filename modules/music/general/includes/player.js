@@ -15,8 +15,9 @@ module.exports = {
   },
 
   skip: function (message) {
+    console.log(message)
     if (mods.includes(message.author.id)) {
-      message.channel.send("Skipping song...")
+      textChannel.send("Skipping song...")
       if (voice_stream && !voice_stream.destroyed) {
         voice_stream.destroy();
       }
@@ -29,7 +30,7 @@ module.exports = {
       if (!songSkipPoll.includes(message.author.id)) {
         songSkipPoll.push(message.author.id)
         if (songSkipPoll.length >= (usersInChannel - 1) / 2) {
-          message.channel.send("Skipping song...")
+          textChannel.send("Skipping song...")
           songSkipPoll = [];
           if (voice_stream && !voice_stream.destroyed) {
             voice_stream.destroy();
@@ -39,11 +40,11 @@ module.exports = {
           }
         }
         else {
-          message.reply("You need " + Math.ceil(((usersInChannel - 1) / 2) - songSkipPoll.length) + " more vote(s) to skip");
+          textChannel.send("You need " + Math.ceil(((usersInChannel - 1) / 2) - songSkipPoll.length) + " more vote(s) to skip");
         }
       }
       else {
-        message.reply("You already voted")
+        textChannel.send("You already voted")
       }
     }
   },

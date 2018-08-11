@@ -7,6 +7,11 @@ module.exports.handle = function(m){
       case "start":
         start(msg.botId, msg.token, msg.guild, msg.tc, msg.vc, msg.playlist)
         break;
+      case "skip":
+        player.skip({author: {
+          id: msg.user
+        }});
+        break;
         
       case "stop":
         client.destroy();

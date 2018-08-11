@@ -41,6 +41,11 @@ module.exports.getMB = function(botId) {
      .find({id: botId})
      .value()
 }
+module.exports.getMBinVC = function(vcID) {
+    return db.get('music.mb')
+     .find({vc: vcID})
+     .value()
+}
 module.exports.getMBPlaylist = function(plId) {
     return db.get('music.playlist')
      .find({id: plId})
@@ -84,6 +89,11 @@ module.exports.setMBQueue = function(botId, queue) {
 module.exports.getMobileUser = function(id) {
     return db.get('mobile')
      .find({user: id})
+     .value()
+}
+module.exports.getMobileUserToken = function(id) {
+    return db.get('mobile')
+     .find({token: id})
      .value()
 }
 module.exports.addMobileUser = function(data) {
