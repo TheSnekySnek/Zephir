@@ -33,8 +33,8 @@ module.exports = {
         })
       }
       else if(term.indexOf("spotify.com") > -1){
-        message.channel.send("Converting Spotify playlist")
-        message.channel.send("\nThis will take some time")
+        textChannel.send("Converting Spotify playlist")
+        textChannel.send("\nThis will take some time")
         if(term.indexOf('?') > -1){
           term = term.substring(0, term.indexOf('?'))
           console.log(term)
@@ -63,7 +63,7 @@ module.exports = {
               songArr.push(so)
             });
             let qu = await api.getQueue()
-            let mse = await message.channel.send("Adding " + songArr.length + " songs - Aproximate time: " + parseInt(songArr.length*0.5) + " seconds")
+            let mse = await textChannel.send("Adding " + songArr.length + " songs - Aproximate time: " + parseInt(songArr.length*0.5) + " seconds")
             for (var i = 0; i < songArr.length; i++) {
               if(songArr[i]){
                 try{
@@ -89,7 +89,7 @@ module.exports = {
             }
             mse.delete()
             await api.setQueue(qu)
-            message.channel.send("Success: Playlist has been added to the queue")
+            textChannel.send("Success: Playlist has been added to the queue")
           }
         })
       }
@@ -98,12 +98,12 @@ module.exports = {
         ytpl(term, async function(err, playlist) {
           if(err){
             console.log(err)
-            message.channel.send(err)
+            textChannel.send(err)
             return
           }
           const ytdlp = util.promisify(ytdl.getInfo)
-          message.channel.send("Adding playlist to queue...")
-          var edt = await message.channel.send(playlist.items.length+"/"+playlist.items.length+" Songs left")
+          textChannel.send("Adding playlist to queue...")
+          var edt = await textChannel.send(playlist.items.length+"/"+playlist.items.length+" Songs left")
           for (var i = 0; i < playlist.items.length; i++) {
             try{
               let info = await ytdlp(playlist.items[i].url_simple)
@@ -125,7 +125,7 @@ module.exports = {
             
           }
           edt.delete()
-          message.channel.send("Playlist was added")
+          textChannel.send("Playlist was added")
         })
       }
       else{

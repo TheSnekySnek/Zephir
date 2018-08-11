@@ -12,6 +12,41 @@ module.exports.handle = function(m){
           id: msg.user
         }});
         break;
+      case "addSong":
+        console.log(msg)
+        search.search({content: msg.name, author: {username: msg.user}}, msg.name)
+        .catch(err => {
+          textChannel.reply("The playlist does not contain this ID")
+          return
+        })
+        .then(song => {
+          console.log(song)
+          if (song) {
+            queue.add(song)
+            queue.getTime()
+            .then((queueTime) => {
+              let pTime = player.time();
+              if (!pTime || !pTime.time || !pTime.song) {
+                pTime.time = 0
+                pTime.song = 0
+              }
+              let embed = new Discord.RichEmbed()
+              .setTitle("**"+song.name+"**")
+              .setColor("#2eaae5")
+              .setFooter("Arkhos Music Bot V2 by TheSnekySnek", client.user.avatarURL)
+              .setThumbnail(song.thumbnail)
+              .setURL(song.link)
+              .addField("Duration", fancyTimeFormat(song.duration))
+              .addField("Starts in", fancyTimeFormat(queueTime + (pTime.song - pTime.time)))
+
+              textChannel.send({embed});
+            })
+          }
+        })
+        .catch(err => {
+          stats.error(err)
+        })
+        break;
         
       case "stop":
         client.destroy();

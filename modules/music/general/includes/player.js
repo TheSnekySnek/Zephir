@@ -139,7 +139,6 @@ function playSong(song) {
   }*/
   var dtn = 0
   stream.on('data', (data) => { 
-    console.log(dtn) 
     dtn++
   })
   voice_stream.on('start', () => {

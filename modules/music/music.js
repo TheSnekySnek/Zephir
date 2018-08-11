@@ -21,6 +21,7 @@ module.exports = {
             socketC.emit("mbdebug", data.toString())
         });
         child.on('message', message => {
+            console.log(message)
             var m = JSON.parse(message)
             switch (m.type) {
                 case "ready":
@@ -100,6 +101,18 @@ module.exports = {
                 mb.proc.send(JSON.stringify({
                     type: "skip",
                     user: user
+                }))
+                return
+            }
+        });
+    },
+    addSongMB: function(id, user, name) {
+        mbs.forEach((mb, index) => {
+            if(mb.id == id){
+                mb.proc.send(JSON.stringify({
+                    type: "addSong",
+                    user: user,
+                    name: name
                 }))
                 return
             }

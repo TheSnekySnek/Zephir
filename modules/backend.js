@@ -170,6 +170,27 @@ io.on('connection', function(socket){
         }
         socket.emit('disco')
     })
+    socket.on('addSong', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+                if(vc){
+                    vcID = vc.id
+                    if(vcID){
+                        var mb = DB.getMBinVC(vcID)
+                        if(mb.id && mb.playing){
+                            console.log(mb.id, userID)
+                            music.addSongMB(mb.id, msg.username , msg.title)
+                            return
+                        }
+                    }
+                }     
+            }
+        }
+        socket.emit('disco')
+    })
     socket.on('getUserInfo', function(msg){
         var mbUser = DB.getMobileUserToken(msg.token)
         if(mbUser){
@@ -185,6 +206,26 @@ io.on('connection', function(socket){
             }
         }
         socket.emit('invalidUser')
+    })
+    socket.on('getPlaylist', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+                if(vc){
+                    vcID = vc.id
+                    if(vcID){
+                        var mb = DB.getMBinVC(vcID)
+                        if(mb.id && mb.playing){
+                            socket.emit("playlist", DB.getMBPlaylist(mb.playlist))
+                            return
+                        }
+                    }
+                }     
+            }
+        }
+        socket.emit('disco')
     })
 });
 
