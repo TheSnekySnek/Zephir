@@ -227,6 +227,26 @@ io.on('connection', function(socket){
         }
         socket.emit('disco')
     })
+    socket.on('getQueue', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(mbUser){
+            var userID = mbUser.user
+            if(userID){
+                var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+                if(vc){
+                    vcID = vc.id
+                    if(vcID){
+                        var mb = DB.getMBinVC(vcID)
+                        if(mb.id && mb.playing){
+                            socket.emit("queue", mb.queue)
+                            return
+                        }
+                    }
+                }     
+            }
+        }
+        socket.emit('disco')
+    })
 });
 
 function compare(a,b) {
