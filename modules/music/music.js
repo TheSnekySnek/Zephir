@@ -21,6 +21,8 @@ module.exports = {
             socketC.emit("mbdebug", data.toString())
         });
         child.on('message', message => {
+            try {
+            console.log("msg is")
             console.log(message)
             var m = JSON.parse(message)
             switch (m.type) {
@@ -82,6 +84,10 @@ module.exports = {
                     console.log(m)
                     break;
             }
+            } catch (error) {
+                console.error(error)
+            }
+            
         });
         mbs.push({id: id, proc: child})
     },
