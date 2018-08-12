@@ -247,6 +247,32 @@ io.on('connection', function(socket){
         }
         socket.emit('disco')
     })
+    socket.on('getStreams', function(msg){
+        var User = DB.getMobileUserToken(msg.token)
+        if(User){
+            var userID = User.user
+            if(userID){
+                console.log(userID)
+                var streamers = []
+                var members = client.guilds.get(DB.getBotData().guild).members.array()
+                members.forEach(member => {
+                    if(member.presence.game && member.presence.game.streaming && !member.user.bot){
+                        var url = member.presence.game.url
+                        console.log(url)
+                        var twitchUser = member.presence.game.url.replace("https://www.twitch.tv/", "")
+                        console.log(twitchUser)
+                        var preview = "https://static-cdn.jtvnw.net/previews-ttv/live_user_" + twitchUser + "-400x225.jpg"
+                        console.log(preview)
+                        var title = member.presence.game.name
+                        console.log(title)
+                        streamers.push({url: url, tUser: twitchUser, preview: preview, title: title})
+                    }
+                });
+                socket.emit('streams', streamers)
+            }
+        }
+        socket.emit('disco')
+    })
 });
 
 function compare(a,b) {

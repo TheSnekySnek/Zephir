@@ -31,17 +31,20 @@ module.exports = {
     try {
       var mid = message.author.id
       var mUser = DB.getMobileUser(mid)
+      var tken = ""
       if(mUser){
+        tken = mUser.token
         var qr_svg = qr.image(mUser.token);
         qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
       }
       else{
         var tk = uuidv4();
+        tken = tk
         DB.addMobileUser({user: mid, token: tk})
         var qr_svg = qr.image(tk);
         qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
       }
-      message.author.send("Please scan this code using the Arkhos mobile app", {
+      message.author.send("Please scan this code using the Arkhos mobile app.\n\nYou can also copy the following code manualy: " + tken + "\n\nDO NOT SHARE THESE CODES TO ANYONE ELSE !!!", {
         files: [{
           attachment: mid + '.png',
           name: 'UserToken.jpg'

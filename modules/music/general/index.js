@@ -72,8 +72,6 @@ function ping() {
 }
 setInterval(ping, 4000);
 
-//start("Snek", "NDQyMzUxMDgyMDQwMTk3MTIw.Dk2EHQ.6jxkiN29KZCDry-5S4EVR3qiivU", "227129311067504640", "227137001990651904", "377149337886785536", "default")
-
 function start(botId, token, guild, tChannel, vChannel, playlist) {
   /**
    * Declare ready event. This is triggered when the bot has logged in
