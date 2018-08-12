@@ -9,7 +9,7 @@ const fs = require('fs');
  * @type {Discord}
  */
 global.client = new Discord.Client();
-global.mods = ["83519111514034176"]
+global.mods = ["83519111514034176", "141117321396748288"]
 global.api= require('./includes/api');
 global.messages = require('./includes/messages');
 global.player = require('./includes/player');

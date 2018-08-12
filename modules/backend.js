@@ -137,6 +137,10 @@ io.on('connection', function(socket){
                     vcID = vc.id
                     if(vcID){
                         var mb = DB.getMBinVC(vcID)
+                        console.log("USER DATA")
+                        console.log(vc.id);
+                        console.log(msg);
+                        console.log(mb)
                         if(mb && mb.id && mb.playing){
                             if(mb.playing.thumbnail.indexOf("sddefault") < 0)
                                 mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
