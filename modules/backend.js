@@ -137,7 +137,7 @@ io.on('connection', function(socket){
                     vcID = vc.id
                     if(vcID){
                         var mb = DB.getMBinVC(vcID)
-                        if(mb.id && mb.playing){
+                        if(mb && mb.id && mb.playing){
                             if(mb.playing.thumbnail.indexOf("sddefault") < 0)
                                 mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
                             socket.emit('gsong', {id: mb.id, data: mb.playing})
