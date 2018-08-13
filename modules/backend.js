@@ -277,6 +277,40 @@ io.on('connection', function(socket){
         }
         socket.emit('disco')
     })
+    socket.on('doDaily', function(msg){
+        var User = DB.getMobileUserToken(msg.token)
+        if(User){
+            var userID = User.user
+            if(userID){
+                if(!DB.getDailyUser(userID)){
+                    DB.addDailyUser(userID)
+                    if(!DB.getCoins(userID))
+                        DB.addCoins(userID)
+                        
+                    var coins = DB.getCoins(userID).amount
+                    DB.setCoins(userID, coins+400)
+                }
+
+            }
+        }
+        socket.emit('disco')
+    })
+    socket.on('getDailyInfo', function(msg){
+        console.log("GTI")
+        var User = DB.getMobileUserToken(msg.token)
+        if(User){
+            var userID = User.user
+            if(userID){
+                var isAble = true
+                console.log("GTI")
+                if(DB.getDailyUser(userID)){
+                    isAble = false
+                }
+                socket.emit('dailyInfo', {canGet: isAble})
+            }
+        }
+        socket.emit('disco')
+    })
 });
 
 function compare(a,b) {

@@ -217,6 +217,16 @@ module.exports.getBotData = function() {
      .assign({"user": user, "amount": amount})
      .write()
  }
+ module.exports.addDailyUser = function(user) {
+    return db.get('dailyUsers')
+     .push({user: user})
+     .write()
+ }
+ module.exports.getDailyUser = function(user) {
+    return db.get('dailyUsers')
+    .find({"user": user})
+    .value()
+ }
  module.exports.deleteCoins = function(user, amount) {
      var coins = db.get('coins')
      .find({"user": user})

@@ -68,8 +68,8 @@ module.exports = {
   },
   daily: async function(message, command, args) {
     try{
-      if(!dailyUsers.includes(message.author.id)){
-        dailyUsers.push(message.author.id)
+      if(!DB.getDailyUser(message.author.id)){
+        DB.addDailyUser(message.author.id)
         if(!DB.getCoins(message.author.id))
           DB.addCoins(message.author.id)
         var coins = DB.getCoins(message.author.id).amount
