@@ -222,6 +222,10 @@ module.exports.getBotData = function() {
      .push({user: user})
      .write()
  }
+ module.exports.emptyDailyUser = function(user) {
+    return db.set('dailyUsers', [])
+    .write()
+ }
  module.exports.getDailyUser = function(user) {
     return db.get('dailyUsers')
     .find({"user": user})

@@ -98,7 +98,7 @@ module.exports = {
 }
 
 schedule.scheduleJob('0 6 * * *', () => {
-  dailyUsers = []
+  DB.emptyDailyUser()
 }) 
 
 
