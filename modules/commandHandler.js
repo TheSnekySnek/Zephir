@@ -18,7 +18,8 @@ let commandList = Object.assign(
   module.exports.handle = function (message) {
     if(message.content[0] == '!'){
       var command = message.content.split(' ')[0].substring(1).toLowerCase();
-      var args = message.content.replace('!' + message.content.split(' ')[0].substring(1) + ' ', '').split(' ');
+      var args = message.content.split(' ')
+      args.splice(0,1)
       if (command in commandList) {
         commandList[command](message, command, args);
       }

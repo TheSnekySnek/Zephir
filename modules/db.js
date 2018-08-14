@@ -211,6 +211,10 @@ module.exports.getBotData = function() {
      .find({"user": user})
      .value()
  }
+ module.exports.getAllCoins = function() {
+    return db.get('coins')
+     .value()
+ }
  module.exports.setCoins = function(user, amount) {
     return db.get('coins')
      .find({"user": user})

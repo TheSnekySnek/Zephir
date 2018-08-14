@@ -3,16 +3,74 @@ const DB = require('../../modules/db')
 var qr = require('qr-image');
 var uuidv4 = require('uuid/v4');
 var music = require('../../modules/music/music')
+var Discord = require("discord.js");
 module.exports = {
+
+  rank: function(message, command, args) {
+    try {
+      var coins = DB.getAllCoins()
+      var rank = 0
+      coins.sort(compareCoins)
+      for (let i = 0; i < coins.length; i++) {
+        if(coins[i].user == message.author.id){
+          message.channel.send(rankEmbed(message.author.username, coins[i].amount, i+1))
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  top: function(message, command, args) {
+    try {
+      var cns = DB.getAllCoins()
+      var coins = []
+      for (let i = 0; i < cns.length; i++) {
+        var mem = message.guild.members.get(cns[i].user)
+        if(mem && !mem.user.bot){
+          coins.push(cns[i])
+        }
+      }
+      var rank = 0
+      coins.sort(compareCoins)
+      var sS = 10
+      if(parseInt(args[0])){
+        var p = parseInt(args[0])
+        if(p < coins.length)
+          sS = p
+        else
+          message.channel.send("Not enough people with coins :(\n\nWill display only top 10")
+      }
+      let embed = new Discord.RichEmbed()
+        .setTitle("- Arkhos Leaderboards -")
+        .setDescription("\n--------------------------------------------------------------------")
+        .setColor("#dcbc3f")
+        .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/478976690895192065/leaderboard-300x300.png")
+        for (let i = 0; i < sS; i++) {
+          if(i >= sS-2)
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount, true)
+          else
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\n--------------------------\n", true)
+        }  
+        embed.addField("----------------------------------------------------------------------", "Do you even climb bro?")
+      message.channel.send(embed)
+    } catch (e) {
+      console.error(e);
+    }
+  },
 
   avatar: function(message, command, args) {
     try {
-      var member = message.guild.members.find("id", args[0])
+      var id = message.author.id
+      console.log(args)
+      if(args[1]){
+        id = args[0]
+      }
+      var member = message.guild.members.get(id)
       if (member) {
         message.reply(member.user.avatarURL)
       }
       else {
-        message.reply("User " + args[0] + " does not exist")
+        message.reply("User does not exist")
       }
     } catch (e) {
       console.error(e);
@@ -195,6 +253,21 @@ module.exports = {
 
 }
 
+function rankEmbed(user, coins, rank) {
+  let embed = new Discord.RichEmbed()
+    .setTitle("- Arkhos User Rankings -")
+    .setDescription("For " + user + "\n----------------------------------------------------")
+    .setColor("#dcbc3f")
+    .setFooter("Do you even climb bro?")
+    .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
+    .addField("Rank", "#" + rank + "\n----------------------------------------------------")
+    .addField("Battles Won:", 0)
+    .addField("Battles Lost:", 0)
+    .addField("Battle Points:", 0)
+    .addField("Total Arkoin Earned:", coins + "\n----------------------------------------------------")
+    return embed
+}
+
 function isPatreon(user){
   try{
     var r = user.roles.find("name", "P-1")
@@ -336,4 +409,11 @@ function question(message, text, accepted = []){
 
 function errMSG(message) {
   message.reply("Not available yet")
+}
+function compareCoins(a,b) {
+  if (a.amount > b.amount)
+    return -1;
+  if (a.amount < b.amount)
+    return 1;
+  return 0;
 }
