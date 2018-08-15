@@ -72,7 +72,13 @@ module.exports = {
       console.log(id)
       var member = message.guild.members.get(id)
       if (member) {
-        message.reply(member.user.avatarURL)
+        let embed = new Discord.RichEmbed()
+        .setTitle("Avatar URL")
+        .setAuthor(member.user.username + "#" + member.user.discriminator)
+        .setColor("#1dbc9c")
+        .setImage(member.user.avatarURL)
+        .setURL(member.user.avatarURL)
+        message.channel.send(embed)
       }
       else {
         message.reply("User does not exist")
