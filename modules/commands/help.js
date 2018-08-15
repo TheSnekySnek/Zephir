@@ -1,15 +1,61 @@
 const schedule = require('node-schedule')
 const DB = require('../../modules/db')
+const COLORS = 
+  {
+    yellow: "Yellow",
+    orange: "Orange",
+    
+  }
+
 module.exports = {
 
   colors: function(message, command, args) {
     try {
       let response = "\n\n";
-      let colors = config.roles.colors;
-      for (var key in colors) {
-        response += colors[key] + "\n";
+      for (var key in COLORS) {
+        if (!COLORS.hasOwnProperty(key)) continue;
+        
+        var obj = COLORS[key];
+        response += key +": " + obj
       }
-      message.reply(response);
+        message.reply(response);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  color: async function(message, command, args) {
+    try {
+      if(!DB.getUnlock(message.author.id, "color")){
+        message.reply("You need to claim the 'color' reward by doing !claim 1")
+        return
+      }
+      if(COLORS[args[0]]){
+        let colorRole = message.guild.roles.find("name", COLORS[args[0]])
+        if(colorRole)
+        {
+          for (var key in COLORS) {
+            if(message.member.colorRole.name == COLORS[key]){
+              message.member.removeRole(message.member.colorRole)
+            }
+          }
+          message.member.addRole(colorRole)
+          .then(()=> {
+            if(message.member.colorRole.name != COLORS[args[0]]){
+              message.reply("It seems like you have an admin role.\nYou will not be able to set a color");
+              message.member.removeRole(colorRole);
+            }
+            else{
+              message.reply("You are now " + COLORS[args[0]]);
+            }
+          })
+        }
+        else {
+          message.reply("Color not available")
+        }
+      }
+      else{
+        message.reply("Color not available")
+      }
     } catch (e) {
       console.error(e);
     }

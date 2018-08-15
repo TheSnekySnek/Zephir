@@ -61,10 +61,15 @@ module.exports = {
   avatar: function(message, command, args) {
     try {
       var id = message.author.id
+      var ment = message.mentions.members.array()
       console.log(args)
-      if(args[1]){
+      if(ment && ment.length > 0){
+        id = ment[0].id
+      }
+      else if(args[0]){
         id = args[0]
       }
+      console.log(id)
       var member = message.guild.members.get(id)
       if (member) {
         message.reply(member.user.avatarURL)
@@ -132,6 +137,23 @@ module.exports = {
   claim: async function(message, command, args) {
     try{
       switch (args[0]) {
+        case "1":
+          var userCoins = DB.getCoins(message.author.id).amount
+          if(userCoins < REWARDS.colors){
+            message.reply("Not enough coins")
+            return
+          }
+          if(DB.getUnlock(message.author.id, "color")){
+            message.reply("You already have unlocked colors")
+            return 
+          }
+          var res = await question(message, "This will deduct " + REWARDS.colors + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
+          if(res === "yes"){
+            DB.addUnlock(message.author.id, "color")
+            DB.deleteCoins(message.author.id, REWARDS.colors)
+            message.reply("You have unlocked the !color command")
+          }
+          break
         case "2":
           var userCoins = DB.getCoins(message.author.id).amount
           if(userCoins < REWARDS.specialRole){
@@ -284,10 +306,12 @@ function isPatreon(user){
 }
 
 const REWARDS = {
+  colors: 5000,
   specialRole: 25000,
   gif: 50000,
   sound: 100000
 }
+
 
 async function addSpecialRole(message, name, type) {
   var no = ["admin", "administrator", "owner", "developer"]
