@@ -99,7 +99,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
         if (!COLORS.hasOwnProperty(key)) continue;
         
         var obj = COLORS[key];
-        response += key +": " + obj
+        response += key +": " + obj + "\n"
       }
         message.reply(response);
     } catch (e) {
