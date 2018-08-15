@@ -1,4 +1,5 @@
 const schedule = require('node-schedule')
+const request = require('request')
 const DB = require('../../modules/db')
 const COLORS = 
   {
@@ -9,6 +10,36 @@ const COLORS =
 
 module.exports = {
 
+
+  weather: function(message, command, args) {
+    try {
+      var city = args[0]
+      request(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=073c07e8a5dbe9fca2524f508a9c41c8&units=metric`, function (error, response, body) {
+        var wData = JSON.parse(body)
+        var icn = wData.weather[0].main
+        switch (wData.weather[0].main) {
+          case "Clouds":
+            icn = ":cloud:"
+            break;
+        
+          default:
+          icn = ":sunny:"
+            break;
+        }
+        console.log(wData)
+        var mes = `:flag_${wData.sys.country.toLowerCase()}: | **Weather for ${wData.name}, ${wData.sys.country}**
+${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
+:thermometer: **Temp:** ${wData.main.temp} °C
+:cloud_tornado: **Wind**: ${wData.wind.speed} m/s
+:droplet: **Humidity:** ${wData.main.humidity}%
+:white_sun_cloud: **Cloud Cover:** ${wData.clouds.all}%`
+        message.channel.send(mes)
+      })
+    }
+    catch (e) {
+      console.error(e);
+    }
+  },
   colors: function(message, command, args) {
     try {
       let response = "\n\n";
