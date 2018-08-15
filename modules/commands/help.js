@@ -1,6 +1,7 @@
 const schedule = require('node-schedule')
 const request = require('request')
 const DB = require('../../modules/db')
+const wd = require("word-definition");
 const COLORS = 
   {
     yellow: "Yellow",
@@ -10,7 +11,46 @@ const COLORS =
 
 module.exports = {
 
+  wiki: function(message, command, args) {
+    try {
+      if(args[0]){
+        var lang = "en"
+        if(args[1]){
+          switch (args[1]) {
+            case "en":
+              lang = "en"
+              break;
+            case "fr":
+              lang = "fr"
+              break
+            case "de":
+              lang = "de"
+              break
+            default:
+              message.channel.send("Unsupported language (en, fr, de)")
+              break;
+          }
+        }
+        wd.getDef(args[0], lang, null, (def) => {
+          console.log(def)
+          if(def.err){
+            message.channel.send("Could not get a definition for the word **" + def.word + "**. Try using a diferent language (**!wiki "+ def.word + " [en / fr / de]**)")
+            return
+          }
+          message.channel.send(`:book:**Word:** ${def.word}
+:clipboard:**Category:** ${def.category}
 
+:loudspeaker:**Definition:**
+${def.definition}`)
+        });
+      }
+      else{
+        message.channel.send("Please provide a word")
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  },
   weather: function(message, command, args) {
     try {
       var city = args[0]

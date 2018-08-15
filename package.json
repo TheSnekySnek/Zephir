@@ -21,7 +21,8 @@
     "socket.io": "^2.1.1",
     "sqlite3": "^4.0.1",
     "uuid": "^3.3.2",
-    "uws": "^10.148.1"
+    "uws": "^10.148.1",
+    "word-definition": "^2.1.6"
   },
   "devDependencies": {},
   "scripts": {
