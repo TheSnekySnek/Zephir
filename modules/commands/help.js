@@ -4,9 +4,21 @@ const DB = require('../../modules/db')
 const wd = require("word-definition");
 const COLORS = 
   {
-    yellow: "Yellow",
+    black: "Black",
+    blue: "Blue",
+    cyan: "Cyan",
+    darkblue: "Dark Blue",
+    darkred: "Dark Red",
+    electricblue: "Electric Blue",
+    green: "Green",
+    gray: "Gray",
+    indigo: "Indigo",
+    lime: "Lime",
     orange: "Orange",
-    
+    pink: "Pink",
+    purple: "Purple",
+    red: "Red",
+    yellow: "Yellow"
   }
 
 module.exports = {
