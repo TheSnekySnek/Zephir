@@ -15,7 +15,7 @@ module.exports = {
   },
 
   skip: function (message) {
-    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.calculatedPosition
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.position
     console.log(HR)
     if (HR < 9) {
       textChannel.send("Skipping song...")
