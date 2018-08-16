@@ -295,6 +295,16 @@ io.on('connection', function(socket){
         }
         socket.emit('disco')
     })
+    socket.on('walkCoins', function(msg){
+        var User = DB.getMobileUserToken(msg.token)
+        if(User){
+            var userID = User.user
+            if(userID){
+                DB.setCoins(userID, coins + msg.meters)
+            }
+        }
+        socket.emit('disco')
+    })
     socket.on('getDailyInfo', function(msg){
         console.log("GTI")
         var User = DB.getMobileUserToken(msg.token)
