@@ -226,7 +226,7 @@ module.exports.getBotData = function() {
      .push({user: user})
      .write()
  }
- module.exports.emptyDailyUser = function(user) {
+ module.exports.emptyDailyUser = function() {
     return db.set('dailyUsers', [])
     .write()
  }
