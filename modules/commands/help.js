@@ -65,7 +65,12 @@ ${def.definition}`)
   },
   weather: function(message, command, args) {
     try {
-      var city = args[0]
+      console.log(message.content)
+      console.log(command);
+      
+      var city = message.content.replace("!" + command + " ", "")
+      console.log(city);
+      
       request(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=073c07e8a5dbe9fca2524f508a9c41c8&units=metric`, function (error, response, body) {
         var wData = JSON.parse(body)
         var icn = wData.weather[0].main
