@@ -300,6 +300,7 @@ io.on('connection', function(socket){
         if(User){
             var userID = User.user
             if(userID){
+                var coins = DB.getCoins(userID).amount
                 DB.setCoins(userID, coins + msg.meters)
             }
         }
