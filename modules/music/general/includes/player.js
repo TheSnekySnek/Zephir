@@ -16,7 +16,8 @@ module.exports = {
 
   skip: function (message) {
     console.log(message)
-    if (mods.includes(message.author.id) || message.member.highestRole.calculatedPosition > 9) {
+    console.log(message.member.highestRole)
+    if (message.member.highestRole.calculatedPosition > 9) {
       textChannel.send("Skipping song...")
       if (voice_stream && !voice_stream.destroyed) {
         voice_stream.destroy();
