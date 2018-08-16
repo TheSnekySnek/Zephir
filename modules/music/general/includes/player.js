@@ -15,9 +15,9 @@ module.exports = {
   },
 
   skip: function (message) {
-    console.log(message)
-    console.log(message.member.highestRole)
-    if (message.member.highestRole.calculatedPosition > 9) {
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.calculatedPosition
+    console.log(HR)
+    if (HR < 9) {
       textChannel.send("Skipping song...")
       if (voice_stream && !voice_stream.destroyed) {
         voice_stream.destroy();
