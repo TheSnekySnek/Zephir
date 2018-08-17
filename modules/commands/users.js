@@ -131,12 +131,16 @@ module.exports = {
         var qr_svg = qr.image(tk);
         qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
       }
-      message.author.send("Please scan this code using the Arkhos mobile app.\n\nYou can also copy the following code manualy: " + tken + "\n\nDO NOT SHARE THESE CODES TO ANYONE ELSE !!!", {
+      message.author.send("Please scan this code using the Arkhos mobile app.\n\nDO NOT SHARE THESE CODES WITH ANYONE ELSE !!!", {
         files: [{
           attachment: mid + '.png',
           name: 'UserToken.jpg'
         }]
       })
+      setTimeout(()=>{
+        message.author.send("You can also login using the following code:")
+        message.author.send(tken)
+      },2000)
       message.channel.send("Your auth code for the mobile app has been sent to you.\n\nCheck your DMs")
       .then(console.log)
       .catch(console.error);
