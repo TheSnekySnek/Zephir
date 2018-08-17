@@ -13,7 +13,7 @@ module.exports = {
       coins.sort(compareCoins)
       for (let i = 0; i < coins.length; i++) {
         if(coins[i].user == message.author.id){
-          message.channel.send(rankEmbed(message.author.username, coins[i].amount, i+1))
+          message.channel.send(rankEmbed(message.member, coins[i].amount, i+1))
         }
       }
     } catch (e) {
@@ -282,9 +282,14 @@ module.exports = {
 }
 
 function rankEmbed(user, coins, rank) {
+  var wa = DB.getWalk(user.id)
+  var walked = 0
+  if(wa){
+    walked = wa.meters
+  }
   let embed = new Discord.RichEmbed()
     .setTitle("- Arkhos User Rankings -")
-    .setDescription("For " + user + "\n----------------------------------------------------")
+    .setDescription("For " + user.displayName + "\n----------------------------------------------------")
     .setColor("#dcbc3f")
     .setFooter("Do you even climb bro?")
     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
@@ -292,6 +297,7 @@ function rankEmbed(user, coins, rank) {
     .addField("Battles Won:", 0)
     .addField("Battles Lost:", 0)
     .addField("Battle Points:", 0)
+    .addField("Distance Walked:", walked)
     .addField("Total Arkoin Earned:", coins + "\n----------------------------------------------------")
     return embed
 }
