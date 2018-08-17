@@ -9,6 +9,9 @@ module.exports = {
   rank: function(message, command, args) {
     try {
       var coins = DB.getAllCoins()
+      for (let i = 0; i < coins.length; i++) {
+        coins[i].amount = totalCoins(coins[i].user)
+      }
       var rank = 0
       coins.sort(compareCoins)
       for (let i = 0; i < coins.length; i++) {
@@ -23,6 +26,9 @@ module.exports = {
   top: function(message, command, args) {
     try {
       var cns = DB.getAllCoins()
+      for (let i = 0; i < cns.length; i++) {
+        cns[i].amount = totalCoins(cns[i].user)
+      }
       var coins = []
       for (let i = 0; i < cns.length; i++) {
         var mem = message.guild.members.get(cns[i].user)
@@ -46,10 +52,22 @@ module.exports = {
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/478976690895192065/leaderboard-300x300.png")
         for (let i = 0; i < sS; i++) {
-          if(i >= sS-2)
-            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount, true)
-          else
-            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\n--------------------------\n", true)
+          if(i >= sS-2){
+            var walked = DB.getWalk(coins[i].user)
+            var w = 0
+            if(walked){
+              w = walked.meters
+            }
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\nWalked: " + w, true)
+          }
+          else{
+            var walked = DB.getWalk(coins[i].user)
+            var w = 0
+            if(walked){
+              w = walked.meters
+            }
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\nWalked: " + w + "\n--------------------------\n", true)
+          }
         }  
         embed.addField("----------------------------------------------------------------------", "Do you even climb bro?")
       message.channel.send(embed)
@@ -297,7 +315,7 @@ function rankEmbed(user, coins, rank) {
     .addField("Battles Won:", 0)
     .addField("Battles Lost:", 0)
     .addField("Battle Points:", 0)
-    .addField("Distance Walked:", walked)
+    .addField("Distance Walked:", walked + "m")
     .addField("Total Arkoin Earned:", coins + "\n----------------------------------------------------")
     return embed
 }
@@ -385,29 +403,6 @@ async function addGIF(message, url, com) {
   }
 }
 
-async function addColor(message, ded = true) {
-  user = message.author.id
-  pres = await ArkhosAPI.getPresence(user)
-  console.log(pres)
-  if(pres.rewards.color){
-    message.reply("You already have access to the !color command")
-    return 
-  }
-  userCoins = await ArkhosAPI.getArkoins(user)
-  console.log(userCoins)
-  if(!ded){
-    ArkhosAPI.enableColor(user)
-    message.reply("You now have access to the !color command :tada:")
-  }
-  else if(userCoins >= REWARDS.color){
-    ArkhosAPI.enableColor(user)
-    ArkhosAPI.removeArkoins(user, REWARDS.color)
-    message.reply("You now have access to the !color command :tada:")
-  }
-  else{
-    message.reply("Not enough coins")
-  }
-}
 
 function question(message, text, accepted = []){
   return new Promise(function(resolve, reject) {
@@ -452,4 +447,25 @@ function compareCoins(a,b) {
   if (a.amount < b.amount)
     return 1;
   return 0;
+}
+function totalCoins(user) {
+  var coins = DB.getCoins(user)
+  var unlocks = DB.getUnlocks(user)
+  console.log(unlocks)
+  if(unlocks && unlocks.length > 0){
+    unlocks.forEach(unlock => {
+      switch (unlock.has) {
+        case "color":
+          coins.amount += REWARDS.colors
+          break;
+        case "specialRole":
+          coins.amount += REWARDS.specialRole
+          break;
+      
+        default:
+          break;
+      }
+    });
+  }
+  return coins.amount
 }
