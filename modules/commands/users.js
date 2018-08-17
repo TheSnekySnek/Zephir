@@ -307,16 +307,17 @@ function rankEmbed(user, coins, rank) {
   }
   let embed = new Discord.RichEmbed()
     .setTitle("- Arkhos User Rankings -")
-    .setDescription("For " + user.displayName + "\n----------------------------------------------------")
+    .setDescription("For " + user.displayName + "\n------------------------------------------------------------------")
     .setColor("#dcbc3f")
-    .setFooter("Do you even climb bro?")
     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-    .addField("Rank", "#" + rank + "\n----------------------------------------------------")
-    .addField("Battles Won:", 0)
-    .addField("Battles Lost:", 0)
-    .addField("Battle Points:", 0)
-    .addField("Distance Walked:", walked + "m")
-    .addField("Total Arkoin Earned:", coins + "\n----------------------------------------------------")
+    .addField("Rank", "#" + rank + "\n----------------------------", true)
+    .addField("Total Arkoins Earned:", coins + "\n---------------------------", true)
+    .addField("Battles Won:", 0, true)
+    .addField("Battles Lost:", 0, true)
+    .addField("Battle Points:", 0, true)
+    .addField("Distance Walked:", walked + "m", true)
+    .addField("------------------------------------------------------------------", "Do you even climb bro?")
+    
     return embed
 }
 
