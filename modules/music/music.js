@@ -1,6 +1,7 @@
 const DB = require('../../modules/db')
 const fork = require('child_process').fork;
 var path = require('path');
+const fs = require('fs')
 
 var mbs = []
 
@@ -85,7 +86,8 @@ module.exports = {
                     break;
             }
             } catch (error) {
-                console.error(error)
+                fs.appendFile('mblogs.txt', error + "\n\n" + message, function (err) {
+                });
             }
             
         });
