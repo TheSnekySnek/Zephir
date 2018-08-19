@@ -161,8 +161,8 @@ function playSong(song) {
     }
   });
   voice_stream.on("error", reason => {
-    console.log(reason);
-    stats.error(err)
+    fs.appendFile('mblogs.txt', reason, function (err) {
+    });
   });
 }
 
