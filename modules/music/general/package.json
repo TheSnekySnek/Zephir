@@ -24,7 +24,7 @@
   "dependencies": {
     "bufferutil": "^3.0.2",
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "^11.4.2",
     "erlpack": "github:hammerandchisel/erlpack",
     "lyricist": "^0.1.2",
     "mongoose": "^4.11.5",
