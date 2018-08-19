@@ -226,7 +226,7 @@ module.exports.getBotData = function() {
      .push({user: user})
      .write()
  }
- module.exports.emptyDailyUser = function(user) {
+ module.exports.emptyDailyUser = function() {
     return db.set('dailyUsers', [])
     .write()
  }
@@ -263,3 +263,21 @@ module.exports.getBotData = function() {
      .push({"user": user, "has": unlock})
      .write()
  }
+
+
+module.exports.getWalk = function(user) {
+    return db.get('walks')
+     .find({"user": user})
+     .value()
+}
+module.exports.addWalk = function(user, meters) {
+return db.get('walks')
+    .push({"user": user, "meters": meters})
+    .write()
+}
+module.exports.setWalk = function(user, amount) {
+return db.get('walks')
+    .find({"user": user})
+    .assign({"user": user, "meters": amount})
+    .write()
+}

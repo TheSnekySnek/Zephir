@@ -71,6 +71,7 @@ function start(botId, token, guild, tChannel, vChannel, playlist) {
     global.voiceChannel = client.guilds.get(guild).channels.get(vChannel);
     global.playlistID = playlist;
     global.botId = botId
+    global.guildID = guild
 
     client.guilds.get(guild).channels.get(vChannel).join()
     .then((voice_connection) => {

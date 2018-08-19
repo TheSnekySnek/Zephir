@@ -15,8 +15,9 @@ module.exports = {
   },
 
   skip: function (message) {
-    console.log(message)
-    if (mods.includes(message.author.id)) {
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+    console.log(HR)
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
       textChannel.send("Skipping song...")
       if (voice_stream && !voice_stream.destroyed) {
         voice_stream.destroy();

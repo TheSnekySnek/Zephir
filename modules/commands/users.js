@@ -9,11 +9,14 @@ module.exports = {
   rank: function(message, command, args) {
     try {
       var coins = DB.getAllCoins()
+      for (let i = 0; i < coins.length; i++) {
+        coins[i].amount = totalCoins(coins[i].user)
+      }
       var rank = 0
       coins.sort(compareCoins)
       for (let i = 0; i < coins.length; i++) {
         if(coins[i].user == message.author.id){
-          message.channel.send(rankEmbed(message.author.username, coins[i].amount, i+1))
+          message.channel.send(rankEmbed(message.member, coins[i].amount, i+1))
         }
       }
     } catch (e) {
@@ -23,6 +26,9 @@ module.exports = {
   top: function(message, command, args) {
     try {
       var cns = DB.getAllCoins()
+      for (let i = 0; i < cns.length; i++) {
+        cns[i].amount = totalCoins(cns[i].user)
+      }
       var coins = []
       for (let i = 0; i < cns.length; i++) {
         var mem = message.guild.members.get(cns[i].user)
@@ -46,10 +52,22 @@ module.exports = {
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/478976690895192065/leaderboard-300x300.png")
         for (let i = 0; i < sS; i++) {
-          if(i >= sS-2)
-            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount, true)
-          else
-            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\n--------------------------\n", true)
+          if(i >= sS-2){
+            var walked = DB.getWalk(coins[i].user)
+            var w = 0
+            if(walked){
+              w = walked.meters
+            }
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\nWalked: " + w, true)
+          }
+          else{
+            var walked = DB.getWalk(coins[i].user)
+            var w = 0
+            if(walked){
+              w = walked.meters
+            }
+            embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\nWalked: " + w + "\n--------------------------\n", true)
+          }
         }  
         embed.addField("----------------------------------------------------------------------", "Do you even climb bro?")
       message.channel.send(embed)
@@ -113,12 +131,16 @@ module.exports = {
         var qr_svg = qr.image(tk);
         qr_svg.pipe(require('fs').createWriteStream(mid + '.png'));
       }
-      message.author.send("Please scan this code using the Arkhos mobile app.\n\nYou can also copy the following code manualy: " + tken + "\n\nDO NOT SHARE THESE CODES TO ANYONE ELSE !!!", {
+      message.author.send("Please scan this code using the Arkhos mobile app.\n\nDO NOT SHARE THESE CODES WITH ANYONE ELSE !!!", {
         files: [{
           attachment: mid + '.png',
           name: 'UserToken.jpg'
         }]
       })
+      setTimeout(()=>{
+        message.author.send("You can also login using the following code:")
+        message.author.send(tken)
+      },2000)
       message.channel.send("Your auth code for the mobile app has been sent to you.\n\nCheck your DMs")
       .then(console.log)
       .catch(console.error);
@@ -282,17 +304,24 @@ module.exports = {
 }
 
 function rankEmbed(user, coins, rank) {
+  var wa = DB.getWalk(user.id)
+  var walked = 0
+  if(wa){
+    walked = wa.meters
+  }
   let embed = new Discord.RichEmbed()
     .setTitle("- Arkhos User Rankings -")
-    .setDescription("For " + user + "\n----------------------------------------------------")
+    .setDescription("For " + user.displayName + "\n------------------------------------------------------------------")
     .setColor("#dcbc3f")
-    .setFooter("Do you even climb bro?")
     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-    .addField("Rank", "#" + rank + "\n----------------------------------------------------")
-    .addField("Battles Won:", 0)
-    .addField("Battles Lost:", 0)
-    .addField("Battle Points:", 0)
-    .addField("Total Arkoin Earned:", coins + "\n----------------------------------------------------")
+    .addField("Rank", "#" + rank + "\n----------------------------", true)
+    .addField("Total Arkoins Earned:", coins + "\n---------------------------", true)
+    .addField("Battles Won:", 0, true)
+    .addField("Battles Lost:", 0, true)
+    .addField("Battle Points:", 0, true)
+    .addField("Distance Walked:", walked + "m", true)
+    .addField("------------------------------------------------------------------", "Do you even climb bro?")
+    
     return embed
 }
 
@@ -379,29 +408,6 @@ async function addGIF(message, url, com) {
   }
 }
 
-async function addColor(message, ded = true) {
-  user = message.author.id
-  pres = await ArkhosAPI.getPresence(user)
-  console.log(pres)
-  if(pres.rewards.color){
-    message.reply("You already have access to the !color command")
-    return 
-  }
-  userCoins = await ArkhosAPI.getArkoins(user)
-  console.log(userCoins)
-  if(!ded){
-    ArkhosAPI.enableColor(user)
-    message.reply("You now have access to the !color command :tada:")
-  }
-  else if(userCoins >= REWARDS.color){
-    ArkhosAPI.enableColor(user)
-    ArkhosAPI.removeArkoins(user, REWARDS.color)
-    message.reply("You now have access to the !color command :tada:")
-  }
-  else{
-    message.reply("Not enough coins")
-  }
-}
 
 function question(message, text, accepted = []){
   return new Promise(function(resolve, reject) {
@@ -446,4 +452,25 @@ function compareCoins(a,b) {
   if (a.amount < b.amount)
     return 1;
   return 0;
+}
+function totalCoins(user) {
+  var coins = DB.getCoins(user)
+  var unlocks = DB.getUnlocks(user)
+  console.log(unlocks)
+  if(unlocks && unlocks.length > 0){
+    unlocks.forEach(unlock => {
+      switch (unlock.has) {
+        case "color":
+          coins.amount += REWARDS.colors
+          break;
+        case "specialRole":
+          coins.amount += REWARDS.specialRole
+          break;
+      
+        default:
+          break;
+      }
+    });
+  }
+  return coins.amount
 }

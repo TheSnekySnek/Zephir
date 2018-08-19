@@ -302,6 +302,13 @@ io.on('connection', function(socket){
             if(userID){
                 var coins = DB.getCoins(userID).amount
                 DB.setCoins(userID, coins + msg.meters)
+                var hM = DB.getWalk(userID)
+                if(hM){
+                    DB.setWalk(userID, msg.meters + hM.meters)
+                }
+                else{
+                    DB.addWalk(userID, msg.meters)
+                }
                 client.guilds.get(DB.getBotData().guild).channels.get('228046069735489536').send(client.guilds.get(DB.getBotData().guild).members.get(userID).displayName + " just finished walking " + msg.meters + " meters.")
             }
         }
