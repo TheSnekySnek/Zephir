@@ -78,14 +78,19 @@ function start(botId, token, guild, tChannel, vChannel, playlist) {
    */
   client.on('ready', () => {
     console.log("Bot is logged in");
-
+    console.log("joined")
     global.textChannel = client.guilds.get(guild).channels.get(tChannel);
+    console.log("joined")
     global.voiceChannel = client.guilds.get(guild).channels.get(vChannel);
+    console.log("joined")
     global.playlistID = playlist;
+    console.log("joined")
     global.botId = botId
 
+    console.log("joined")
     client.guilds.get(guild).channels.get(vChannel).join()
     .then((voice_connection) => {
+      console.log("joined")
       player.start(voice_connection);
     });
   })

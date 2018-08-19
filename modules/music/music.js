@@ -21,6 +21,10 @@ module.exports = {
             console.log(data.toString());
             socketC.emit("mbdebug", data.toString())
         });
+        child.stderr.on('data', function(data) {
+            console.error(data.toString());
+            socketC.emit("mbdebug", data.toString())
+        });
         child.on('message', message => {
             try {
             console.log("msg is")

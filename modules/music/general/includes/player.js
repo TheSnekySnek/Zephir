@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core');
+const request = require('request')
 var voice_connection;
 var voice_stream;
 var currSong;
@@ -132,18 +133,24 @@ function playSong(song) {
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
+  console.log(song.link)
   const stream = ytdl(song.link);
-  voice_stream = voice_connection.playStream(stream, { seek: 0, volume: 0.3, bitrate: 'auto' });
+  console.log(song.link)
+  /*var dtn = 0
+  stream.on('data', (data) => { 
+    dtn++
+    console.log(dtn)
+  })*/
+  voice_stream = voice_connection.playStream(stream).catch(console.error);
   /*if(!updatingTime){
     updateTime();
     updatingTime = true;
   }*/
-  var dtn = 0
-  stream.on('data', (data) => { 
-    dtn++
-  })
+  
+  
+  
   voice_stream.on('start', () => {
-    voice_connection.player.streamingData.pausedTime = 0;
+    console.log("start")
     api.setPlaying(currSong)
   });
   voice_stream.on('debug', (data) => {
