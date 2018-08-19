@@ -141,7 +141,7 @@ function playSong(song) {
     dtn++
     console.log(dtn)
   })*/
-  voice_stream = voice_connection.playStream(stream).catch(console.error);
+  voice_stream = voice_connection.playStream(stream)
   /*if(!updatingTime){
     updateTime();
     updatingTime = true;
