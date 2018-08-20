@@ -164,8 +164,11 @@ function playSong(song) {
     }
     voice_connection.sendVoiceStateUpdate()
     if (startPlaying) {
-      playNextSong();
+      setTimeout(() => {
+        playNextSong();
+      }, 1500)
     }
+
   });
   voice_stream.on("error", reason => {
     fs.appendFile('mblogs.txt', reason, function (err) {
