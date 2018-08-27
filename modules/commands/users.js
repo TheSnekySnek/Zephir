@@ -8,7 +8,14 @@ module.exports = {
 
   rank: function(message, command, args) {
     try {
-      var coins = DB.getAllCoins()
+      var cns = DB.getAllCoins()
+      var coins = []
+      for (let i = 0; i < cns.length; i++) {
+        var mem = message.guild.members.get(cns[i].user)
+        if(mem && !mem.user.bot){
+          coins.push(cns[i])
+        }
+      }
       for (let i = 0; i < coins.length; i++) {
         coins[i].amount = totalCoins(coins[i].user)
       }

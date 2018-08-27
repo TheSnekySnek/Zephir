@@ -53,6 +53,28 @@ io.on('connection', function(socket){
         if(verifyID(msg.jwt))
         DB.deleteRole(msg.data)
     })
+    socket.on('setRole', function(msg){
+        if(verifyID(msg.jwt)){
+            var mbUser = DB.getMobileUserToken(msg.token)
+            var roles = DB.getRoles()
+            roles.forEach(role => {
+                if(role.name == msg.role){
+                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).addRole(client.guilds.get(DB.getBotData().guild).roles.find('name', msg.role))
+                }
+            })
+        }
+    })
+    socket.on('remRole', function(msg){
+        if(verifyID(msg.jwt)){
+            var mbUser = DB.getMobileUserToken(msg.token)
+            var roles = DB.getRoles()
+            roles.forEach(role => {
+                if(role.name == msg.role){
+                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).removeRole(client.guilds.get(DB.getBotData().guild).roles.find('name', msg.role))
+                }
+            })
+        }
+    })
 
     socket.on('getSounds', function(msg){
         if(verifyID(msg.jwt))

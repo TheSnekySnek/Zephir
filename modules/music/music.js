@@ -1,6 +1,7 @@
 const DB = require('../../modules/db')
 const fork = require('child_process').fork;
 var path = require('path');
+const fs = require('fs')
 
 var mbs = []
 
@@ -18,6 +19,10 @@ module.exports = {
         console.log("Child Forked")
         child.stdout.on('data', function(data) {
             console.log(data.toString());
+            socketC.emit("mbdebug", data.toString())
+        });
+        child.stderr.on('data', function(data) {
+            console.error(data.toString());
             socketC.emit("mbdebug", data.toString())
         });
         child.on('message', message => {
@@ -85,7 +90,8 @@ module.exports = {
                     break;
             }
             } catch (error) {
-                console.error(error)
+                fs.appendFile('mblogs.txt', error + "\n\n" + message, function (err) {
+                });
             }
             
         });
