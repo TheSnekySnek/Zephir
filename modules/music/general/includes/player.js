@@ -6,6 +6,8 @@ var currSong;
 var songSkipPoll = [];
 var startPlaying = true;
 var updatingTime = false;
+var crTimer;
+var crStream;
 
 module.exports = {
   start: function (connection) {
@@ -23,9 +25,12 @@ module.exports = {
       if (voice_stream && !voice_stream.destroyed) {
         voice_stream.destroy();
       }
-      else {
-        playNextSong();
+      clearTimeout(crTimer);
+      if(crStream){
+        console.log("DST YTDL")
+        crStream.destroy()
       }
+      playNextSong();
     }
     else {
       let usersInChannel = voiceChannel.members.array().length;
@@ -37,9 +42,12 @@ module.exports = {
           if (voice_stream && !voice_stream.destroyed) {
             voice_stream.destroy();
           }
-          else {
-            playNextSong();
+          clearTimeout(crTimer);
+          if(crStream){
+            console.log("DST YTDL")
+            crStream.destroy()
           }
+          playNextSong();
         }
         else {
           textChannel.send("You need " + Math.ceil(((usersInChannel - 1) / 2) - songSkipPoll.length) + " more vote(s) to skip");
@@ -134,14 +142,21 @@ function playSong(song) {
   currSong = song;
   songSkipPoll = []
   console.log(song.link)
-  const stream = ytdl(song.link);
+  const crStream = ytdl(song.link);
   console.log(song.link)
   /*var dtn = 0
   stream.on('data', (data) => { 
     dtn++
     console.log(dtn)
   })*/
-  voice_stream = voice_connection.playStream(stream)
+  crTimer = setTimeout(() => {
+    if(crStream){
+      console.log("DST YTDL")
+      crStream.destroy()
+    }
+    playNextSong();
+  }, song.duration * 1000);
+  voice_stream = voice_connection.playStream(crStream)
   /*if(!updatingTime){
     updateTime();
     updatingTime = true;
@@ -157,18 +172,14 @@ function playSong(song) {
     console.log(data)
   });
   voice_stream.once("end", reason => {
-    console.log("player stopped because of " + reason);
-    if(stream){
-      console.log("DST YTDL")
-      stream.destroy()
-    }
+    /*console.log("player stopped because of " + reason);
+    
     voice_connection.sendVoiceStateUpdate()
     if (startPlaying) {
       setTimeout(() => {
         playNextSong();
       }, 1500)
-    }
-
+    }*/
   });
   voice_stream.on("error", reason => {
     fs.appendFile('mblogs.txt', reason, function (err) {
