@@ -22,14 +22,6 @@ module.exports = {
     console.log(HR)
     if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
       textChannel.send("Skipping song...")
-      if (voice_stream && !voice_stream.destroyed) {
-        voice_stream.destroy();
-      }
-      clearTimeout(crTimer);
-      if(crStream){
-        console.log("DST YTDL")
-        crStream.destroy()
-      }
       playNextSong();
     }
     else {
@@ -39,14 +31,6 @@ module.exports = {
         if (songSkipPoll.length >= (usersInChannel - 1) / 2) {
           textChannel.send("Skipping song...")
           songSkipPoll = [];
-          if (voice_stream && !voice_stream.destroyed) {
-            voice_stream.destroy();
-          }
-          clearTimeout(crTimer);
-          if(crStream){
-            console.log("DST YTDL")
-            crStream.destroy()
-          }
           playNextSong();
         }
         else {
@@ -144,26 +128,8 @@ function playSong(song) {
   console.log(song.link)
   const crStream = ytdl(song.link);
   console.log(song.link)
-  /*var dtn = 0
-  stream.on('data', (data) => { 
-    dtn++
-    console.log(dtn)
-  })*/
-  crTimer = setTimeout(() => {
-    if(crStream){
-      console.log("DST YTDL")
-      crStream.destroy()
-    }
-    playNextSong();
-  }, song.duration * 1000);
-  voice_stream = voice_connection.playStream(crStream)
-  /*if(!updatingTime){
-    updateTime();
-    updatingTime = true;
-  }*/
-  
-  
-  
+
+  voice_stream = voice_connection.playStream(ytdl(song.link, { audioonly: true }), { passes : 1 })
   voice_stream.on('start', () => {
     console.log("start")
     api.setPlaying(currSong)
@@ -172,28 +138,15 @@ function playSong(song) {
     console.log(data)
   });
   voice_stream.once("end", reason => {
-    /*console.log("player stopped because of " + reason);
-    
-    voice_connection.sendVoiceStateUpdate()
-    if (startPlaying) {
-      setTimeout(() => {
-        playNextSong();
-      }, 1500)
-    }*/
+    console.log("player stopped because of " + reason);
+    playNextSong();
   });
   voice_stream.on("error", reason => {
-    fs.appendFile('mblogs.txt', reason, function (err) {
-    });
+    console.error(reason)
   });
 }
 
 function playNextSong() {
-  /*playSong({ "yt": "opPV1-IUmGw",
-  "link": "https://www.youtube.com/watch?v=opPV1-IUmGw",
-  "name": "Viva la Vida Lyrics - Coldplay",
-  "duration": 241,
-  "thumbnail": "http://img.youtube.com/vi/opPV1-IUmGw/default.jpg",
-  "added_by": "TheSnekySnek" })*/
   queue.getNextSong()
   .catch(err => {
     console.error(err)
@@ -210,7 +163,7 @@ function playNextSong() {
     }
   })
   .catch(err => {
-    stats.error(err)
+    console.log(err)
   })
 }
 

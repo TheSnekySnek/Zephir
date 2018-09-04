@@ -27,8 +27,6 @@ module.exports = {
         });
         child.on('message', message => {
             try {
-            console.log("msg is")
-            console.log(message)
             var m = JSON.parse(message)
             switch (m.type) {
                 case "ready":
