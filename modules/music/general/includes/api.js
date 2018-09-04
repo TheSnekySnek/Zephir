@@ -1,12 +1,14 @@
 module.exports = {
   getQueue: function() {
     return new Promise(function(resolve, reject) {
-        process.on('message', function(m) {
+        function lis(m) {
             var msg = JSON.parse(m)
             if(msg.type == "queue"){
                 resolve(msg.data)
+                process.removeListener('message', lis)
             }
-        });
+        }
+        process.on('message', lis);
         process.send(JSON.stringify({
             type: "getqueue"
         }))
@@ -14,12 +16,14 @@ module.exports = {
   },
   getPlaying: function() {
     return new Promise(function(resolve, reject) {
-        process.on('message', function(m) {
+        function lis(m) {
             var msg = JSON.parse(m)
             if(msg.type == "playing"){
                 resolve(msg.data)
+                process.removeListener('message', lis)
             }
-        });
+        }
+        process.on('message', lis);
         process.send(JSON.stringify({
             type: "getplaying"
         }))
@@ -27,12 +31,14 @@ module.exports = {
   },
   getPlaylist: function() {
     return new Promise(function(resolve, reject) {
-        process.on('message', function(m) {
+        function lis(m) {
             var msg = JSON.parse(m)
             if(msg.type == "playlist"){
                 resolve(msg.data)
+                process.removeListener('message', lis)
             }
-        });
+        }
+        process.on('message', lis);
         process.send(JSON.stringify({
             type: "getplaylist",
             plId: playlistID

@@ -47,14 +47,14 @@ process.send(JSON.stringify({type: "ready"}))
 
 function ping() {
   var hasPong = false
-  process.on('message',rcv);
   function rcv(m) {
     var msg = JSON.parse(m)
     if(msg.type == "pong"){
        hasPong = true
+       process.removeListener("message", rcv)
     }
   }
-
+  process.on('message',rcv);
   process.send(JSON.stringify({
       type: "ping"
   }))
@@ -67,7 +67,6 @@ function ping() {
         process.exit();
       },1000)
     }
-    process.removeListener("message", rcv)
   }, 1000);
 }
 setInterval(ping, 4000);
