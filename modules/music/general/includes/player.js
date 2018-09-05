@@ -22,7 +22,7 @@ module.exports = {
     console.log(HR)
     if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
       textChannel.send("Skipping song...")
-      playNextSong();
+      voice_stream.end()
     }
     else {
       let usersInChannel = voiceChannel.members.array().length;
@@ -31,7 +31,7 @@ module.exports = {
         if (songSkipPoll.length >= (usersInChannel - 1) / 2) {
           textChannel.send("Skipping song...")
           songSkipPoll = [];
-          playNextSong();
+          voice_stream.end()
         }
         else {
           textChannel.send("You need " + Math.ceil(((usersInChannel - 1) / 2) - songSkipPoll.length) + " more vote(s) to skip");
@@ -122,16 +122,15 @@ function updateTime() {
 })*/
 
 function playSong(song) {
+  var yt = require('ytdl-core');
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
-  console.log(song.link)
   const crStream = ytdl(song.link);
-  console.log(song.link)
 
-  voice_stream = voice_connection.playStream(ytdl(song.link, { audioonly: true }), { passes : 1 })
+  voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1 })
   voice_stream.on('start', () => {
-    console.log("start")
+    console.log("start playing song")
     api.setPlaying(currSong)
   });
   voice_stream.on('debug', (data) => {
@@ -156,6 +155,7 @@ function playNextSong() {
   })
   .then((song) => {
     if(song){
+      console.log("got song")
       playSong(song)
     }
     else {

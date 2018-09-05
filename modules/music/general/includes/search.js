@@ -133,7 +133,7 @@ module.exports = {
       	ytdl.getInfo("https://www.youtube.com/watch?v=" + video_id, (error, info) => {
       		if(error) {
             if(message.content == null){
-              reject("Content bot set")
+              resolve()
             }
             else{
               let sterm = message.content.replace("!play ","").replace(" ", "+")

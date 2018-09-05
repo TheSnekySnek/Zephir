@@ -1,4 +1,5 @@
 var Random = require('random-js')
+var lastPLID = 0
 module.exports = {
   getNextSong: function() {
     return new Promise(function(resolve, reject) {
@@ -7,31 +8,38 @@ module.exports = {
         if(queueObj && queueObj[0]){
           let song = queueObj.shift()
           api.setQueue(queueObj)
+          console.log("there is something in the queue")
           resolve(song)
         }
         else {
+          console.log("nothing in queue getting pl")
           api.getPlaylist(playlistID)
           .then((data) => {
             if(data.playlist && data.playlist[0]){
+              console.log("got pl and pick random")
               let newPlay = data.playlist
               var song = pickUnplayedSong(newPlay)
               let dummyMsg = {author:{username: "Playlist"}}
               let sid = song.yt
               search.search(dummyMsg, sid)
-              .catch(err => {
-                console.log(err)
-                module.exports.getNextSong()
-              })
               .then((ns) => {
                 if(ns){
+                  console.log("got song info from pl")
                   resolve(ns)
                 }
                 else {
-                  module.exports.getNextSong()
+                  console.log("didn't get song info from pl")
+                  api.getPlaylist(playlistID).then((pl) =>{
+                    let playlist = pl.playlist;
+                    playlist.splice(lastPLID, 1);
+                    api.setPlaylist(playlist);
+                    textChannel.send("The song " + song.name + " was removed from the playlist because it can't be played anymore")
+                    module.exports.getNextSong().then((nns) => {
+                      resolve(nns)
+                    })
+                  });
                 }
-              }).catch(err => {
-                stats.error(err)
-              });
+              })
             }
             else{
               resolve()
@@ -99,15 +107,6 @@ function pickUnplayedSong(songs){
   var r = new Random();
   var rv = r.integer(0, songs.length-1);
   var ns = songs[rv]
-  if(playedSongs.length < songs.length-3){
-    playedSongs = []
-  }
-  for (let i = 0; i < playedSongs.length; i++) {
-    if(playedSongs == ns.yt){
-      console.log("Song already played")
-      return pickUnplayedSong(songs)
-    }
-  }
-  playedSongs.push(ns.yt)
+  lastPLID = rv
   return ns
 }

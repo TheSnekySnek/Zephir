@@ -138,10 +138,16 @@ io.on('connection', function(socket){
             var CHs = client.guilds.get(DB.getBotData().guild).channels.array()
             CHs.forEach(ch => {
             if(ch.type == "voice"){
-                vcs.push(ch) 
+                vcs.push({
+                    id: ch.id,
+                    name: ch.name
+                }) 
             }
             if(ch.type == "text"){
-                tcs.push(ch) 
+                tcs.push({
+                    id: ch.id,
+                    name: ch.name
+                }) 
             }
             });
             vcs.sort(compare)
@@ -358,9 +364,9 @@ io.on('connection', function(socket){
 });
 
 function compare(a,b) {
-    if (a.position < b.position)
+    if (a.name < b.name)
       return -1;
-    if (a.position > b.position)
+    if (a.name > b.name)
       return 1;
     return 0;
   }
