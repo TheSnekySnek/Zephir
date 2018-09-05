@@ -22,12 +22,6 @@ var commands = [
       if (content != "") {
         message.channel.send("Searching for `"+content.replace('!play ', '')+"`")
         search.search(message, content)
-        .catch(err => {
-          stats.error(err)
-          console.log(err)
-          message.reply("The playlist does not contain this ID")
-          return
-        })
         .then(song => {
           if (song) {
             queue.add(song)
@@ -35,7 +29,7 @@ var commands = [
           }
         })
         .catch(err => {
-          stats.error(err)
+          textChannel.send(err)
         })
       }
       else{

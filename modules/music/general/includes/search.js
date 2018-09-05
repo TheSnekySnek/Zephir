@@ -28,7 +28,7 @@ module.exports = {
             });
           }
           else {
-            reject("Invalid song id")
+            reject("not in playlist")
           }
         })
       }

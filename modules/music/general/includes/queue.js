@@ -40,6 +40,12 @@ module.exports = {
                   });
                 }
               })
+              .catch(function (error) {
+                textChannel.send(error)
+                module.exports.getNextSong().then((nns) => {
+                  resolve(nns)
+                })
+              })
             }
             else{
               resolve()
