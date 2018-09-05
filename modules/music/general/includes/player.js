@@ -131,6 +131,7 @@ function playSong(song) {
   voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1 })
   voice_stream.on('start', () => {
     console.log("start playing song")
+    voice_stream.streamingData.pausedTime = 0;
     api.setPlaying(currSong)
   });
   voice_stream.on('debug', (data) => {
