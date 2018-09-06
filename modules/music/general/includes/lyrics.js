@@ -15,11 +15,15 @@ module.exports = {
         if(v.indexOf(':')){
           v = v.replace(':',' -');
         }
-        v.replace('HQ', '');
-        v.replace('HD', '');
-        v.replace('lyrics', '');
-        v.replace('Lyrics', '');
-        v.replace(' - ', ' ');
+        v = v.replace('HQ', '');
+        v = v.replace('HD', '');
+        v = v.replace('lyrics', '');
+        v = v.replace('Lyrics', '');
+        v = v.replace(/[^a-z0-9]/gmi, " ").replace(/\s+/g, " ");
+        if(v.indexOf("ft.") > 0){
+          v = v.substring(0, v.indexOf("ft."))
+        }
+        console.log("SONG:", v)
         l.song({search: v}, function(err, song) {
           if (err ) {
             reject(err)

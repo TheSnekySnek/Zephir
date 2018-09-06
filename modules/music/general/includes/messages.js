@@ -38,7 +38,7 @@ var commands = [
 
     }
   },
-  /*{
+  {
     key: "lyrics",
     description: "Tries to get the lyrics of a song",
     usage: "!lyrics",
@@ -46,45 +46,63 @@ var commands = [
 
       api.getPlaying()
       .then((mbinfo) => {
-        message.channel.send("Getting lyrics for " + mbinfo.name)
-        lyrics.fromSong(mbinfo.name)
+        
+        var sng = mbinfo.name
+        if(args.length > 1){
+          sng = message.content.replace("!lyrics ", "")
+        }
+        message.channel.send("Getting lyrics for " + sng)
+        lyrics.fromSong(sng)
         .catch(err => {
           stats.error(err)
-          message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
+          message.channel.send("Could not get lyrics")
         })
         .then(lyr => {
+          console.log(lyr)
           let l2 = lyr.split('[')
           if (l2.length < 25 && l2.length > 2) {
             let embed = new Discord.RichEmbed()
-            .setTitle("**"+mbinfo.name+"**")
+            .setTitle("**"+sng+"**")
             .setAuthor("Lyrics", client.user.avatarURL)
             .setColor("#2eaae5")
             .setFooter("Arkhos Music Bot V2 by TheSnekySnek", client.user.avatarURL)
             .setThumbnail(mbinfo.thumbnail)
             .setURL(mbinfo.link)
+
             for (var i = 1; i < l2.length; i++) {
               let title = l2[i].split(']')[0]
               let sd = l2[i].split(']')[1]
+              if(!title.match(/.*[a-zA-Z].*/))
+                title = "-"
+              if(!sd.match(/.*[a-zA-Z].*/))
+                sd = "-"
+              console.log("TITLE: ", title)
+              console.log("SD: ", sd)
               try {
                 embed.addField(title, sd)
               } catch (error) {
-                stats.error(error)
-                message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
+                console.error(error)
+                //message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
                 return
               }
             }
+
             message.channel.send({embed})
             .catch(err => {
-              stats.error(err)
-              message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
+              console.error(err)
+              //message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
             })
           }
           else if (l2.length == 1) {
-            message.channel.send(l2[0])
-            .catch(err => {
-              stats.error(err)
-              message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
-            })
+            message.channel.send("\n------------------------------\n")
+            var flyr = lyr.split("\n\n")
+            for (let i = 0; i < flyr.length; i++) {
+              message.channel.send(flyr[i])
+              .catch(err => {
+                console.error(err)
+                //message.channel.send("An error occured.\nOur team of well trained sneks is looking into it")
+              })
+            }
           }
           else{
             message.channel.send("Lyrics are unavailable for this song :(")
@@ -93,7 +111,7 @@ var commands = [
         })
       })
     }
-  },*/
+  },
   {
     key: "skip",
     description: "Skips the current song or the specified song from the queue",
