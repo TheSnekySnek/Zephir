@@ -338,9 +338,6 @@ io.on('connection', function(socket){
                     DB.addWalk(userID, msg.meters)
                 }
                 client.guilds.get(DB.getBotData().guild).channels.get('228046069735489536').send(client.guilds.get(DB.getBotData().guild).members.get(userID).displayName + " just finished walking " + msg.meters + " meters.")
-                if(msg.meters + hM.meters > 50000){
-                    client.guilds.get(DB.getBotData().guild).channels.get('228046069735489536').send(client.guilds.get(DB.getBotData().guild).members.get(userID).displayName + ": YOU BROKE THE 50KM WALKED CONGRATS\n\nALL YOUR COINS HAVE BEEN RESET AS PER THE RULES !!!")
-                }
             }
         }
         socket.emit('disco')
