@@ -30,10 +30,10 @@ module.exports = {
                 else {
                   console.log("didn't get song info from pl")
                   api.getPlaylist(playlistID).then((pl) =>{
-                    let playlist = pl.playlist;
+                    /*let playlist = pl.playlist;
                     playlist.splice(lastPLID, 1);
                     api.setPlaylist(playlist);
-                    textChannel.send("The song " + song.name + " was removed from the playlist because it can't be played anymore")
+                    textChannel.send("The song " + song.name + " was removed from the playlist because it can't be played anymore")*/
                     module.exports.getNextSong().then((nns) => {
                       resolve(nns)
                     })
