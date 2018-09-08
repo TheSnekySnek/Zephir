@@ -8,6 +8,8 @@ var startPlaying = true;
 var updatingTime = false;
 var crTimer;
 var crStream;
+var loop = false;
+var lock = false;
 
 module.exports = {
   start: function (connection) {
@@ -16,7 +18,33 @@ module.exports = {
     //managePlayer();
     //watchListeners();
   },
-
+  loop: function (message) {
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+      if(loop){
+        loop = false
+        message.channel.send("Loop disabled")
+      }
+      else{
+        loop = true
+        message.channel.send("Loop enabled")
+      }
+    }
+  },
+  lock: function (message) {
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+      lock = true
+      message.channel.send("MusicBot is now locked")
+    }
+  },
+  unlcock: function (message) {
+    var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+      lock = false
+      message.channel.send("MusicBot is now unlocked")
+    }
+  },
   skip: function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
     console.log(HR)
@@ -24,7 +52,7 @@ module.exports = {
       textChannel.send("Skipping song...")
       voice_stream.end()
     }
-    else {
+    else if(!lock){
       let usersInChannel = voiceChannel.members.array().length;
       if (!songSkipPoll.includes(message.author.id)) {
         songSkipPoll.push(message.author.id)
@@ -40,6 +68,9 @@ module.exports = {
       else {
         textChannel.send("You already voted")
       }
+    }
+    else{
+      message.channel.send("This music bot is locked")
     }
   },
 
@@ -147,25 +178,30 @@ function playSong(song) {
 }
 
 function playNextSong() {
-  queue.getNextSong()
-  .catch(err => {
-    console.error(err)
-    stats.error(err)
-    playNextSong()
-    return
-  })
-  .then((song) => {
-    if(song){
-      console.log("got song")
-      playSong(song)
-    }
-    else {
-      textChannel.send("Nothing to play")
-    }
-  })
-  .catch(err => {
-    console.log(err)
-  })
+  if(loop){
+    playSong(currSong)
+  }
+  else{
+    queue.getNextSong()
+    .catch(err => {
+      console.error(err)
+      stats.error(err)
+      playNextSong()
+      return
+    })
+    .then((song) => {
+      if(song){
+        console.log("got song")
+        playSong(song)
+      }
+      else {
+        textChannel.send("Nothing to play")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 }
 
 

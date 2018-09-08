@@ -136,6 +136,30 @@ var commands = [
     }
   },
   {
+    key: "loop",
+    description: "loops the current song",
+    usage: "!skip ([number])",
+    run: async function(message, content, args) {
+      player.loop(message)
+    }
+  },
+  {
+    key: "lock",
+    description: "loops the current song",
+    usage: "!skip ([number])",
+    run: async function(message, content, args) {
+      player.lock(message)
+    }
+  },
+  {
+    key: "unlock",
+    description: "loops the current song",
+    usage: "!skip ([number])",
+    run: async function(message, content, args) {
+      player.unlock(message)
+    }
+  },
+  {
     key: "skipnext",
     description: "Skips a batch of songs",
     usage: "!skipnext [number]",
