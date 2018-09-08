@@ -128,7 +128,7 @@ module.exports = {
           textChannel.send("Playlist was added")
         })
       }
-      else{
+      else if(term.indexOf("youtube.com") > -1 || term.indexOf("youtu.be") > -1 || term.length == 11){
         var video_id = get_video_id(term);
       	ytdl.getInfo("https://www.youtube.com/watch?v=" + video_id, (error, info) => {
       		if(error) {
@@ -171,6 +171,24 @@ module.exports = {
             })
       		}
       	});
+      }
+      //Try to play it as a livestream
+      else{
+        term = term.replace(" ", "")
+        var url = term
+        if(term.indexOf("http") < 0){
+          url = "http://" + term
+        }
+        console.log(term)
+        console.log(url)
+        resolve({
+          yt: "livestream",
+          link: term,
+          name: url,
+          duration: 0,
+          thumbnail: "https://www.funkemedien.de/export/sites/fmg/.content/image/logos/App-Icon_Berlinlive.de.png",
+          added_by: message.author.username
+        })
       }
     });
   }

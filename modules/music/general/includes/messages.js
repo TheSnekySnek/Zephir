@@ -19,6 +19,11 @@ var commands = [
     description: "Play a song",
     usage: "!play [name / youtube ID / youtube link / Spotify Playlist]",
     run: function(message, content, args) {
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+        message.channel.send("This Music Bot is locked")
+        return
+      }
       if (content != "") {
         message.channel.send("Searching for `"+content.replace('!play ', '')+"`")
         search.search(message, content)
@@ -158,7 +163,7 @@ var commands = [
     run: async function(message, content, args) {
       player.unlock(message)
     }
-  },
+  }/*,
   {
     key: "skipnext",
     description: "Skips a batch of songs",
@@ -185,7 +190,7 @@ var commands = [
         message.channel.send("Please provide a valid number")
       }
     }
-  },
+  }*/,
   {
     key: "np",
     description: "Displays the current song",
@@ -244,6 +249,11 @@ var commands = [
     description: "Clears the queue",
     usage: "!clear",
     run: function(message, content, args) {
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+        message.channel.send("This Music Bot is locked")
+        return
+      }
       api.setQueue([]).then(message.reply("The queue is now as empty as your soul"));
     }
   },
@@ -286,6 +296,11 @@ var commands = [
     description: "Inverts 2 songs",
     usage: "!change [number] [number]",
     run: async function(message, content, args) {
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+        message.channel.send("This Music Bot is locked")
+        return
+      }
       let fn = parseInt(args[1])
       let sn = parseInt(args[2])
       if(fn != null && sn != null){
@@ -413,48 +428,11 @@ var commands = [
     }
   },
   {
-    key: "secret",
-    description: "Get's the timestamp of the song",
-    usage: "!time",
-    run: function(message, content, args) {
-      let emb = new Discord.RichEmbed()
-      emb.description = "#GotGVol2 - now on Digital & Blu-Ray.";
-      emb.title = "Guardians of the Galaxy \u2013 The Complete Mixtape (Vol. 1 & Vol. 2), a playlist by Hollywood Records on Spotify"
-      emb.url = "https://open.spotify.com/user/hollywdrecrds/playlist/1xY6msLHX1W34EzB0UkkbU"
-      emb.provider = {  
-          "url":null,
-          "name":"Spotify"
-      }
-      emb.type = "link"
-      emb.thumbnail = {  
-          "url":"https://pl.scdn.co/images/pl/default/f3155de51aa7c46477124fb915dd4619eaef3f82",
-          "width":300,
-          "proxy_url":"https://images-ext-1.discordapp.net/external/hM7ywMcJCW30yIzDYyZPeTP2__JcpyO4bAfd50N6Gnk/https/pl.scdn.co/images/pl/default/f3155de51aa7c46477124fb915dd4619eaef3f82",
-          "height":300
-      }
-       message.channel.send({emb})
-    }
-  },
-  {
     key: "commands",
     description: "Displays this message",
     usage: "!commands",
     run: function(message, content, args) {
       displayCommands(message)
-    }
-  },
-  {
-    key: "restart",
-    description: "Restarts the bot",
-    usage: "!commands",
-    run: async function(message, content, args) {
-      let co = await api.getMBConfig(botId);
-      if(true || co.mods.includes(message.author.id)){
-        process.exit()
-      }
-      else{
-        message.channel.send("Check your privileges")
-      }
     }
   }
 ]

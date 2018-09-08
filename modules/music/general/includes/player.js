@@ -10,7 +10,7 @@ var crTimer;
 var crStream;
 var loop = false;
 var lock = false;
-
+var volume = 0.2
 module.exports = {
   start: function (connection) {
     voice_connection = connection;
@@ -25,11 +25,20 @@ module.exports = {
         loop = false
         message.channel.send("Loop disabled")
       }
+      else if(currSong.yt == "livestream"){
+        message.channel.send("You can't loop a livestream")
+      }
       else{
         loop = true
         message.channel.send("Loop enabled")
       }
     }
+  },
+  setVolume: function (vol) {
+    volume = vol
+  },
+  isLocked: function () {
+    return lock
   },
   lock: function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
@@ -157,9 +166,8 @@ function playSong(song) {
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
-  const crStream = ytdl(song.link);
 
-  voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1 })
+  voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1, volume: 0.1 })
   voice_stream.on('start', () => {
     console.log("start playing song")
     voice_stream.streamingData.pausedTime = 0;
@@ -177,6 +185,52 @@ function playSong(song) {
   });
 }
 
+function playLivestream(song) {
+
+  currSong = song;
+  songSkipPoll = []
+  api.setPlaying(currSong)
+
+  var spawn = require('child_process').spawn;
+
+  var process = spawn('streamlink', [song.link, 'worst', '--hls-live-edge', '1', '-O']);
+
+  process.on('error', function (error) {
+    console.log("ERR: " + error.code);
+  })
+
+  process.stdout.on('data', function (data) {
+    //console.log(data.length)
+  });
+
+  process.stderr.on('data', function (data) {
+    console.log("ERR: " + data);
+  });
+
+  process.on('close', function (code) {
+      console.log("FIN: " + code)
+  });
+  voice_stream = voice_connection.playStream(process.stdout, { passes : 1 })
+
+  voice_stream.on('start', () => {
+    console.log("start playing song")
+    voice_stream.streamingData.pausedTime = 0;
+  });
+  voice_stream.on('debug', (data) => {
+    console.log(data)
+  });
+  voice_stream.once("end", reason => {
+    console.log("player stopped because of " + reason);
+    process.kill();
+    playNextSong();
+  });
+  voice_stream.on("error", reason => {
+    console.error(reason)
+  });
+}
+
+
+
 function playNextSong() {
   if(loop){
     playSong(currSong)
@@ -190,9 +244,12 @@ function playNextSong() {
       return
     })
     .then((song) => {
-      if(song){
+      if(song && song.yt != "livestream"){
         console.log("got song")
         playSong(song)
+      }
+      else if(song.yt == "livestream"){
+        playLivestream(song)
       }
       else {
         textChannel.send("Nothing to play")
