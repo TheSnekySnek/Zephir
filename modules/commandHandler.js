@@ -8,7 +8,8 @@ let commandList = Object.assign(
     require("./commands/users"),
     require("./commands/help"),
     require("./commands/voice"),
-    require("./commands/league")
+    require("./commands/league"),
+    require("./commands/battles")
   )
   /**
    * Executes a command from a message
