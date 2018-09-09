@@ -1452,6 +1452,10 @@ module.exports = {
             return
         }
         var userid2 = db.get("users").value()[parseInt(args[0])].id
+        if(userid2 == message.author.id){
+            message.channel.send("You can't battle yourself")
+            return
+        }
         var user2 = getUser(userid2)
         if (!user2) {
             message.channel.send("Adversary is not registered")
