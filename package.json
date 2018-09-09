@@ -12,6 +12,7 @@
     "express-jwt": "^5.3.1",
     "ffmpeg": "0.0.4",
     "jsonwebtoken": "^8.3.0",
+    "lootastic": "^1.0.2",
     "lowdb": "^1.0.0",
     "node-horseman": "^3.3.0",
     "node-opus": "^0.3.0",

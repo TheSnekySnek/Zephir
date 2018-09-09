@@ -83,7 +83,7 @@ function start(botId, token, guild, tChannel, vChannel, playlist) {
    * Declare message event. This is triggered when a new message is emmited
    */
   client.on('message', message => {
-    if(message.channel.id == tChannel && message.content[0] == '!' && message.member.voiceChannelID == vChannel){
+    if(message.channel.id == tChannel && message.content[0] == '!' && message.member && message.member.voiceChannelID == vChannel){
       console.log("New Message", message.content);
       messages.commandHandler(message);
     }
