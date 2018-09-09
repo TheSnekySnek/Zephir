@@ -1270,7 +1270,7 @@ module.exports = {
             message.channel.send("You've used all your battle points. Come back tommorow for more")
             return   
         }
-        if(lvl+1 == "6" && user.maxDungeon < 5 || lvl+1 == "11" && user.maxDungeon < 10 || lvl+1 == "16" && user.maxDungeon < 15){
+        if(lvl+1 > 5 && user.maxDungeon < 5 || lvl+1 > 10 && user.maxDungeon < 10 || lvl+1 > 15 && user.maxDungeon < 15){
             message.channel.send("You need to complete dungeon " + lvl + " to access this one")
             return   
         }
@@ -1347,7 +1347,7 @@ module.exports = {
                 .addField("Your Health", (stats.hp - tusrDmg) + " / " + stats.hp, true)
                 .addField(mob.name + " Health", (mob.hp - tmbDmg) + " / " + mob.hp, true)
 
-            message.channel.send(embed)
+            await message.channel.send(embed)
         } while (tmbDmg < mob.hp && tusrDmg < stats.hp);
         if (tmbDmg >= mob.hp && tusrDmg < stats.hp) {
             var loot = getLoot(lvl+1)[0]
@@ -1585,8 +1585,8 @@ module.exports = {
                 .addField("Your Health", (st2.hp - tdm2) + " / " + st2.hp, true)
                 .addField(message.member.displayName + "'s Health", (st1.hp - tdm1) + " / " + st1.hp, true)
 
-            message.author.send(embed1)
-            message.guild.members.get(user2.id).user.send(embed2)
+            await message.author.send(embed1)
+            await message.guild.members.get(user2.id).user.send(embed2)
             dmg1 = 0
             dmg2 = 0
 
