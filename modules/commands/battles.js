@@ -1430,17 +1430,19 @@ module.exports = {
             let embed = new Discord.RichEmbed()
                 .setTitle("- Champions -")
                 .setColor("#dcbc3f")
-            var ch = ""
-            var st = ""
+            
             for (let i = 0; i < us.length; i++) {
+                var ch = ""
+            var st = ""
                 if(us[i].id == message.author.id){
                     continue
                 }
                 ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
                 var usrStat = getUserStats(us[i])
                 st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
+                embed.addField(ch, st, true)
             }
-            embed.addField(ch, st, true)
+            
             message.channel.send(embed)
             return
         }
