@@ -497,7 +497,7 @@ module.exports = {
                 var msg = ""
                 var st = ""
                 for (let i = 0; i < items[type].length; i++) {
-                    msg += (i + ". " + items[type][i].name + "\n")
+                    msg += (+ i + ". " + items[type][i].name + "\n")
                     for (var t in items[type][i]) {
                         if (items[type][i].hasOwnProperty(t) && t != "name") {
                             if(t == "hp")
@@ -508,6 +508,7 @@ module.exports = {
                                 msg += "  :fireworks: " + items[type][i][t]
                         }
                     }
+                    
                     msg += "\n"
                 }
                 embed.addField(cap(type), msg, true)
