@@ -1030,7 +1030,7 @@ db.defaults({
 })
     .write()
 
-schedule.scheduleJob('0 6 * * *', () => {
+schedule.scheduleJob('0 1 * * *', () => {
     db.get('users')
     .assign({ gamesToday: 0})
     .write()
