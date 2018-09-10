@@ -6,6 +6,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('data/battles.json')
 const db = low(adapter)
 var Discord = require("discord.js");
+const ADB = require('../../modules/db')
 
 
 
@@ -1148,7 +1149,12 @@ module.exports = {
         }
         
     },
-    /*buy: function (message, command, args) {
+    buy: function (message, command, args) {
+        var HR = message.guild.members.get(message.author.id).highestRole.name
+        if (HR != "Owner" && HR != "Co-Owner") {
+            message.channel.send("Not available")
+            return
+        }
         var items = db.get('items').value()
         var user = getUser(message.author.id)
         if (!user) {
@@ -1165,10 +1171,13 @@ module.exports = {
         }
         var id = parseInt(args[1])
         if (items[kind][id]) {
+            user.inventory[kind].push(user.equiped[kind])
             user.equiped[kind] = id
+            db.get('users').find({id: message.author.id}).assign({equiped: user.equiped}).write()
+            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
             message.channel.send("Equipped " + items[kind][id].name)
         }
-    },*/
+    },
     inventory: function (message, command, args) {
         var user = getUser(message.author.id)
         if (!user) {
@@ -1178,7 +1187,9 @@ module.exports = {
     },
     equip: function (message, command, args) {
         var items = db.get('items').value()
+        
         var user = getUser(message.author.id)
+        var stats = getUserStats(user)
         if (!user) {
             return
         }
@@ -1191,12 +1202,20 @@ module.exports = {
             message.channel.send("Invalid Item ID")
             return
         }
+        
         var id = parseInt(args[1])
-        if (user.inventory[kind][id]) {
+        console.log(user.inventory[kind][id])
+        if((items[kind][user.inventory[kind][id]].hp < 0 && (stats.hp + items[kind][user.inventory[kind][id]].hp) < 1) || (items[kind][user.inventory[kind][id]].atk < 0 && (stats.atk + items[kind][user.inventory[kind][id]].atk) < 1) || (items[kind][user.inventory[kind][id]].bp < 0 && (stats.bp + items[kind][user.inventory[kind][id]].bp) < 1)){
+            message.channel.send("You don't have enough hp/atk/bp to equip this item")
+            return
+        }
+        if (user.inventory[kind][id] || user.inventory[kind][id] == 0) {
             var ei = user.inventory[kind][id]
             user.inventory[kind].splice(id, 1)
             user.inventory[kind].push(user.equiped[kind])
             user.equiped[kind] = ei
+            db.get('users').find({id: message.author.id}).assign({equiped: user.equiped}).write()
+            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
             message.channel.send("Equipped " + items[kind][ei].name)
         }
     },
@@ -1384,7 +1403,10 @@ module.exports = {
                 }
                 embed.addField(loot.name, msg, true)
             }
-            embed.addField("Arkoins", "+" + 10 * (lvl + 1), true)
+            var lootCoins = 50 * (lvl + 1)
+            var usrCoins = ADB.getCoins(message.author.id).amount
+            ADB.setCoins(message.author.id, usrCoins+lootCoins)
+            embed.addField("Arkoins", "+" + lootCoins, true)
             await message.channel.send(embed)
             if(lvl+1 > user.maxDungeon){
                 db.get('users')
