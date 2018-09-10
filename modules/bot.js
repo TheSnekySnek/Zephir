@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const commandsHandler = require('./commandHandler');
 const DB = require('../modules/db')
 var guildId = ""
-global.client = new Discord.Client();
+global.client = new Discord.Client({fetchAllMembers: true});
 /**
  * Declare ready event. This is triggered when the bot has logged in
  */
@@ -13,8 +13,8 @@ client.on('ready', () => {
 
 
 client.on('message', msg => {
-    checkForCommand(msg)
-    checkForDiscord(msg)
+        checkForCommand(msg)
+        checkForDiscord(msg) 
 })
 
 

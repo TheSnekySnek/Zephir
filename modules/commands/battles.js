@@ -978,6 +978,53 @@ db.defaults({
                 atk: 3000,
                 hp: -300
             }
+        ],
+        consumable:[
+            {
+                name: "Small BP Potion",
+                bp: 5,
+                price: 5000
+            },
+            {
+                name: "Large BP Potion",
+                bp: 10,
+                price: 10000
+            },
+            {
+                name: "Fill me up Scotty",
+                bp: 0,
+                price: 15000
+            },
+            {
+                name: "Small Dungeon Potion",
+                hp: 0.15,
+                price: 2500
+            },
+            {
+                name: "Large Dungeon Potion",
+                hp: 0.30,
+                price: 5000
+            },
+            {
+                name: "Small Dungeon Elixir",
+                atk: 0.15,
+                price: 2500
+            },
+            {
+                name: "Large Dungeon Elixir",
+                atk: 0.30,
+                price: 5000
+            },
+            {
+                name: "Small Magic Elixir",
+                luck: 15,
+                price: 5000
+            },
+            {
+                name: "Large Magic Elixir",
+                luck: 30,
+                price: 10000
+            }
         ]
     }
 })
@@ -989,7 +1036,7 @@ schedule.scheduleJob('0 6 * * *', () => {
     .write()
 }) 
 
-function getLoot(lvl) {
+function getLoot(lvl, luck) {
     var items = db.get('items').value()
     var lootArray = []
     for (var type in items) {
@@ -999,7 +1046,7 @@ function getLoot(lvl) {
             }
         }
     }
-    lootArray.push({ chance: 2000000, result: "" })
+    lootArray.push({ chance: 2000000 / (luck), result: "" })
     console.log(lootArray)
     let lootTable = new lootastic.LootTable(lootArray)
     let loot = lootTable.chooseWithReplacement(1)
@@ -1029,7 +1076,7 @@ function createUser(member) {
             boots: [],
             accessory: [],
             weapon: [],
-            other: []
+            consumable: []
         },
         equiped: {
             helmet: 0,
@@ -1051,11 +1098,25 @@ function getUser(id) {
         .value()
 }
 
+function getAvailablePotions(user) {
+    var items = db.get('items').value()
+    var im = []
+    for (let i = 0; i < items.consumable.length; i++) {
+        im.push(0)
+    }
+    for (let i = 0; i < user.inventory.consumable.length; i++) {
+        im[user.inventory.consumable[i]]++
+    }
+    console.log(im)
+    return im
+}
+
 function getUserStats(user) {
     var items = db.get('items').value()
     var atk = 0
     var hp = 50
     var bp = 10
+    var luck = 1
     for (var type in user.equiped) {
         if (user.equiped.hasOwnProperty(type)) {
             if (items[type][user.equiped[type]].hp) {
@@ -1069,7 +1130,7 @@ function getUserStats(user) {
             }
         }
     }
-    return { atk: atk, hp: hp, bp: bp }
+    return { atk: atk, hp: hp, bp: bp, luck: luck }
 }
 
 function printProfile(user, message) {
@@ -1105,10 +1166,10 @@ function printInventory(user, message) {
     var items = db.get('items').value()
     
     for (var type in user.inventory) {
-        if (user.inventory.hasOwnProperty(type) && type != "other") {
+        if (user.inventory.hasOwnProperty(type)) {
             let embed = new Discord.RichEmbed()
-        .setTitle("- "+cap(type)+" -")
-        .setColor("#dcbc3f")
+            .setTitle("- "+cap(type)+" -")
+            .setColor("#dcbc3f")
             var inv = user.inventory[type]
             for (let i = 0; i < inv.length; i++) {
                 var item = items[type][inv[i]]
@@ -1119,8 +1180,11 @@ function printInventory(user, message) {
                 if (item.atk) {
                     itemDesc += (" :crossed_swords: " + item.atk)
                 }
-                if (item.bp) {
+                if (item.bp || item.bp == 0) {
                     itemDesc += (" :fireworks: " + item.bp)
+                }
+                if (item.luck) {
+                    itemDesc += (" :game_die: " + item.luck)
                 }
                 embed.addField(i + ". " + item.name, itemDesc, false)
             }
@@ -1161,7 +1225,7 @@ module.exports = {
             return
         }
         var kind = args[0]
-        if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon") {
+        if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon" && kind != "consumable") {
             message.channel.send("Unknown equipment type")
             return
         }
@@ -1170,7 +1234,10 @@ module.exports = {
             return
         }
         var id = parseInt(args[1])
-        if (items[kind][id]) {
+        if(kind == "consumable"){
+            user.inventory[kind].push(id)
+        }
+        else if (items[kind][id]) {
             user.inventory[kind].push(user.equiped[kind])
             user.equiped[kind] = id
             db.get('users').find({id: message.author.id}).assign({equiped: user.equiped}).write()
@@ -1272,6 +1339,44 @@ module.exports = {
         }
 
     },
+
+    consumables: function (message, command, args) {
+        var items = db.get('items').value()
+        let embed = new Discord.RichEmbed()
+            .setTitle("- Consumables -")
+            .setColor("#dcbc3f")
+            .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
+        for (let i = 0; i < items.consumable.length; i++) {
+            var msg = ""
+            for (var t in items.consumable[i]) {
+                if (items.consumable[i].hasOwnProperty(t) && t != "name") {
+                    if (t == "hp"){
+                        msg += " :heart: +" + items.consumable[i][t]*100 + "%"
+                    }
+                        
+                    if (t == "atk"){
+                        msg += " :crossed_swords: +" + items.consumable[i][t]*100 + "%"
+                    }
+                        
+                    if (t == "bp"){
+                        if(items.consumable[i].bp > 0){
+                            msg += "  :fireworks: +" + items.consumable[i][t]
+                        }else if(items.consumable[i].bp == 0){
+                            msg += "  :fireworks: MAX"
+                        }
+                    }
+
+                    if (t == "luck"){
+                        msg += " :game_die: +" + items.consumable[i][t] + "%"
+                    }
+                        
+                }
+            }
+            embed.addField(+ i + ". " + items.consumable[i].name, msg, true)
+        }
+        message.channel.send(embed)
+
+    },
     dungeon: async function (message, command, args) {
         if (!args[0] || !parseInt(args[0]) || parseInt(args[1]) > 20) {
             message.channel.send("Please choose the dungeon level by doing **!dungeon [lvl]** where lvl -> 1-20")
@@ -1285,9 +1390,62 @@ module.exports = {
         }
         
         var stats = getUserStats(user)
+        var availPotions = getAvailablePotions(user)
         if(user.gamesToday >= stats.bp){
-            message.channel.send("You've used all your battle points. Come back tommorow for more")
-            return   
+            if(availPotions[0] || availPotions[1] || availPotions[2]){
+                var con = await message.channel.send("You ran out of Battle Points. Do you want to use one of your potions?")
+                for (let i = 0; i < 3; i++) {
+                    if(availPotions[i]){
+                        switch (i) {
+                            case 0:
+                                con.react("🎇")
+                                break;
+                            case 1:
+                                con.react("🎆")
+                                break;
+                            case 2:
+                                con.react("🌠")
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                var filter = (reaction, usr) => usr.id == user.id
+                var collector = con.createReactionCollector(filter);
+                var items = db.get('items').value()
+                collector.on('collect', r => {
+                    switch (r.emoji.name) {
+                        case "🎇":
+                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(0), 1)
+                            db.get('users').find({id: message.author.id}).assign({gamesToday: (user.gamesToday - items.consumable[0].bp)}).write()
+                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            message.channel.send("BP +" + items.consumable[0].bp)
+                            break;
+                        case "🎆":
+                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(1), 1)
+                            db.get('users').find({id: message.author.id}).assign({gamesToday: (user.gamesToday - items.consumable[1].bp)}).write()
+                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            message.channel.send("BP +" + items.consumable[1].bp)
+                            break;
+                        case "🌠":
+                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(2), 1)
+                            db.get('users').find({id: message.author.id}).assign({gamesToday: 0}).write()
+                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            message.channel.send("BP MAX")
+                            break;
+                        default:
+                            break;
+                    }
+                    con.delete()
+                    collector.stop()
+                    
+                });
+            }
+            else{
+                message.channel.send("You've used all your battle points. Come back tommorow for more")
+            }
+            return
         }
         if(lvl+1 > 5 && user.maxDungeon < 5 || lvl+1 > 10 && user.maxDungeon < 10 || lvl+1 > 15 && user.maxDungeon < 15){
             message.channel.send("You need to complete dungeon " + lvl + " to access this one")
@@ -1307,7 +1465,95 @@ module.exports = {
         var mbSel = ""
         var usrSel = ""
         
-        message.channel.send("A wild " + mob.name + " appears. Get ready for battle")
+        message.channel.send("A wild **" + mob.name + "** appears. Get ready for battle!")
+
+        
+        if(availPotions[3] ||availPotions[4] || availPotions[5] || availPotions[6] ||availPotions[7] || availPotions[8]){
+            var con = await message.channel.send("Available Consumables:")
+            for (let i = 3; i < availPotions.length; i++) {
+                if(availPotions[i]){
+                    switch (i) {
+                        case 3:
+                            con.react("💙")
+                            break;
+                        case 4:
+                            con.react("💛")
+                            break;
+                        case 5:
+                            con.react("🗡")
+                            break;
+                    
+                        case 6:
+                            con.react("🥊")
+                            break;
+                    
+                        case 7:
+                            con.react("🌀")
+                            break;
+                    
+                        case 8:
+                            con.react("🔱")
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                }
+            }
+            var filter = (reaction, usr) => usr.id == user.id
+            var collector = con.createReactionCollector(filter);
+            var items = db.get('items').value()
+            collector.on('collect', r => {
+                switch (r.emoji.name) {
+                    case "💙":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.hp += Math.ceil(stats.hp*items.consumable[3].hp)
+                        message.channel.send("HP +" + Math.ceil(stats.hp*items.consumable[3].hp))
+                        break;
+                    case "💛":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.hp += Math.ceil(stats.hp*items.consumable[4].hp)
+                        message.channel.send("HP +" + Math.ceil(stats.hp*items.consumable[4].hp))
+                        break;
+                    case "🗡":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.atk += Math.ceil(stats.atk*items.consumable[5].atk)
+                        message.channel.send("ATK +" + Math.ceil(stats.atk*items.consumable[5].atk))
+                        break;
+                
+                    case "🥊":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.atk += Math.ceil(stats.atk*items.consumable[6].atk)
+                        message.channel.send("ATK +" + Math.ceil(stats.atk*items.consumable[6].atk))
+                        break;
+                
+                    case "🌀":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.luck += items.consumable[7].luck
+                        message.channel.send("LUCK +" + items.consumable[7].luck)
+                        break;
+                
+                    case "🔱":
+                        user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        stats.luck += items.consumable[8].luck
+                        message.channel.send("LUCK +" + items.consumable[8].luck)
+                        break;
+                
+                    default:
+                        break;
+                }
+                con.delete()
+                collector.stop()
+            });
+        }
+
+
 
         var battler = async function () {
             return new Promise(async function (resolve, reject) {
@@ -1369,7 +1615,7 @@ module.exports = {
             await message.channel.send(embed)
         } while (tmbDmg < mob.hp && tusrDmg < stats.hp);
         if (tmbDmg >= mob.hp && tusrDmg < stats.hp) {
-            var loot = getLoot(lvl+1)[0]
+            var loot = getLoot(lvl+1, stats.luck)[0]
             console.log(loot)
             if (loot.result)
                 loot = loot.result
@@ -1404,8 +1650,12 @@ module.exports = {
                 embed.addField(loot.name, msg, true)
             }
             var lootCoins = 50 * (lvl + 1)
-            var usrCoins = ADB.getCoins(message.author.id).amount
-            ADB.setCoins(message.author.id, usrCoins+lootCoins)
+            var usrCoins = ADB.getCoins(message.author.id)
+            if(!usrCoins){
+                ADB.addCoins(message.author.id)
+                usrCoins = ADB.getCoins(message.author.id)
+            }
+            ADB.setCoins(message.author.id, usrCoins.amount+lootCoins)
             embed.addField("Arkoins", "+" + lootCoins, true)
             await message.channel.send(embed)
             if(lvl+1 > user.maxDungeon){
