@@ -1655,7 +1655,7 @@ module.exports = {
                 return
             }
             var userCoins = ADB.getCoins(message.author.id)
-            if(userCoins >= items.consumable[args[1]]){
+            if(userCoins <= items.consumable[args[1]]){
                 message.channel.send("Need more coins")
                 return
             }
