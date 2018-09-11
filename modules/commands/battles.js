@@ -1639,7 +1639,7 @@ module.exports = {
     },
     buy: function (message, command, args) {
         var HR = message.guild.members.get(message.author.id).highestRole.name
-        if (HR != "Owner" && HR != "Co-Owner") {
+        if ((HR != "Owner" && HR != "Co-Owner") && args[0] != "consumable") {
             message.channel.send("Not available")
             return
         }
@@ -1649,25 +1649,42 @@ module.exports = {
             return
         }
         var kind = args[0]
-        if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon" && kind != "consumable") {
-            message.channel.send("Unknown equipment type")
-            return
+        if ((HR != "Owner" && HR != "Co-Owner") && args[0] == "consumable") {
+            if ((parseInt(args[1]) != 0 || parseInt(args[1]) > items[kind].length) && (!parseInt(args[1]) || parseInt(args[1]) > items[kind].length)) {
+                message.channel.send("Invalid Item ID")
+                return
+            }
+            var userCoins = ADB.getCoins(message.author.id)
+            if(userCoins >= items.consumable[args[1]]){
+                message.channel.send("Need more coins")
+                return
+            }
+            user.inventory.consumable.push(id)
+            ADB.setCoins(userCoins - items.consumable[args[1]].price)
+            message.channel.send("You bought " + items.consumable[args[1]].name + " for " + items.consumable[args[1]].price + " arkoins")
         }
-        if ((parseInt(args[1]) != 0 || parseInt(args[1]) > items[kind].length) && (!parseInt(args[1]) || parseInt(args[1]) > items[kind].length)) {
-            message.channel.send("Invalid Item ID")
-            return
+        else{
+            if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon" && kind != "consumable") {
+                message.channel.send("Unknown equipment type")
+                return
+            }
+            if ((parseInt(args[1]) != 0 || parseInt(args[1]) > items[kind].length) && (!parseInt(args[1]) || parseInt(args[1]) > items[kind].length)) {
+                message.channel.send("Invalid Item ID")
+                return
+            }
+            var id = parseInt(args[1])
+            if (kind == "consumable") {
+                user.inventory[kind].push(id)
+            }
+            else if (items[kind][id]) {
+                user.inventory[kind].push(user.equiped[kind])
+                user.equiped[kind] = id
+                db.get('users').find({ id: message.author.id }).assign({ equiped: user.equiped }).write()
+                db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                message.channel.send("Equipped " + items[kind][id].name)
+            }
         }
-        var id = parseInt(args[1])
-        if (kind == "consumable") {
-            user.inventory[kind].push(id)
-        }
-        else if (items[kind][id]) {
-            user.inventory[kind].push(user.equiped[kind])
-            user.equiped[kind] = id
-            db.get('users').find({ id: message.author.id }).assign({ equiped: user.equiped }).write()
-            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
-            message.channel.send("Equipped " + items[kind][id].name)
-        }
+        
     },
     inventory: function (message, command, args) {
         var user = getUser(message.author.id)
