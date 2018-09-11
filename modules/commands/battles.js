@@ -1215,6 +1215,7 @@ module.exports = {
         
     },
     resetbp: function (message, command, args){
+        var HR = message.guild.members.get(message.author.id).highestRole.name
         if (HR != "Owner" && HR != "Co-Owner") {
             message.channel.send("Not available")
             return
