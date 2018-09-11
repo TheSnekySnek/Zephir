@@ -193,7 +193,7 @@ function playLivestream(song) {
 
   var spawn = require('child_process').spawn;
 
-  var process = spawn('streamlink', [song.link, 'worst', '--hls-live-edge', '1', '-O']);
+  var process = spawn('streamlink', [song.link, 'worst', '-O']);
 
   process.on('error', function (error) {
     console.log("ERR: " + error.code);
