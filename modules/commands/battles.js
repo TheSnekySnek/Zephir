@@ -1660,6 +1660,7 @@ module.exports = {
                 return
             }
             user.inventory.consumable.push(args[1])
+            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
             ADB.setCoins(userCoins - items.consumable[args[1]].price)
             message.channel.send("You bought " + items.consumable[args[1]].name + " for " + items.consumable[args[1]].price + " arkoins")
         }
@@ -1675,6 +1676,7 @@ module.exports = {
             var id = parseInt(args[1])
             if (kind == "consumable") {
                 user.inventory[kind].push(id)
+                db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
             }
             else if (items[kind][id]) {
                 user.inventory[kind].push(user.equiped[kind])
