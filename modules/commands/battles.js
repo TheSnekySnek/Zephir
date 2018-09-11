@@ -1324,7 +1324,7 @@ module.exports = {
             message.channel.send("Destroyed " + items[kind][ei].name)
         }
     },
-    armory: function (message, command, args) {
+    /*armory: function (message, command, args) {
         var items = db.get('items').value()
         for (var type in items) {
             if (items.hasOwnProperty(type)) {
@@ -1352,7 +1352,7 @@ module.exports = {
             }
         }
 
-    },
+    },*/
 
     consumables: function (message, command, args) {
         var items = db.get('items').value()
