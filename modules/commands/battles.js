@@ -14,7 +14,6 @@ db.defaults({
     users: [],
     battles: [],
     mobs: [
-        //Dungeon Level 1       
         [
             {
                 name: "Rat",
@@ -325,27 +324,27 @@ db.defaults({
         //Dungeon Level 12
         [
             {
-                name: "Zombie",
+                name: "Your Shadow",
                 hp: 1500,
                 atk: 350
             },
             {
-                name: "Werewolf",
+                name: "Bathroom Mirror",
                 hp: 1400,
                 atk: 325
             },
             {
-                name: "Vampire",
+                name: "Crying yourself to Sleep",
                 hp: 1575,
                 atk: 375
             },
             {
-                name: "Kraken",
+                name: "That one Pimple on your Nose",
                 hp: 1650,
                 atk: 400
             },
             {
-                name: "Banshee",
+                name: "Your Hopes and Dreams",
                 hp: 1750,
                 atk: 450
             }
@@ -353,633 +352,1046 @@ db.defaults({
         //Dungeon Level 13
         [
             {
-                name: "T-Rex",
-                hp: 2250,
-                atk: 500
-            },
-            {
-                name: "Spinosaurus",
+                name: "Zombie",
                 hp: 1900,
-                atk: 475
+                atk: 550
             },
             {
-                name: "Velociraptor",
-                hp: 1700,
+                name: "Werewolf",
+                hp: 1800,
                 atk: 525
             },
             {
-                name: "Pterodactyl",
-                hp: 2100,
-                atk: 450
+                name: "Vampire",
+                hp: 1975,
+                atk: 575
             },
             {
-                name: "Mosasaurus",
-                hp: 2300,
-                atk: 490
+                name: "Kraken",
+                hp: 2015,
+                atk: 600
+            },
+            {
+                name: "Banshee",
+                hp: 2150,
+                atk: 650
             }
         ],
         //Dungeon Level 14
         [
             {
-                name: "U.F.O.",
-                hp: 2900,
-                atk: 600
+                name: "Sidewalk Dog Poop",
+                hp: 2100,
+                atk: 725
             },
             {
-                name: "Big Foot",
-                hp: 2750,
-                atk: 575
+                name: "Lego on the Floor",
+                hp: 2300,
+                atk: 675
             },
             {
-                name: "Nessie",
-                hp: 3000,
+                name: "Bird shit on your shoulder",
+                hp: 2650,
+                atk: 700
+            },
+            {
+                name: "Gum in your Hair",
+                hp: 2500,
                 atk: 650
             },
             {
-                name: "Chupacabra",
-                hp: 2650,
-                atk: 595
-            },
-            {
-                name: "Leprechaun",
-                hp: 2500,
-                atk: 550
+                name: "Drive-by Puddle Splash",
+                hp: 2700,
+                atk: 690
             }
         ],
         //Dungeon Level 15
         [
             {
-                name: "A Dirty Laundry Pile",
-                hp: 3500,
-                atk: 850
+                name: "T-Rex",
+                hp: 3150,
+                atk: 900
             },
             {
-                name: "Grandma's Forgotten Cheese",
-                hp: 3000,
-                atk: 750
-            },
-            {
-                name: "Leaky Garbage Bag",
-                hp: 3250,
-                atk: 800
-            },
-            {
-                name: "Shower Hair Clumps",
-                hp: 3400,
-                atk: 815
-            },
-            {
-                name: "Sweaty Gym Shoes",
-                hp: 3100,
-                atk: 830
-            }
-        ],
-
-        //Dungeon Level 16
-        [
-            {
-                name: "Basilisk",
-                hp: 4500,
-                atk: 950
-            },
-            {
-                name: "Lord Voldemort",
-                hp: 4150,
+                name: "Spinosaurus",
+                hp: 2700,
                 atk: 875
             },
             {
-                name: "Dementor",
-                hp: 3750,
-                atk: 915
+                name: "Velociraptor",
+                hp: 2500,
+                atk: 925
             },
             {
-                name: "Aragog",
-                hp: 4000,
-                atk: 1100
+                name: "Pterodactyl",
+                hp: 2900,
+                atk: 750
             },
             {
-                name: "Cerberus",
-                hp: 4300,
-                atk: 1000
+                name: "Mosasaurus",
+                hp: 3100,
+                atk: 890
+            }
+        ],
+        //Dungeon Level 16
+        [
+            {
+                name: "Left over Ikea Screw",
+                hp: 3400,
+                atk: 1200
+            },
+            {
+                name: "Drawer of Dead Batteries",
+                hp: 3250,
+                atk: 1175
+            },
+            {
+                name: "Creaky Staircase",
+                hp: 3500,
+                atk: 1250
+            },
+            {
+                name: "Weak Door Handle",
+                hp: 3150,
+                atk: 1195
+            },
+            {
+                name: "Uneven Chair Leg",
+                hp: 3000,
+                atk: 1150
             }
         ],
         //Dungeon Level 17
         [
             {
-                name: "Dr. Doom",
-                hp: 6000,
-                atk: 1500
-            },
-            {
-                name: "Shredder",
-                hp: 5000,
+                name: "U.F.O.",
+                hp: 3700,
                 atk: 1400
             },
             {
-                name: "Skeletor",
-                hp: 5800,
-                atk: 1750
+                name: "Big Foot",
+                hp: 3550,
+                atk: 1375
             },
             {
-                name: "The Joker",
-                hp: 5300,
-                atk: 1000
+                name: "Nessie",
+                hp: 3800,
+                atk: 1450
             },
             {
-                name: "Ganondorf",
-                hp: 5500,
-                atk: 1200
+                name: "Chupacabra",
+                hp: 3450,
+                atk: 1395
+            },
+            {
+                name: "Leprechaun",
+                hp: 3300,
+                atk: 1350
             }
         ],
         //Dungeon Level 18
         [
             {
-                name: "Hercules",
-                hp: 6500,
-                atk: 2500
+                name: "A Dirty Laundry Pile",
+                hp: 4500,
+                atk: 1700
             },
             {
-                name: "Achilles",
-                hp: 6000,
-                atk: 2150
+                name: "Grandma's Forgotten Cheese",
+                hp: 4000,
+                atk: 1600
             },
             {
-                name: "Prometheus",
-                hp: 7500,
-                atk: 3500
+                name: "Leaky Garbage Bag",
+                hp: 4250,
+                atk: 1750
             },
             {
-                name: "Odysseus",
-                hp: 6800,
-                atk: 3000
+                name: "Shower Hair Clumps",
+                hp: 4400,
+                atk: 1600
             },
             {
-                name: "Perseus",
-                hp: 6650,
-                atk: 2800
+                name: "Sweaty Gym Shoes",
+                hp: 4100,
+                atk: 1675
             }
         ],
+
         //Dungeon Level 19
         [
             {
-                name: "Zekrow",
-                hp: 9000,
-                atk: 4200
+                name: "Basilisk",
+                hp: 5000,
+                atk: 2100
             },
             {
-                name: "TheSnekySnek",
-                hp: 8650,
-                atk: 4500
+                name: "Lord Voldemort",
+                hp: 5150,
+                atk: 1900
             },
             {
-                name: "FuzzyWabbit",
-                hp: 8000,
-                atk: 3750
+                name: "Dementor",
+                hp: 4750,
+                atk: 1800
             },
             {
-                name: "Robsteals",
-                hp: 8200,
-                atk: 4000
+                name: "Aragog",
+                hp: 5250,
+                atk: 2300
             },
             {
-                name: "Nainfirmière",
-                hp: 8400,
-                atk: 3500
+                name: "Cerberus",
+                hp: 5600,
+                atk: 2500
             }
         ],
         //Dungeon Level 20
         [
             {
-                name: "Zeus",
-                hp: 10000,
+                name: "Monster under the Bed",
+                hp: 6400,
+                atk: 3600
+            },
+            {
+                name: "The Man in your Closet",
+                hp: 5900,
+                atk: 2850
+            },
+            {
+                name: "Crossing the Road without Holding Hands",
+                hp: 6100,
+                atk: 3150
+            },
+            {
+                name: "Having to Shower everyday",
+                hp: 6050,
+                atk: 3000
+            },
+            {
+                name: "\"Buy the Bread, i'll wait in the Car\"",
+                hp: 6500,
+                atk: 3400
+            }
+        ],
+        //Dungeon Level 21
+        [
+            {
+                name: "Dr. Doom",
+                hp: 7300,
+                atk: 4100
+            },
+            {
+                name: "Shredder",
+                hp: 7100,
+                atk: 4350
+            },
+            {
+                name: "Skeletor",
+                hp: 7500,
                 atk: 4500
             },
             {
-                name: "Hades",
-                hp: 17500,
+                name: "The Joker",
+                hp: 6750,
+                atk: 3950
+            },
+            {
+                name: "Ganondorf",
+                hp: 6900,
+                atk: 4200
+            }
+        ],
+        //Dungeon Level 22
+        [
+            {
+                name: "Hercules",
+                hp: 8000,
+                atk: 5025
+            },
+            {
+                name: "Achilles",
+                hp: 8150,
+                atk: 4875
+            },
+            {
+                name: "Prometheus",
+                hp: 8400,
+                atk: 5450
+            },
+            {
+                name: "Odysseus",
+                hp: 7875,
                 atk: 5000
             },
             {
-                name: "Hecate",
-                hp: 15000,
-                atk: 4000
-            },
-            {
-                name: "Poseidon",
-                hp: 12500,
-                atk: 5500
-            },
-            {
-                name: "Ra",
-                hp: 20000,
-                atk: 6000
+                name: "Perseus",
+                hp: 7590,
+                atk: 4600
             }
         ],
+        [
+            //Dungeon Level 23
+            {
+                name: "Slamming your Pinky Toe in a Corner",
+                hp: 9000,
+                atk: 7000
+            },
+            {
+                name: "That Morning Leg Cramp",
+                hp: 10000,
+                atk: 6100
+            },
+            {
+                name: "Cats unplugging your Wires",
+                hp: 8975,
+                atk: 5700
+            },
+            {
+                name: "That one song stuck in your head",
+                hp: 10500,
+                atk: 6400
+            },
+            {
+                name: "\"Oh a food item!\" best 2 years ago",
+                hp: 9500,
+                atk: 6800
+            }
+        ],
+        //Dungeon Level 24
+        [
+            {
+                name: "Zekrow",
+                hp: 9999,
+                atk: 9000
+            },
+            {
+                name: "TheSnekySnek",
+                hp: 13000,
+                atk: 7500
+            },
+            {
+                name: "FuzzyWabbit",
+                hp: 11000,
+                atk: 6000
+            },
+            {
+                name: "Robsteals",
+                hp: 8500,
+                atk: 8000
+            },
+            {
+                name: "Nainfirmière",
+                hp: 9700,
+                atk: 6700
+            }
+        ]
     ],
     items: {
         helmet: [
             {
                 name: "Messy Morning Hair",
-                hp: 5
-            },
-            {
-                name: "Party Hat",
-                hp: 8,
+                hp: 5,
                 lvl: 1
-
             },
             {
                 name: "A Wig from the attic",
-                hp: 12,
-                lvl: 1
+                hp: 8,
+                lvl: 2
+
             },
             {
                 name: "Kitchen Lady's Hairnet",
+                hp: 12,
+                lvl: 3
+            },
+            {
+                name: "A Tinfoil Hat",
                 hp: 15,
-                lvl: 2
+                lvl: 4
             },
             {
                 name: "Caesar's Laurel Wreath",
                 hp: 25,
-                lvl: 2
+                lvl: 5
             },
             {
                 name: "Bart Simpson's Spiky Hair",
-                hp: 30
+                hp: 30,
+                lvl: 6
             },
             {
                 name: "Daft Punk's Rainbow Helmet",
                 hp: 45,
-                bp: 1
+                bp: 1,
+                lvl: 7
             },
             {
                 name: "Crash Bandicoot's Aku Aku Mask",
-                hp: 70
-            },
-            {
-                name: "Loki's Horns",
-                hp: 120,
-                bp: 2
+                hp: 70,
+                lvl: 8
             },
             {
                 name: "Cubone's Skull",
-                hp: 125
+                hp: 140,
+                lvl: 9
             },
             {
                 name: "Goldi's Locks",
-                hp: 150
+                hp: 100,
+                luck: 10,
+                lvl: 10
             },
             {
-                name: "Darth Vader Helmet",
-                hp: 180
+                name: "Loki's Horns",
+                hp: 200,
+                bp: 2,
+                luck: 10,
+                lvl: 11
+            },
+            {
+                name: "Darth Vader's Respirator",
+                hp: 180,
+                atk: 45,
+                lvl: 12
             },
             {
                 name: "Majora's Mask",
-                hp: 210
+                hp: 210,
+                atk: 100,
+                lvl: 13
+            },
+            {
+                name: "Jack Sparrow's Bandana",
+                hp: 250,
+                luck: 15,
+                lvl: 14
             },
             {
                 name: "Medusa's Severed Head",
-                hp: 300
+                hp: 350,
+                bp: 1,
+                lvl: 15
             },
             {
                 name: "Batman's Ears",
                 hp: 500,
-                atk: 50,
-                bp: 2
+                atk: 150,
+                bp: 1,
+                lvl: 16
+            },
+            {
+                name: "The Sorting Hat",
+                hp: 700,
+                atk: 200,
+                bp: 2,
+                lvl: 17
             },
             {
                 name: "Sunbro's Bucket Helm",
-                hp: 800,
-                atk: 100
+                hp: 1000,
+                atk: 420,
+                luck: 25,
+                lvl: 18
             },
             {
                 name: "The Mask",
-                hp: 1250,
-                atk: 250
+                hp: 1500,
+                atk: 750,
+                lvl: 19
             },
             {
-                name: "'s Cup Head",
-                hp: 5000,
+                name: "Cuphead's Cup Head",
+                hp: 3000,
                 atk: 1000,
-                bp: 5
+                bp: 5,
+                lvl: 20
             }
         ],
         chest: [
             {
                 name: "Dirty T-Shirt",
-                hp: 5
+                hp: 5,
+                lvl: 1
             },
             {
                 name: "Mom's Apron",
-                hp: 8
+                hp: 8,
+                lvl: 2
             },
             {
                 name: "A Mexican's Pancho",
-                hp: 45
+                hp: 45,
+                lvl: 3
             },
             {
-                name: "Rathalos Armor",
-                hp: 115
+                name: "A Cardboard Box",
+                hp: 75,
+                bp: 1,
+                lvl: 4
             },
             {
                 name: "The Arc Reactor",
-                hp: 275
+                hp: 130,
+                lvl: 5
             },
             {
                 name: "Samus' Suit",
-                hp: 400
+                hp: 250,
+                lvl: 6
+            },
+            {
+                name: "Ninja Turtle Shell",
+                hp: 350,
+                lvl: 7
             },
             {
                 name: "Donkey Kong's Barrel",
-                hp: 900
+                hp: 650,
+                lvl: 8
+            },
+            {
+                name: "Goofy Goober T-Shirt",
+                hp: 725,
+                lvl: 9
+            },
+            {
+                name: "Elite Knight's Armor",
+                hp: 1250,
+                atk: 200,
+                lvl: 10
+            },
+            {
+                name: "Crimson Tunic",
+                hp: 1000,
+                bp: 3,
+                lvl: 11
+            },
+            {
+                name: "Professioanl Sumo Suit",
+                hp: 2000,
+                atk: -50,
+                lvl: 12
+            },
+            {
+                name: "Dumbledore's Cloak",
+                hp: 1500,
+                luck: 10,
+                lvl: 13
+            },
+            {
+                name: "Iron Golem Armor",
+                hp: 3000,
+                lvl: 14
             },
             {
                 name: "Deadpool's Overalls",
-                hp: 1500
+                hp: 500,
+                atk: 500,
+                lvl: 15
             },
             {
-                name: "Arnold's Muscular Chest",
-                hp: 3000
+                name: "Rathalos Flaming Armor",
+                hp: 4500,
+                bp: 2,
+                lvl: 16
+            },
+            {
+                name: "Shadow Priest Tunic",
+                hp: 4000,
+                luck: 15,
+                lvl: 17
+            },
+            {
+                name: "A Forest of Chest Hair",
+                hp: 6000,
+                lvl: 18
             },
             {
                 name: "Pedobear Suit",
-                hp: 5000
+                hp: 7750,
+                luck: 10,
+                lvl: 19
+            },
+            {
+                name: "Elder Dragon Armor",
+                hp: 9500,
+                atk: 1000,
+                bp: 1,
+                lvl: 20
             }
         ],
         pants: [
             {
                 name: "Stained Shorts",
-                hp: 5
+                hp: 5,
+                lvl: 1
             },
             {
                 name: "Hawaiian Skirt",
-                hp: 10
+                hp: 10,
+                lvl: 2
             },
             {
                 name: "Hula Hoop",
-                hp: 35
+                hp: 35,
+                lvl: 3
             },
             {
                 name: "Your Mom's Leopard Thong",
-                hp: 80
+                hp: 80,
+                lvl: 4
+            },
+            {
+                name: "Wooden Pirate Leg",
+                hp: 110,
+                lvl: 5
             },
             {
                 name: "Tarzan's Crotch Cloth",
-                hp: 150
+                hp: 150,
+                lvl: 6
+            },
+            {
+                name: "Goofy Goober Pants",
+                hp: 170,
+                lvl: 7
+            },
+            {
+                name: "Wet Towel",
+                hp: 185,
+                lvl: 8
+            },
+            {
+                name: "Sexy Male Stockings",
+                hp: 225,
+                lvl: 9
+            },
+            {
+                name: "Iron Golem Pants",
+                hp: 300,
+                lvl: 10
             },
             {
                 name: "Tommy Pickle's Diaper",
-                hp: 300
+                hp: 400,
+                lvl: 11
             },
             {
                 name: "Your Dad's Speedo",
-                hp: 900
+                hp: 475,
+                lvl: 12
+            },
+            {
+                name: "Shadow Priest Robes",
+                hp: 550,
+                luck: 10,
+                lvl: 13
+            },
+            {
+                name: "Centaur's Bottoms",
+                hp: 700,
+                lvl: 14
             },
             {
                 name: "Adam's Crotch Leaf",
-                hp: 2000
+                hp: 1000,
+                lvl: 15
+            },
+            {
+                name: "Crimson Robes",
+                hp: 1300,
+                bp: 2,
+                lvl: 16
+            },
+            {
+                name: "Elite Knight Pants",
+                hp: 1750,
+                atk: 100,
+                lvl: 17
             },
             {
                 name: "Hulk's Ripped Shorts",
-                hp: 5000
+                hp: 2500,
+                lvl: 18
+            },
+            {
+                name: "Pile of Fallen Leaves",
+                hp: 4000,
+                lvl: 19
+            },
+            {
+                name: "Elder Dragon Pants",
+                hp: 6000,
+                bp: 1,
+                lvl: 20
             }
         ],
         boots: [
             {
                 name: "Flip Flops",
-                hp: 5
+                hp: 5,
+                lvl: 1
             },
             {
                 name: "Socks and Sandals",
-                hp: 10
+                hp: 10,
+                lvl: 2
             },
             {
-                name: "A Samurai's Wooden Tongs",
-                hp: 35
-            },
-            {
-                name: "Puss in Boots",
-                hp: 80
-            },
-            {
-                name: "Hermes' Flying Boots",
-                hp: 175
+                name: "Crocs",
+                hp: 30,
+                lvl: 3
             },
             {
                 name: "Cinderalla's Glass Slipper",
-                hp: 200
+                hp: 75,
+                lvl: 4
             },
             {
-                name: "Sonic's Speedy Shoes",
-                hp: 450
+                name: "A Samurai's Wooden Tongs",
+                hp: 90,
+                lvl: 5
+            },
+            {
+                name: "Puss in Boots",
+                hp: 140,
+                lvl: 6
+            },
+            {
+                name: "Hermes' Flying Boots",
+                hp: 190,
+                lvl: 7
+            },
+            {
+                name: "Tony Hawk's Skateboard",
+                hp: 230,
+                lvl: 8
+            },
+            {
+                name: "Bear Slippers",
+                hp: 300,
+                lvl: 9
             },
             {
                 name: "Boots from Dora the Explorer",
-                hp: 1000
+                hp: 360,
+                lvl: 10
+            },
+            {
+                name: "Iron Golem Grieves",
+                hp: 430,
+                lvl: 11
+            },
+            {
+                name: "Sonic's Speedy Shoes",
+                hp: 500,
+                lvl: 12
+            },
+            {
+                name: "Crimson Shoes",
+                hp: 775,
+                bp: 1,
+                lvl: 13
+            },
+            {
+                name: "Elite Knight Grieves",
+                hp: 850,
+                atk: 50,
+                lvl: 14
+            },
+            {
+                name: "Hoverboard",
+                hp: 1000,
+                lvl: 15
+            },
+            {
+                name: "Shadow Priest Shoes",
+                hp: 1500,
+                luck: 5,
+                lvl: 16
             },
             {
                 name: "One Punch Man's Red Rubber Boots",
-                hp: 3000
+                hp: 2000,
+                lvl: 17
             },
             {
                 name: "Dobby's Socks",
-                hp: 5000
+                hp: 3000,
+                lvl: 18
+            },
+            {
+                name: "Elder Dragon Grieves",
+                hp: 4000,
+                atk: 150,
+                bp: 1,
+                lvl: 19
+            },
+            {
+                name: "Achilles' Heelies",
+                hp: 5000,
+                lvl: 20
             }
         ],
         accessory: [
             {
                 name: "Grandpa's Wristwatch",
-                hp: -10
+                hp: -10,
+                lvl: 1
+            },
+            {
+                name: "Yellow Rubber Glove",
+                atk: 50,
+                lvl: 2
+            },
+            {
+                name: "Dora's Backpack",
+                hp: 25,
+                bp: 1,
+                lvl: 3
             },
             {
                 name: "Michael Jackson's White Glove",
                 hp: 20,
-                bp: 2
+                bp: 2,
+                lvl: 4
+            },
+
+            {
+                name: "Mario Sunshine's Jetpack",
+                bp: 2,
+                lvl: 5
             },
             {
-                name: "One Punch Man's Rubber Glove",
-                atk: 50
+                name: "Yoshi's Egg",
+                hp: 100,
+                atk: 100,
+                lvl: 7
+            },
+            {
+                name: "Ben 10's Omnitrix",
+                atk: 200,
+                lvl: 9
+            },
+            {
+                name: "Companion Cube",
+                hp: 300,
+                bp: 1,
+                lvl: 10
+            },
+            /*
+            {
+                name: "Pandora's Box",
+                hp: ?,
+                atk: ?,
+                bp: ?,
+                lvl: 10
+            },
+            {
+                name: "Shrodinger's Cat",
+                hp: ?,
+                atk: ?,
+                bp: ?,
+                lvl: 10
+            },
+            {
+                name: "Wild E. Coyote's ACME Box",
+                hp: ?,
+                atk: ?,
+                bp: ?,
+                lvl: 10
+            },
+            */
+            {
+                name: "Sorcerer's Stone",
+                hp: 500,
+                bp: 1,
+                lvl: 10
             },
             {
                 name: "Sauron's Ring",
                 hp: -100,
                 atk: 100,
-                bp: 1
+                bp: 1,
+                lvl: 11
             },
+
             {
-                name: "Ben 10's Omnitrix",
-                atk: 200
-            },
-            {
-                name: "Sorcerer's Stone",
-                hp: 500,
-                bp: 1
-            },
-            {
-                name: "Masterball",
-                atk: 300
-            },
-            {
-                name: "Maurauder's Map",
-                hp: -300,
-                atk: 500,
-                bp: 1
+                name: "Harry's Invisibility Cloak",
+                hp: -150,
+                atk: 150,
+                lvl: 12
             },
             {
                 name: "Goblet of Fire",
-                hp: -500,
-                bp: 5
+                hp: -800,
+                atk: -50,
+                bp: 5,
+                lvl: 13
             },
             {
-                name: "Wild E. Coyote's ACME Box",
-                hp: 0,
-                atk: 0,
-                bp: 0
+                name: "Scooby Snacks",
+                hp: 750,
+                lvl: 14
             },
             {
                 name: "Pegasus Wings",
                 hp: 200,
-                atk: 200
+                atk: 200,
+                lvl: 14
+            },
+            {
+                name: "Masterball",
+                atk: 300,
+                lvl: 15
             },
             {
                 name: "Nimbus Cloud",
                 hp: 500,
                 atk: 400,
-                bp: -1
+                bp: -1,
+                lvl: 17
             },
             {
-                name: "Dragonballs",
-                hp: -250,
+                name: "Maurauder's Map",
+                hp: -300,
                 atk: 800,
-                bp: -2
-            },
-            {
-                name: "Yoshi's Egg",
-                hp: 100,
-                atk: 100
-            },
-            {
-                name: "Mario Sunshine's Jetpack",
-                bp: 2
-            },
-            {
-                name: "Harry's Invisibility Cloak",
-                hp: -150,
-                atk: 150
-            },
-            {
-                name: "Dora's Backpack",
-                hp: 25,
-                bp: 1
+                bp: 1,
+                lvl: 18
             },
             {
                 name: "Batman's Utility Belt",
                 hp: 500,
-                atk: 500,
-                bp: 1
+                atk: 1000,
+                bp: 1,
+                lvl: 19
             },
             {
-                name: "Scooby Snacks",
-                hp: 750
-            },
-            {
-                name: "Companion Cube",
-                hp: 300,
-                bp: 1
+                name: "Dragonballs",
+                hp: -500,
+                atk: 2000,
+                bp: -2,
+                lvl: 20
             }
         ],
         weapon: [
             {
                 name: "A Wet Toothbrush",
-                atk: 5
+                atk: 5,
+                lvl: 1
             },
             {
                 name: "A Schoolkid's Rubber Slingshot",
-                atk: 12
+                atk: 12,
+                lvl: 2
             },
             {
                 name: "Bob Ross's Paintbrush",
-                atk: 45
+                atk: 45,
+                lvl: 3
+            },
+            {
+                name: "Here's Johnny's Axe",
+                atk: 85,
+                lvl: 4
             },
             {
                 name: "Skywalker's Right Hand",
                 atk: 100,
-                hp: -20
-            },
-            {
-                name: "Here's Johnny's Axe",
-                atk: 85
+                hp: -20,
+                lvl: 5
             },
             {
                 name: "Elon Musk's Flamethrower",
                 atk: 250,
                 hp: -100,
-                bp: 1
+                bp: 1,
+                lvl: 6
             },
             {
                 name: "Spock's Phaser",
-                atk: 190
+                atk: 190,
+                lvl: 7
             },
             {
                 name: "An Abandoned Portal Gun",
-                atk: 250
+                atk: 250,
+                lvl: 8
             },
             {
                 name: "Gordon's Crowbar",
                 atk: 325,
-                hp: -50
+                hp: -50,
+                lvl: 9
             },
             {
                 name: "Hulk's Giant Fist",
                 atk: 600,
-                hp: -250
+                hp: -250,
+                lvl: 10
             },
             {
                 name: "Olivander's Wand",
                 atk: 300,
-                bp: 1
+                bp: 1,
+                lvl: 11
             },
             {
                 name: "Merlin's Sword",
-                atk: 420
+                atk: 420,
+                lvl: 12
             },
             {
                 name: "Deathnote",
                 atk: 375,
                 hp: -100,
-                bp: 2
+                bp: 2,
+                lvl: 13
             },
             {
                 name: "Thor's Hammer",
-                atk: 475
+                atk: 675,
+                lvl: 14
             },
             {
                 name: "Holy Hand Grenade",
-                atk: 600,
-                hp: -100
+                atk: 800,
+                hp: -100,
+                lvl: 15
             },
             {
                 name: "A Tetris Block",
-                atk: 850
+                atk: 1500,
+                lvl: 16
             },
             {
                 name: "The Infinity Gauntlet",
-                atk: 750,
+                atk: 1050,
                 hp: -400,
-                bp: 4
+                bp: 4,
+                lvl: 17
             },
             {
                 name: "Kirby's Big Succ",
-                atk: 1500,
-                bp: 2
+                atk: 3500,
+                bp: 2,
+                lvl: 18
+            },
+            {
+                name: "The Chancla",
+                atk: 5100,
+                luck: 15,
+                lvl: 19
             },
             {
                 name: "Anime Body Pillow",
-                atk: 3000,
-                hp: -300
+                atk: 7000,
+                hp: -300,
+                lvl: 20
             }
         ],
-        consumable:[
+        consumable: [
             {
                 name: "Small BP Potion",
                 bp: 5,
@@ -1032,18 +1444,18 @@ db.defaults({
 
 schedule.scheduleJob('0 1 * * *', () => {
     var users = db.get('users').value()
-        users.forEach(user => {
-            db.get("users").find({id: user.id}).assign({gamesToday: 0}).write()
-        });
-}) 
+    users.forEach(user => {
+        db.get("users").find({ id: user.id }).assign({ gamesToday: 0 }).write()
+    });
+})
 
 function getLoot(lvl, luck) {
     var items = db.get('items').value()
     var lootArray = []
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = lvl-1; i < items[type].length; i++) {
-                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i-(lvl-1)))), result: { type: type, id: i } })
+            for (let i = lvl - 1; i < items[type].length; i++) {
+                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (lvl - 1)))), result: { type: type, id: i } })
             }
         }
     }
@@ -1142,7 +1554,7 @@ function printProfile(user, message) {
         .setDescription("For " + message.guild.members.get(user.id).displayName + "\n------------------------------------------------------------------")
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
-        .addField("Ranking: Unavailable", "Battles Won: "+user.wins+"\nBattles Lost: "+user.loses+"\nPVP Battles Won: "+user.pvpwins+"\nPVP Battles Lost: "+user.pvploses+"\n------------------------------------------------------------------")
+        .addField("Ranking: Unavailable", "Battles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
         .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:fireworks: Battle Points: " + (stats.bp - user.gamesToday) + " / " + stats.bp + "\n\n------------------------------------------------------------------")
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
@@ -1165,12 +1577,12 @@ function printProfile(user, message) {
 
 function printInventory(user, message) {
     var items = db.get('items').value()
-    
+
     for (var type in user.inventory) {
         if (user.inventory.hasOwnProperty(type)) {
             let embed = new Discord.RichEmbed()
-            .setTitle("- "+cap(type)+" -")
-            .setColor("#dcbc3f")
+                .setTitle("- " + cap(type) + " -")
+                .setColor("#dcbc3f")
             var inv = user.inventory[type]
             for (let i = 0; i < inv.length; i++) {
                 var item = items[type][inv[i]]
@@ -1195,16 +1607,16 @@ function printInventory(user, message) {
 }
 
 module.exports = {
-    profile: function (message, command, args){
-        if(args[0]){
+    profile: function (message, command, args) {
+        if (args[0]) {
             var user = getUser(args[0])
-            if(!user){
+            if (!user) {
                 message.channel.send("Invalid user ID")
                 return
             }
             printProfile(user, message)
         }
-        else{
+        else {
             var user = getUser(message.author.id)
             if (!user) {
                 createUser(message.member)
@@ -1212,9 +1624,9 @@ module.exports = {
             }
             printProfile(user, message)
         }
-        
+
     },
-    resetbp: function (message, command, args){
+    resetbp: function (message, command, args) {
         var HR = message.guild.members.get(message.author.id).highestRole.name
         if (HR != "Owner" && HR != "Co-Owner") {
             message.channel.send("Not available")
@@ -1222,7 +1634,7 @@ module.exports = {
         }
         var users = db.get('users').value()
         users.forEach(user => {
-            db.get("users").find({id: user.id}).assign({gamesToday: 0}).write()
+            db.get("users").find({ id: user.id }).assign({ gamesToday: 0 }).write()
         });
     },
     buy: function (message, command, args) {
@@ -1246,14 +1658,14 @@ module.exports = {
             return
         }
         var id = parseInt(args[1])
-        if(kind == "consumable"){
+        if (kind == "consumable") {
             user.inventory[kind].push(id)
         }
         else if (items[kind][id]) {
             user.inventory[kind].push(user.equiped[kind])
             user.equiped[kind] = id
-            db.get('users').find({id: message.author.id}).assign({equiped: user.equiped}).write()
-            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+            db.get('users').find({ id: message.author.id }).assign({ equiped: user.equiped }).write()
+            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
             message.channel.send("Equipped " + items[kind][id].name)
         }
     },
@@ -1266,7 +1678,7 @@ module.exports = {
     },
     equip: function (message, command, args) {
         var items = db.get('items').value()
-        
+
         var user = getUser(message.author.id)
         var stats = getUserStats(user)
         if (!user) {
@@ -1281,10 +1693,10 @@ module.exports = {
             message.channel.send("Invalid Item ID")
             return
         }
-        
+
         var id = parseInt(args[1])
         console.log(user.inventory[kind][id])
-        if((items[kind][user.inventory[kind][id]].hp < 0 && (stats.hp + items[kind][user.inventory[kind][id]].hp) < 1) || (items[kind][user.inventory[kind][id]].atk < 0 && (stats.atk + items[kind][user.inventory[kind][id]].atk) < 1) || (items[kind][user.inventory[kind][id]].bp < 0 && (stats.bp + items[kind][user.inventory[kind][id]].bp) < 1)){
+        if ((items[kind][user.inventory[kind][id]].hp < 0 && (stats.hp + items[kind][user.inventory[kind][id]].hp) < 1) || (items[kind][user.inventory[kind][id]].atk < 0 && (stats.atk + items[kind][user.inventory[kind][id]].atk) < 1) || (items[kind][user.inventory[kind][id]].bp < 0 && (stats.bp + items[kind][user.inventory[kind][id]].bp) < 1)) {
             message.channel.send("You don't have enough hp/atk/bp to equip this item")
             return
         }
@@ -1293,8 +1705,8 @@ module.exports = {
             user.inventory[kind].splice(id, 1)
             user.inventory[kind].push(user.equiped[kind])
             user.equiped[kind] = ei
-            db.get('users').find({id: message.author.id}).assign({equiped: user.equiped}).write()
-            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+            db.get('users').find({ id: message.author.id }).assign({ equiped: user.equiped }).write()
+            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
             message.channel.send("Equipped " + items[kind][ei].name)
         }
     },
@@ -1364,26 +1776,26 @@ module.exports = {
             var msg = ""
             for (var t in items.consumable[i]) {
                 if (items.consumable[i].hasOwnProperty(t) && t != "name") {
-                    if (t == "hp"){
-                        msg += " :heart: +" + items.consumable[i][t]*100 + "%"
+                    if (t == "hp") {
+                        msg += " :heart: +" + items.consumable[i][t] * 100 + "%"
                     }
-                        
-                    if (t == "atk"){
-                        msg += " :crossed_swords: +" + items.consumable[i][t]*100 + "%"
+
+                    if (t == "atk") {
+                        msg += " :crossed_swords: +" + items.consumable[i][t] * 100 + "%"
                     }
-                        
-                    if (t == "bp"){
-                        if(items.consumable[i].bp > 0){
+
+                    if (t == "bp") {
+                        if (items.consumable[i].bp > 0) {
                             msg += "  :fireworks: +" + items.consumable[i][t]
-                        }else if(items.consumable[i].bp == 0){
+                        } else if (items.consumable[i].bp == 0) {
                             msg += "  :fireworks: MAX"
                         }
                     }
 
-                    if (t == "luck"){
+                    if (t == "luck") {
                         msg += " :game_die: +" + items.consumable[i][t] + "%"
                     }
-                        
+
                 }
             }
             embed.addField(+ i + ". " + items.consumable[i].name, msg, true)
@@ -1402,14 +1814,14 @@ module.exports = {
             message.channel.send("You are not registered. Please do !profile to register")
             return
         }
-        
+
         var stats = getUserStats(user)
         var availPotions = getAvailablePotions(user)
-        if(user.gamesToday >= stats.bp){
-            if(availPotions[0] || availPotions[1] || availPotions[2]){
+        if (user.gamesToday >= stats.bp) {
+            if (availPotions[0] || availPotions[1] || availPotions[2]) {
                 var con = await message.channel.send("You ran out of Battle Points. Do you want to use one of your potions?")
                 for (let i = 0; i < 3; i++) {
-                    if(availPotions[i]){
+                    if (availPotions[i]) {
                         switch (i) {
                             case 0:
                                 con.react("🎇")
@@ -1432,20 +1844,20 @@ module.exports = {
                     switch (r.emoji.name) {
                         case "🎇":
                             user.inventory.consumable.splice(user.inventory.consumable.indexOf(0), 1)
-                            db.get('users').find({id: message.author.id}).assign({gamesToday: (user.gamesToday - items.consumable[0].bp)}).write()
-                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday - items.consumable[0].bp) }).write()
+                            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             message.channel.send("BP +" + items.consumable[0].bp)
                             break;
                         case "🎆":
                             user.inventory.consumable.splice(user.inventory.consumable.indexOf(1), 1)
-                            db.get('users').find({id: message.author.id}).assign({gamesToday: (user.gamesToday - items.consumable[1].bp)}).write()
-                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday - items.consumable[1].bp) }).write()
+                            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             message.channel.send("BP +" + items.consumable[1].bp)
                             break;
                         case "🌠":
                             user.inventory.consumable.splice(user.inventory.consumable.indexOf(2), 1)
-                            db.get('users').find({id: message.author.id}).assign({gamesToday: 0}).write()
-                            db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                            db.get('users').find({ id: message.author.id }).assign({ gamesToday: 0 }).write()
+                            db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             message.channel.send("BP MAX")
                             break;
                         default:
@@ -1453,22 +1865,22 @@ module.exports = {
                     }
                     con.delete()
                     collector.stop()
-                    
+
                 });
             }
-            else{
+            else {
                 message.channel.send("You've used all your battle points. Come back tommorow for more")
             }
             return
         }
-        if(lvl+1 > 5 && user.maxDungeon < 5 || lvl+1 > 10 && user.maxDungeon < 10 || lvl+1 > 15 && user.maxDungeon < 15){
+        if (lvl + 1 > 5 && user.maxDungeon < 5 || lvl + 1 > 10 && user.maxDungeon < 10 || lvl + 1 > 15 && user.maxDungeon < 15) {
             message.channel.send("You need to complete dungeon " + lvl + " to access this one")
-            return   
+            return
         }
         db.get('users')
-                .find({"id": message.author.id})
-                .assign({"gamesToday": user.gamesToday+1})
-                .write()
+            .find({ "id": message.author.id })
+            .assign({ "gamesToday": user.gamesToday + 1 })
+            .write()
         console.log(stats)
 
         var mobs = db.get('mobs').value()
@@ -1478,14 +1890,14 @@ module.exports = {
 
         var mbSel = ""
         var usrSel = ""
-        
+
         message.channel.send("A wild **" + mob.name + "** appears. Get ready for battle!")
 
-        
-        if(availPotions[3] ||availPotions[4] || availPotions[5] || availPotions[6] ||availPotions[7] || availPotions[8]){
+
+        if (availPotions[3] || availPotions[4] || availPotions[5] || availPotions[6] || availPotions[7] || availPotions[8]) {
             var con = await message.channel.send("Available Consumables:")
             for (let i = 3; i < availPotions.length; i++) {
-                if(availPotions[i]){
+                if (availPotions[i]) {
                     switch (i) {
                         case 3:
                             con.react("💙")
@@ -1496,19 +1908,19 @@ module.exports = {
                         case 5:
                             con.react("🗡")
                             break;
-                    
+
                         case 6:
                             con.react("🥊")
                             break;
-                    
+
                         case 7:
                             con.react("🌀")
                             break;
-                    
+
                         case 8:
                             con.react("🔱")
                             break;
-                    
+
                         default:
                             break;
                     }
@@ -1521,44 +1933,44 @@ module.exports = {
                 switch (r.emoji.name) {
                     case "💙":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
-                        stats.hp += Math.ceil(stats.hp*items.consumable[3].hp)
-                        message.channel.send("HP +" + Math.ceil(stats.hp*items.consumable[3].hp))
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                        stats.hp += Math.ceil(stats.hp * items.consumable[3].hp)
+                        message.channel.send("HP +" + Math.ceil(stats.hp * items.consumable[3].hp))
                         break;
                     case "💛":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
-                        stats.hp += Math.ceil(stats.hp*items.consumable[4].hp)
-                        message.channel.send("HP +" + Math.ceil(stats.hp*items.consumable[4].hp))
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                        stats.hp += Math.ceil(stats.hp * items.consumable[4].hp)
+                        message.channel.send("HP +" + Math.ceil(stats.hp * items.consumable[4].hp))
                         break;
                     case "🗡":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
-                        stats.atk += Math.ceil(stats.atk*items.consumable[5].atk)
-                        message.channel.send("ATK +" + Math.ceil(stats.atk*items.consumable[5].atk))
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                        stats.atk += Math.ceil(stats.atk * items.consumable[5].atk)
+                        message.channel.send("ATK +" + Math.ceil(stats.atk * items.consumable[5].atk))
                         break;
-                
+
                     case "🥊":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
-                        stats.atk += Math.ceil(stats.atk*items.consumable[6].atk)
-                        message.channel.send("ATK +" + Math.ceil(stats.atk*items.consumable[6].atk))
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                        stats.atk += Math.ceil(stats.atk * items.consumable[6].atk)
+                        message.channel.send("ATK +" + Math.ceil(stats.atk * items.consumable[6].atk))
                         break;
-                
+
                     case "🌀":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                         stats.luck += items.consumable[7].luck
                         message.channel.send("LUCK +" + items.consumable[7].luck)
                         break;
-                
+
                     case "🔱":
                         user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
-                        db.get('users').find({id: message.author.id}).assign({inventory: user.inventory}).write()
+                        db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                         stats.luck += items.consumable[8].luck
                         message.channel.send("LUCK +" + items.consumable[8].luck)
                         break;
-                
+
                     default:
                         break;
                 }
@@ -1629,7 +2041,7 @@ module.exports = {
             await message.channel.send(embed)
         } while (tmbDmg < mob.hp && tusrDmg < stats.hp);
         if (tmbDmg >= mob.hp && tusrDmg < stats.hp) {
-            var loot = getLoot(lvl+1, stats.luck)[0]
+            var loot = getLoot(lvl + 1, stats.luck)[0]
             console.log(loot)
             if (loot.result)
                 loot = loot.result
@@ -1665,22 +2077,22 @@ module.exports = {
             }
             var lootCoins = 50 * (lvl + 1)
             var usrCoins = ADB.getCoins(message.author.id)
-            if(!usrCoins){
+            if (!usrCoins) {
                 ADB.addCoins(message.author.id)
                 usrCoins = ADB.getCoins(message.author.id)
             }
-            ADB.setCoins(message.author.id, usrCoins.amount+lootCoins)
+            ADB.setCoins(message.author.id, usrCoins.amount + lootCoins)
             embed.addField("Arkoins", "+" + lootCoins, true)
             await message.channel.send(embed)
-            if(lvl+1 > user.maxDungeon){
+            if (lvl + 1 > user.maxDungeon) {
                 db.get('users')
-                .find({"id": message.author.id})
-                .assign({"maxDungeon": lvl+1})
-                .write()
+                    .find({ "id": message.author.id })
+                    .assign({ "maxDungeon": lvl + 1 })
+                    .write()
             }
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"wins": user.wins+1})
+                .find({ "id": message.author.id })
+                .assign({ "wins": user.wins + 1 })
                 .write()
         } else if (tusrDmg >= stats.hp && tmbDmg < mob.hp) {
             let embed = new Discord.RichEmbed()
@@ -1693,8 +2105,8 @@ module.exports = {
                 .addField("Total Damage Received", tusrDmg, true)
             await message.channel.send(embed)
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"loses": user.loses+1})
+                .find({ "id": message.author.id })
+                .assign({ "loses": user.loses + 1 })
                 .write()
         } else {
             let embed = new Discord.RichEmbed()
@@ -1716,11 +2128,11 @@ module.exports = {
             let embed = new Discord.RichEmbed()
                 .setTitle("- Champions -")
                 .setColor("#dcbc3f")
-            
+
             for (let i = 0; i < us.length; i++) {
                 var ch = ""
-            var st = ""
-                if(us[i].id == message.author.id){
+                var st = ""
+                if (us[i].id == message.author.id) {
                     continue
                 }
                 ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
@@ -1728,17 +2140,16 @@ module.exports = {
                 st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
                 embed.addField(ch, st, true)
             }
-            
+
             message.channel.send(embed)
             return
         }
-        if((parseInt(args[0]) != 0 && !parseInt(args[0])) || parseInt(args[0]) > db.get("users").value().length)
-        {
+        if ((parseInt(args[0]) != 0 && !parseInt(args[0])) || parseInt(args[0]) > db.get("users").value().length) {
             message.channel.send("Invalid ID")
             return
         }
         var userid2 = db.get("users").value()[parseInt(args[0])].id
-        if(userid2 == message.author.id){
+        if (userid2 == message.author.id) {
             message.channel.send("You can't battle yourself")
             return
         }
@@ -1903,20 +2314,20 @@ module.exports = {
             await message.guild.members.get(user2.id).user.send(embed2)
             await message.member.send(embed1)
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"wins": user1.wins+1})
+                .find({ "id": message.author.id })
+                .assign({ "wins": user1.wins + 1 })
                 .write()
             db.get('users')
-                .find({"id": user2.id})
-                .assign({"loses": user2.loses+1})
+                .find({ "id": user2.id })
+                .assign({ "loses": user2.loses + 1 })
                 .write()
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"pvpwins": user1.pvpwins+1})
+                .find({ "id": message.author.id })
+                .assign({ "pvpwins": user1.pvpwins + 1 })
                 .write()
             db.get('users')
-                .find({"id": user2.id})
-                .assign({"pvploses": user2.pvploses+1})
+                .find({ "id": user2.id })
+                .assign({ "pvploses": user2.pvploses + 1 })
                 .write()
         } else if (tdm1 >= st1.hp && tdm2 < st2.hp) {
             let embed1 = new Discord.RichEmbed()
@@ -1939,20 +2350,20 @@ module.exports = {
             await message.guild.members.get(user2.id).user.send(embed2)
             await message.member.send(embed1)
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"loses": user1.loses+1})
+                .find({ "id": message.author.id })
+                .assign({ "loses": user1.loses + 1 })
                 .write()
             db.get('users')
-                .find({"id": user2.id})
-                .assign({"wins": user2.wins+1})
+                .find({ "id": user2.id })
+                .assign({ "wins": user2.wins + 1 })
                 .write()
             db.get('users')
-                .find({"id": message.author.id})
-                .assign({"pvploses": user1.pvploses+1})
+                .find({ "id": message.author.id })
+                .assign({ "pvploses": user1.pvploses + 1 })
                 .write()
             db.get('users')
-                .find({"id": user2.id})
-                .assign({"pvpwins": user2.pvpwins+1})
+                .find({ "id": user2.id })
+                .assign({ "pvpwins": user2.pvpwins + 1 })
                 .write()
         } else {
             let embed1 = new Discord.RichEmbed()
