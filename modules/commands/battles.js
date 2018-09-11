@@ -1342,6 +1342,8 @@ module.exports = {
                                 msg += " :crossed_swords: " + items[type][i][t]
                             if (t == "bp")
                                 msg += "  :fireworks: " + items[type][i][t]
+                            if(msg == "")
+                                msg = "-"
                         }
                     }
                     embed.addField(+ i + ". " + items[type][i].name, msg, false)
