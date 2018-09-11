@@ -1812,7 +1812,7 @@ module.exports = {
                     if (t == "luck") {
                         msg += " :game_die: +" + items.consumable[i][t] + "%"
                     }
-                    msg += " Price: " + items.consumable[i].price + "%"
+                    msg += "\nPrice: " + items.consumable[i].price
 
                 }
             }
