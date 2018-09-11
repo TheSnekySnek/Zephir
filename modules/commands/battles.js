@@ -1031,9 +1031,10 @@ db.defaults({
     .write()
 
 schedule.scheduleJob('0 1 * * *', () => {
-    db.get('users')
-    .assign({ gamesToday: 0})
-    .write()
+    var users = db.get('users').value()
+        users.forEach(user => {
+            db.get("users").find({id: user.id}).assign({gamesToday: 0}).write()
+        });
 }) 
 
 function getLoot(lvl, luck) {
@@ -1212,6 +1213,16 @@ module.exports = {
             printProfile(user, message)
         }
         
+    },
+    resetbp: function (message, command, args){
+        if (HR != "Owner" && HR != "Co-Owner") {
+            message.channel.send("Not available")
+            return
+        }
+        var users = db.get('users').value()
+        users.forEach(user => {
+            db.get("users").find({id: user.id}).assign({gamesToday: 0}).write()
+        });
     },
     buy: function (message, command, args) {
         var HR = message.guild.members.get(message.author.id).highestRole.name
