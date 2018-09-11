@@ -1659,7 +1659,7 @@ module.exports = {
                 message.channel.send("Need more coins")
                 return
             }
-            user.inventory.consumable.push(id)
+            user.inventory.consumable.push(args[1])
             ADB.setCoins(userCoins - items.consumable[args[1]].price)
             message.channel.send("You bought " + items.consumable[args[1]].name + " for " + items.consumable[args[1]].price + " arkoins")
         }
