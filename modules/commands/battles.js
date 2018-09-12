@@ -1426,19 +1426,14 @@ db.defaults({
                 price: 5000
             },
             {
-                name: "Large BP Potion",
-                bp: 10,
-                price: 10000
-            },
-            {
-                name: "Fill me up Scotty",
-                bp: 0,
-                price: 15000
-            },
-            {
                 name: "Small Dungeon Potion",
                 hp: 0.15,
                 price: 2500
+            },
+            {
+                name: "Large BP Potion",
+                bp: 10,
+                price: 10000
             },
             {
                 name: "Large Dungeon Potion",
@@ -1446,18 +1441,23 @@ db.defaults({
                 price: 5000
             },
             {
+                name: "Fill me up Scotty",
+                bp: 0,
+                price: 15000
+            },
+            {
                 name: "Small Dungeon Elixir",
                 atk: 0.15,
                 price: 2500
             },
             {
-                name: "Large Dungeon Elixir",
-                atk: 0.30,
+                name: "Small Magic Elixir",
+                luck: 15,
                 price: 5000
             },
             {
-                name: "Small Magic Elixir",
-                luck: 15,
+                name: "Large Dungeon Elixir",
+                atk: 0.30,
                 price: 5000
             },
             {
@@ -1487,18 +1487,19 @@ function timeForReset() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    return "You've used all your battle points. Come back in **" + hours + "h:" + minutes + "m:" + seconds + "s** for more"
+    return "You've used all your battle points. \nCome back in **" + hours + "h " + minutes + "m " + seconds + "s**."
 }
 
 function getLoot(lvl, luck) {
     var items = db.get('items').value()
+    var dnum = db.get('mobs').value().length
     var lootArray = []
-    if(lvl > 20)
-         lvl = 20
+    if (lvl > 20)
+        lvl = 20
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = lvl - 1; i < items[type].length; i++) {
-                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (lvl - 1)))), result: { type: type, id: i } })
+            for (let i = Math.floor(items.weapons.length / dnum); i < items[type].length; i++) {
+                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.round(items.weapons.length / dnum))))), result: { type: type, id: i } })
             }
         }
     }
@@ -1722,7 +1723,7 @@ module.exports = {
             }
             var userCoins = ADB.getCoins(message.author.id).amount
             if (userCoins < items.consumable[args[1]].price) {
-                message.channel.send("Need more coins")
+                message.channel.send("You don't have enough arkoins")
                 return
             }
             user.inventory.consumable.push(args[1])
@@ -1775,7 +1776,7 @@ module.exports = {
             message.channel.send("Unknown equipment type")
             return
         }
-        if ((parseInt(args[1]) != 0 || parseInt(args[1]) > user.inventory[kind].length-1) && (!parseInt(args[1]) || parseInt(args[1]) > user.inventory[kind].length-1)) {
+        if ((parseInt(args[1]) != 0 || parseInt(args[1]) > user.inventory[kind].length - 1) && (!parseInt(args[1]) || parseInt(args[1]) > user.inventory[kind].length - 1)) {
             message.channel.send("Invalid Item ID")
             return
         }
@@ -1895,7 +1896,7 @@ module.exports = {
     },
     dungeon: async function (message, command, args) {
         if (!args[0] || !parseInt(args[0]) || parseInt(args[0]) > 25) {
-            message.channel.send("Please choose the dungeon level by doing **!dungeon [lvl]** where lvl -> 1-25")
+            message.channel.send("Please choose the dungeon level by doing **!dungeon [lvl]** where lvl -> 1 - 25")
             return
         }
         var lvl = parseInt(args[0]) - 1
@@ -1985,7 +1986,7 @@ module.exports = {
 
 
         if (availPotions[3] || availPotions[4] || availPotions[5] || availPotions[6] || availPotions[7] || availPotions[8]) {
-            var con = await message.channel.send("Available Consumables:")
+            var con = await message.channel.send("Do you want to use a potion for this fight?")
             for (let i = 3; i < availPotions.length; i++) {
                 if (availPotions[i]) {
                     switch (i) {
@@ -2155,8 +2156,12 @@ module.exports = {
                 var msg = ""
                 for (var t in loot) {
                     if (loot.hasOwnProperty(t) && t != "name") {
-                        if (t == "hp")
-                            msg += " :heart: " + loot[t]
+                        if (t == "hp") {
+                            if (item.hp < 1 && item.hp > 0)
+                                msg += " :heart: " + loot[t] * 100 + "%"
+                            else
+                                msg += " :heart: " + loot[t]
+                        }
                         if (t == "atk")
                             msg += " :crossed_swords: " + loot[t]
                         if (t == "bp")
@@ -2206,7 +2211,16 @@ module.exports = {
                 .addField("Draw", "...", false)
                 .addField("Total Damage Dealt", tmbDmg, true)
                 .addField("Total Damage Received", tusrDmg, true)
-            await message.channel.send(embed)
+                .addField("- Loot - Reduced Reward due to Draw", "\n----------------------------------------------------", false)
+                var lootCoins = 25 * (lvl + 1)
+                var usrCoins = ADB.getCoins(message.author.id)
+                if (!usrCoins) {
+                    ADB.addCoins(message.author.id)
+                    usrCoins = ADB.getCoins(message.author.id)
+                }
+                ADB.setCoins(message.author.id, usrCoins.amount + lootCoins)
+                embed.addField("Arkoins", "+" + lootCoins, true)
+                await message.channel.send(embed)
         }
 
 
@@ -2215,11 +2229,11 @@ module.exports = {
         var ment = message.mentions.members.array()
         if (!args[0]) {
             var us = db.get("users").value()
-            
-            if(us.length > 24){
+
+            if (us.length > 24) {
                 let embed = new Discord.RichEmbed()
-                .setTitle("- Champions -")
-                .setColor("#dcbc3f")
+                    .setTitle("- Champions -")
+                    .setColor("#dcbc3f")
                 for (let i = 0; i < 24; i++) {
                     var ch = ""
                     var st = ""
@@ -2233,8 +2247,8 @@ module.exports = {
                 }
                 message.channel.send(embed)
                 embed = new Discord.RichEmbed()
-                .setTitle("- Champions -")
-                .setColor("#dcbc3f")
+                    .setTitle("- Champions -")
+                    .setColor("#dcbc3f")
                 for (let i = 24; i < us.length; i++) {
                     var ch = ""
                     var st = ""
@@ -2247,10 +2261,10 @@ module.exports = {
                     embed.addField(ch, st, true)
                 }
                 message.channel.send(embed)
-            }else{
+            } else {
                 let embed = new Discord.RichEmbed()
-                .setTitle("- Champions -")
-                .setColor("#dcbc3f")
+                    .setTitle("- Champions -")
+                    .setColor("#dcbc3f")
                 for (let i = 0; i < us.length; i++) {
                     var ch = ""
                     var st = ""
@@ -2264,9 +2278,9 @@ module.exports = {
                 }
                 message.channel.send(embed)
             }
-            
 
-            
+
+
             return
         }
         if ((parseInt(args[0]) != 0 && !parseInt(args[0])) || parseInt(args[0]) > db.get("users").value().length) {
