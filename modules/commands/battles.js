@@ -685,6 +685,34 @@ db.defaults({
                 hp: 9700,
                 atk: 6700
             }
+        ],
+        //Dungeon Level 25
+        [
+            {
+                name: "Zeus",
+                hp: 10000,
+                atk: 13500
+            },
+            {
+                name: "Hades",
+                hp: 17500,
+                atk: 14000
+            },
+            {
+                name: "Hecate",
+                hp: 15000,
+                atk: 10000
+            },
+            {
+                name: "Poseidon",
+                hp: 12500,
+                atk: 11500
+            },
+            {
+                name: "Ra",
+                hp: 20000,
+                atk: 13000
+            }
         ]
     ],
     items: {
@@ -1452,14 +1480,14 @@ schedule.scheduleJob('0 0 * * *', () => {
 function timeForReset() {
     var now = new Date().getTime();
     var countDownDate = new Date();
-    countDownDate.setDate(countDownDate.getDate()+1)
-    countDownDate.setHours(0,0,0,0);
+    countDownDate.setDate(countDownDate.getDate() + 1)
+    countDownDate.setHours(0, 0, 0, 0);
     var distance = countDownDate - now;
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    return "You've used all your battle points. Come back in **" + hours + "h:" + minutes+"m:"+seconds+ "s** for more"
+    return "You've used all your battle points. Come back in **" + hours + "h:" + minutes + "m:" + seconds + "s** for more"
 }
 
 function getLoot(lvl, luck) {
@@ -1562,7 +1590,7 @@ function getUserStats(user) {
 function printProfile(user, message) {
     var items = db.get('items').value()
     var stats = getUserStats(user)
-    if(stats.bp < 0)
+    if (stats.bp < 0)
         stats.bp = 0
     let embed = new Discord.RichEmbed()
         .setTitle("- Battle Profile -")
@@ -1603,28 +1631,28 @@ function printInventory(user, message) {
                 var item = items[type][inv[i]]
                 var itemDesc = ""
                 if (item.hp) {
-                    if(item.hp < 1 && item.hp > 0)
+                    if (item.hp < 1 && item.hp > 0)
                         itemDesc += (" :heart: +" + item.hp * 100 + "%")
                     else
                         itemDesc += (" :heart: " + item.hp)
                 }
                 if (item.atk) {
-                    if(item.atk < 1 && item.atk > 0)
+                    if (item.atk < 1 && item.atk > 0)
                         itemDesc += (" :crossed_swords: +" + item.atk * 100 + "%")
                     else
                         itemDesc += (" :crossed_swords: " + item.atk)
                 }
                 if (item.bp || item.bp == 0) {
-                    if(type == "consumable"){
-                        if(item.bp == 0)
+                    if (type == "consumable") {
+                        if (item.bp == 0)
                             itemDesc += (" :fireworks: MAX")
                         else
                             itemDesc += (" :fireworks: +" + item.bp)
                     }
-                        
+
                     else
                         itemDesc += (" :fireworks: " + item.bp)
-                    
+
                 }
                 if (item.luck) {
                     itemDesc += (" :game_die: " + item.luck)
@@ -1685,7 +1713,7 @@ module.exports = {
                 return
             }
             var userCoins = ADB.getCoins(message.author.id).amount
-            if(userCoins < items.consumable[args[1]].price){
+            if (userCoins < items.consumable[args[1]].price) {
                 message.channel.send("Need more coins")
                 return
             }
@@ -1694,7 +1722,7 @@ module.exports = {
             ADB.setCoins(message.author.id, userCoins - items.consumable[args[1]].price)
             message.channel.send("You bought " + items.consumable[args[1]].name + " for " + items.consumable[args[1]].price + " arkoins")
         }
-        else{
+        else {
             if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon" && kind != "consumable") {
                 message.channel.send("Unknown equipment type")
                 return
@@ -1717,7 +1745,7 @@ module.exports = {
                 message.channel.send("Equipped " + items[kind][id].name)
             }
         }
-        
+
     },
     inventory: function (message, command, args) {
         var user = getUser(message.author.id)
@@ -1848,7 +1876,7 @@ module.exports = {
                     if (t == "price") {
                         msg += "\nPrice: " + items.consumable[i].price
                     }
-                    
+
 
                 }
             }
