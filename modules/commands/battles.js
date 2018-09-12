@@ -2232,7 +2232,7 @@ module.exports = {
                     embed.addField(ch, st, true)
                 }
                 message.channel.send(embed)
-                let embed = new Discord.RichEmbed()
+                embed = new Discord.RichEmbed()
                 .setTitle("- Champions -")
                 .setColor("#dcbc3f")
                 for (let i = 24; i < us.length; i++) {
@@ -2248,6 +2248,9 @@ module.exports = {
                 }
                 message.channel.send(embed)
             }else{
+                let embed = new Discord.RichEmbed()
+                .setTitle("- Champions -")
+                .setColor("#dcbc3f")
                 for (let i = 0; i < us.length; i++) {
                     var ch = ""
                     var st = ""
