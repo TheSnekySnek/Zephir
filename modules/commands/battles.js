@@ -2158,7 +2158,7 @@ module.exports = {
                 for (var t in loot) {
                     if (loot.hasOwnProperty(t) && t != "name") {
                         if (t == "hp") {
-                            if (item.hp < 1 && item.hp > 0)
+                            if (loot[t] < 1 && loot[t] > 0)
                                 msg += " :heart: " + loot[t] * 100 + "%"
                             else
                                 msg += " :heart: " + loot[t]
