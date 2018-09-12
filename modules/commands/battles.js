@@ -2207,9 +2207,9 @@ module.exports = {
                 .setColor("#dcbc3f")
                 .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                 .addField("Draw", "...", false)
-                .addField("Total Damage Dealt\n--------------", tmbDmg, true)
+                .addField("Total Damage Dealt", tmbDmg + "\n--------------", true)
                 .addField("Total Damage Received", tusrDmg, true)
-                .addField("- Loot - \nReduced Reward due to Draw", "--------------", false)
+                .addField("- Loot - (Reduced Reward due to Draw)", "--------------", false)
                 var lootCoins = 25 * (lvl + 1)
                 var usrCoins = ADB.getCoins(message.author.id)
                 if (!usrCoins) {
