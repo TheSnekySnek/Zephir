@@ -1629,7 +1629,7 @@ function printInventory(user, message) {
     var items = db.get('items').value()
 
     for (var type in user.inventory) {
-        if (user.inventory.hasOwnProperty(type)) {
+        if (user.inventory.hasOwnProperty(type) && type != "consumable") {
             let embed = new Discord.RichEmbed()
                 .setTitle("- " + cap(type) + " -")
                 .setColor("#dcbc3f")
@@ -1665,6 +1665,18 @@ function printInventory(user, message) {
                     itemDesc += (" :game_die: " + item.luck)
                 }
                 embed.addField(i + ". " + item.name, itemDesc, false)
+            }
+            message.channel.send(embed)
+        }
+        else if(type == "consumable"){
+            let embed = new Discord.RichEmbed()
+                .setTitle("- " + cap(type) + " -")
+                .setColor("#dcbc3f")
+            var pot = getAvailablePotions(user)
+            for (let i = 0; i < pot.length; i++) {
+                if(pot[i] > 0){
+                    embed.addField(i + ". " + items.consumable[i].name, "Quantity: " + pot[i], false)
+                }
             }
             message.channel.send(embed)
         }
