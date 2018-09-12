@@ -2215,23 +2215,55 @@ module.exports = {
         var ment = message.mentions.members.array()
         if (!args[0]) {
             var us = db.get("users").value()
-            let embed = new Discord.RichEmbed()
+            
+            if(us.length > 24){
+                let embed = new Discord.RichEmbed()
                 .setTitle("- Champions -")
                 .setColor("#dcbc3f")
-
-            for (let i = 0; i < us.length; i++) {
-                var ch = ""
-                var st = ""
-                if (us[i].id == message.author.id) {
-                    continue
+                for (let i = 0; i < 24; i++) {
+                    var ch = ""
+                    var st = ""
+                    if (us[i].id == message.author.id) {
+                        continue
+                    }
+                    ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
+                    var usrStat = getUserStats(us[i])
+                    st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
+                    embed.addField(ch, st, true)
                 }
-                ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
-                var usrStat = getUserStats(us[i])
-                st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
-                embed.addField(ch, st, true)
+                message.channel.send(embed)
+                let embed = new Discord.RichEmbed()
+                .setTitle("- Champions -")
+                .setColor("#dcbc3f")
+                for (let i = 24; i < us.length; i++) {
+                    var ch = ""
+                    var st = ""
+                    if (us[i].id == message.author.id) {
+                        continue
+                    }
+                    ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
+                    var usrStat = getUserStats(us[i])
+                    st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
+                    embed.addField(ch, st, true)
+                }
+                message.channel.send(embed)
+            }else{
+                for (let i = 0; i < us.length; i++) {
+                    var ch = ""
+                    var st = ""
+                    if (us[i].id == message.author.id) {
+                        continue
+                    }
+                    ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
+                    var usrStat = getUserStats(us[i])
+                    st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
+                    embed.addField(ch, st, true)
+                }
+                message.channel.send(embed)
             }
+            
 
-            message.channel.send(embed)
+            
             return
         }
         if ((parseInt(args[0]) != 0 && !parseInt(args[0])) || parseInt(args[0]) > db.get("users").value().length) {
