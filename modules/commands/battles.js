@@ -1426,19 +1426,9 @@ db.defaults({
                 price: 5000
             },
             {
-                name: "Small Dungeon Potion",
-                hp: 0.15,
-                price: 2500
-            },
-            {
                 name: "Large BP Potion",
                 bp: 10,
                 price: 10000
-            },
-            {
-                name: "Large Dungeon Potion",
-                hp: 0.30,
-                price: 5000
             },
             {
                 name: "Fill me up Scotty",
@@ -1446,18 +1436,29 @@ db.defaults({
                 price: 15000
             },
             {
+                name: "Small Dungeon Potion",
+                hp: 0.15,
+                price: 2500
+            },
+            {
+                name: "Large Dungeon Potion",
+                hp: 0.30,
+                price: 5000
+            },
+            
+            {
                 name: "Small Dungeon Elixir",
                 atk: 0.15,
                 price: 2500
             },
             {
-                name: "Small Magic Elixir",
-                luck: 15,
+                name: "Large Dungeon Elixir",
+                atk: 0.30,
                 price: 5000
             },
             {
-                name: "Large Dungeon Elixir",
-                atk: 0.30,
+                name: "Small Magic Elixir",
+                luck: 15,
                 price: 5000
             },
             {
