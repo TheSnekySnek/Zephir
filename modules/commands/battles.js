@@ -1603,7 +1603,7 @@ function printProfile(user, message) {
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
         .addField("Ranking: Unavailable", "Battles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
-        .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:fireworks: Battle Points: " + (stats.bp - user.gamesToday) + " / " + stats.bp + "\n\n------------------------------------------------------------------")
+        .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:game_die:  Luck: " + stats.luck + "\n:fireworks: Battle Points: " + (stats.bp - user.gamesToday) + " / " + stats.bp + "\n\n------------------------------------------------------------------")
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
         if (user.equiped.hasOwnProperty(type)) {
@@ -1616,6 +1616,9 @@ function printProfile(user, message) {
             }
             if (items[type][user.equiped[type]].bp) {
                 itemDesc += ("\n   *BP " + items[type][user.equiped[type]].bp + "*")
+            }
+            if (items[type][user.equiped[type]].luck) {
+                itemDesc += ("\n   *Luck " + items[type][user.equiped[type]].luck + "*")
             }
             embed.addField(cap(type), itemDesc + "\n", true)
         }
