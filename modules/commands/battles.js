@@ -1442,12 +1442,25 @@ db.defaults({
 })
     .write()
 
-schedule.scheduleJob('0 1 * * *', () => {
+schedule.scheduleJob('0 0 * * *', () => {
     var users = db.get('users').value()
     users.forEach(user => {
         db.get("users").find({ id: user.id }).assign({ gamesToday: 0 }).write()
     });
 })
+
+function timeForReset() {
+    var now = new Date().getTime();
+    var countDownDate = new Date();
+    countDownDate.setDate(countDownDate.getDate()+1)
+    countDownDate.setHours(0,0,0,0);
+    var distance = countDownDate - now;
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return "You've used all your battle points. Come back in **" + hours + "h:" + minutes+"m:"+seconds+ "s** for more"
+}
 
 function getLoot(lvl, luck) {
     var items = db.get('items').value()
@@ -1549,6 +1562,8 @@ function getUserStats(user) {
 function printProfile(user, message) {
     var items = db.get('items').value()
     var stats = getUserStats(user)
+    if(stats.bp < 0)
+        stats.bp = 0
     let embed = new Discord.RichEmbed()
         .setTitle("- Battle Profile -")
         .setDescription("For " + message.guild.members.get(user.id).displayName + "\n------------------------------------------------------------------")
@@ -1588,13 +1603,28 @@ function printInventory(user, message) {
                 var item = items[type][inv[i]]
                 var itemDesc = ""
                 if (item.hp) {
-                    itemDesc += (" :heart: " + item.hp)
+                    if(item.hp < 1 && item.hp > 0)
+                        itemDesc += (" :heart: +" + item.hp * 100 + "%")
+                    else
+                        itemDesc += (" :heart: " + item.hp)
                 }
                 if (item.atk) {
-                    itemDesc += (" :crossed_swords: " + item.atk)
+                    if(item.atk < 1 && item.atk > 0)
+                        itemDesc += (" :crossed_swords: +" + item.atk * 100 + "%")
+                    else
+                        itemDesc += (" :crossed_swords: " + item.atk)
                 }
                 if (item.bp || item.bp == 0) {
-                    itemDesc += (" :fireworks: " + item.bp)
+                    if(type == "consumable"){
+                        if(item.bp == 0)
+                            itemDesc += (" :fireworks: MAX")
+                        else
+                            itemDesc += (" :fireworks: +" + item.bp)
+                    }
+                        
+                    else
+                        itemDesc += (" :fireworks: " + item.bp)
+                    
                 }
                 if (item.luck) {
                     itemDesc += (" :game_die: " + item.luck)
@@ -1655,13 +1685,13 @@ module.exports = {
                 return
             }
             var userCoins = ADB.getCoins(message.author.id).amount
-            if(userCoins < items.consumable[args[1]]){
+            if(userCoins < items.consumable[args[1]].price){
                 message.channel.send("Need more coins")
                 return
             }
             user.inventory.consumable.push(args[1])
             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
-            ADB.setCoins(userCoins - items.consumable[args[1]].price)
+            ADB.setCoins(message.author.id, userCoins - items.consumable[args[1]].price)
             message.channel.send("You bought " + items.consumable[args[1]].name + " for " + items.consumable[args[1]].price + " arkoins")
         }
         else{
@@ -1677,6 +1707,7 @@ module.exports = {
             if (kind == "consumable") {
                 user.inventory[kind].push(id)
                 db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+                message.channel.send("Obtained " + items[kind][id].name)
             }
             else if (items[kind][id]) {
                 user.inventory[kind].push(user.equiped[kind])
@@ -1827,8 +1858,8 @@ module.exports = {
 
     },
     dungeon: async function (message, command, args) {
-        if (!args[0] || !parseInt(args[0]) || parseInt(args[1]) > 20) {
-            message.channel.send("Please choose the dungeon level by doing **!dungeon [lvl]** where lvl -> 1-20")
+        if (!args[0] || !parseInt(args[0]) || parseInt(args[0]) > 25) {
+            message.channel.send("Please choose the dungeon level by doing **!dungeon [lvl]** where lvl -> 1-25")
             return
         }
         var lvl = parseInt(args[0]) - 1
@@ -1842,18 +1873,18 @@ module.exports = {
         var availPotions = getAvailablePotions(user)
         if (user.gamesToday >= stats.bp) {
             if (availPotions[0] || availPotions[1] || availPotions[2]) {
-                var con = await message.channel.send("You ran out of Battle Points. Do you want to use one of your potions?")
+                var con = await message.channel.send(timeForReset() + "\n Do you want to use one of your potions?")
                 for (let i = 0; i < 3; i++) {
                     if (availPotions[i]) {
                         switch (i) {
                             case 0:
-                                con.react("🎇")
+                                await con.react("🎇")
                                 break;
                             case 1:
-                                con.react("🎆")
+                                await con.react("🎆")
                                 break;
                             case 2:
-                                con.react("🌠")
+                                await con.react("🌠")
                                 break;
                             default:
                                 break;
@@ -1892,7 +1923,7 @@ module.exports = {
                 });
             }
             else {
-                message.channel.send("You've used all your battle points. Come back tommorow for more")
+                message.channel.send(timeForReset())
             }
             return
         }
@@ -2035,8 +2066,8 @@ module.exports = {
                 .addField("Choices", "You: " + usrSel + "\n" + mob.name + ": " + mbSel + "\n----------------------------------------------------")
 
             if ((usrSel == '💧' && mbSel == '🔥') || (usrSel == '🔥' && mbSel == '🌱') || (usrSel == '🌱' && mbSel == '💧')) {
-                mbDmg = (stats.atk * 2)
-                usrDmg = (mob.atk / 2)
+                mbDmg = stats.atk
+                usrDmg = mob.atk
                 embed.addField("You Win !", "+" + round * 25 + "% Damage Boost\n----------------------------------------------------")
                 mbDmg += (mbDmg * round * 0.25)
             }
@@ -2046,8 +2077,8 @@ module.exports = {
                 embed.addField("It's a Draw!", "No Multipliers\n----------------------------------------------------")
             }
             else {
-                mbDmg = (stats.atk / 2)
-                usrDmg = (mob.atk * 2)
+                mbDmg = stats.atk
+                usrDmg = mob.atk
                 embed.addField("You Lost !", "+" + round * 25 + "% Damage Taken\n----------------------------------------------------")
                 usrDmg += (usrDmg * round * 0.25)
             }
@@ -2266,8 +2297,8 @@ module.exports = {
                 .addField("Choices", "You: " + res2 + "\n" + message.member.displayName + ": " + res1 + "\n----------------------------------------------------")
 
             if ((res1 == '💧' && res2 == '🔥') || (res1 == '🔥' && res2 == '🌱') || (res1 == '🌱' && res2 == '💧')) {
-                dmg2 += (st1.atk * 2)
-                dmg1 += (st2.atk / 2)
+                dmg2 += st1.atk
+                dmg1 += st2.atk
                 embed1.addField("You Win !", "+" + round * 25 + "% Damage Boost\n----------------------------------------------------")
                 embed2.addField("You Lost !", "+" + round * 25 + "% Damage Taken\n----------------------------------------------------")
                 mul1 = round
@@ -2279,8 +2310,8 @@ module.exports = {
                 embed2.addField("It's a Draw!", "No Multipliers\n----------------------------------------------------")
             }
             else {
-                dmg1 += (st2.atk * 2)
-                dmg2 += (st1.atk / 2)
+                dmg1 += st2.atk
+                dmg2 += st1.atk
                 embed2.addField("You Win !", "+" + round * 25 + "% Damage Boost\n----------------------------------------------------")
                 embed1.addField("You Lost !", "+" + round * 25 + "% Damage Taken\n----------------------------------------------------")
                 mul2 = round
