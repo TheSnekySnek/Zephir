@@ -1510,7 +1510,6 @@ function getLoot(lvl, luck) {
     return loot
 }
 
-
 function cap(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -2208,9 +2207,9 @@ module.exports = {
                 .setColor("#dcbc3f")
                 .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                 .addField("Draw", "...", false)
-                .addField("Total Damage Dealt", tmbDmg, true)
+                .addField("Total Damage Dealt\n--------------", tmbDmg, true)
                 .addField("Total Damage Received", tusrDmg, true)
-                .addField("- Loot - Reduced Reward due to Draw", "\n----------------------------------------------------", false)
+                .addField("- Loot - \nReduced Reward due to Draw", "--------------", false)
                 var lootCoins = 25 * (lvl + 1)
                 var usrCoins = ADB.getCoins(message.author.id)
                 if (!usrCoins) {
