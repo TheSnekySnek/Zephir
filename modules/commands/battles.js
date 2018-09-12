@@ -1493,6 +1493,8 @@ function timeForReset() {
 function getLoot(lvl, luck) {
     var items = db.get('items').value()
     var lootArray = []
+    if(lvl > 20)
+         lvl = 20
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
             for (let i = lvl - 1; i < items[type].length; i++) {
@@ -1581,6 +1583,9 @@ function getUserStats(user) {
             }
             if (items[type][user.equiped[type]].bp) {
                 bp += items[type][user.equiped[type]].bp
+            }
+            if (items[type][user.equiped[type]].luck) {
+                luck += items[type][user.equiped[type]].luck
             }
         }
     }
