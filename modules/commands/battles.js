@@ -1675,7 +1675,7 @@ function printInventory(user, message) {
             var pot = getAvailablePotions(user)
             for (let i = 0; i < pot.length; i++) {
                 if(pot[i] > 0){
-                    embed.addField(i + ". " + items.consumable[i].name, "Quantity: " + pot[i], false)
+                    embed.addField(items.consumable[i].name, "Quantity: " + pot[i], false)
                 }
             }
             message.channel.send(embed)
