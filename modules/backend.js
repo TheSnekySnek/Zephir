@@ -40,10 +40,24 @@ io.on('connection', function(socket){
         if(verifyID(msg.jwt))
         DB.deleteCommand(msg.data)
     })
-
     socket.on('getRoles', function(msg){
         if(verifyID(msg.jwt))
         socket.emit('getRoles', DB.getRoles())
+    })
+    socket.on('getUserRoles', function(msg){
+        if(verifyID(msg.jwt)){
+            var mbUser = DB.getMobileUserToken(msg.token)
+            var roles = DB.getRoles()
+            client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).roles.array().forEach(usrRole => {
+                roles.forEach(role => {
+                    if(role.name == usrRole.name){
+                        role["has"] = true
+                    }
+                });
+            });
+
+            socket.emit('getUserRoles', roles)
+        }
     })
     socket.on('addRole', function(msg){
         if(verifyID(msg.jwt))
