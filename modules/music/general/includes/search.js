@@ -11,7 +11,7 @@ module.exports = {
         let plNum = parseInt(term);
         api.getPlaylist().then((pl) => {
           if (pl.playlist.length > plNum) {
-            ytdl.getInfo(pl.playlist[plNum].link, (error, info) => {
+            ytdl.getInfo(pl.playlist[plNum].yt, (error, info) => {
               if (error) {
                 reject(error);
               }
