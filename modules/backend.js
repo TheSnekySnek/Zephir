@@ -143,7 +143,7 @@ io.on('connection', function(socket){
         var channels = DB.getChannels()
         channels.forEach(channel => {
             if(channel.alias == msg.name){
-                if(msg.has){
+                if(!msg.has){
                     let permission = client.guilds.get(DB.getBotData().guild).channels.find("name", channel.alias).permissionOverwrites.get(mbUser.user);
                     if(permission){
                         permission.delete()
