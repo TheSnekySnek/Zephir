@@ -1786,7 +1786,11 @@ module.exports = {
             message.channel.send("Unknown equipment type")
             return
         }
-        if ((parseInt(args[1]) != 0 || parseInt(args[1]) > user.inventory[kind].length - 1) && (!parseInt(args[1]) || parseInt(args[1]) > user.inventory[kind].length - 1)) {
+        if(!parseInt(args[1]) && parseInt(args[1]) != 0){
+            message.channel.send("Invalid Item ID")
+            return
+        }
+        if (!user.inventory[kind][parseInt(args[1])]) {
             message.channel.send("Invalid Item ID")
             return
         }

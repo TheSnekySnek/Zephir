@@ -45,19 +45,71 @@ io.on('connection', function(socket){
         socket.emit('getRoles', DB.getRoles())
     })
     socket.on('getUserRoles', function(msg){
-        if(verifyID(msg.jwt)){
-            var mbUser = DB.getMobileUserToken(msg.token)
-            var roles = DB.getRoles()
-            client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).roles.array().forEach(usrRole => {
-                roles.forEach(role => {
-                    if(role.name == usrRole.name){
-                        role["has"] = true
-                    }
-                });
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(!mbUser)
+            return
+        var roles = DB.getRoles()
+        var uniqueRoles = []
+        roles.forEach(role => {
+            var add = true
+            for (let i = 0; i < uniqueRoles.length; i++) {
+                if(uniqueRoles[i].name == role.name){
+                    add = false
+                }
+            }
+            if(add){
+                role.has = false
+                uniqueRoles.push(role)
+            }
+                
+        });
+        function compare(a,b) {
+            if (a.name < b.name)
+              return -1;
+            if (a.name > b.name)
+              return 1;
+            return 0;
+          }
+          
+        uniqueRoles.sort(compare);
+        client.guilds.get(DB.getBotData().guild).members.get(mbUser.user).roles.array().forEach(usrRole => {
+            uniqueRoles.forEach(role => {
+                if(role.name == usrRole.name){
+                    role["has"] = true
+                }
             });
+        });
+        
 
-            socket.emit('getUserRoles', roles)
-        }
+        socket.emit('getUserRoles', uniqueRoles)
+    })
+    socket.on('getUserChannels', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(!mbUser)
+            return
+        var channs = DB.getChannels()
+        var channels = []
+        channs.forEach(channel => {
+            if(!client.guilds.get(DB.getBotData().guild).channels.find("name", channel.alias))
+                return
+            let permission = client.guilds.get(DB.getBotData().guild).channels.find("name", channel.alias).permissionOverwrites.get(mbUser.user);
+            if(permission)
+                channel["has"] = true
+            else
+                channel["has"] = false
+            channels.push(channel)
+        });
+        function compare(a,b) {
+            if (a.alias < b.alias)
+              return -1;
+            if (a.alias > b.alias)
+              return 1;
+            return 0;
+          }
+          
+        channels.sort(compare);  
+
+        socket.emit('getUserChannels', channels)
     })
     socket.on('addRole', function(msg){
         if(verifyID(msg.jwt))
@@ -68,26 +120,48 @@ io.on('connection', function(socket){
         DB.deleteRole(msg.data)
     })
     socket.on('setRole', function(msg){
-        if(verifyID(msg.jwt)){
-            var mbUser = DB.getMobileUserToken(msg.token)
-            var roles = DB.getRoles()
-            roles.forEach(role => {
-                if(role.name == msg.role){
-                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).addRole(client.guilds.get(DB.getBotData().guild).roles.find('name', msg.role))
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(!mbUser)
+            return
+        var roles = DB.getRoles()
+        roles.forEach(role => {
+            if(role.name == msg.name){
+                if(msg.has){
+                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.user).addRole(client.guilds.get(DB.getBotData().guild).roles.find('name', role.name))
                 }
-            })
-        }
+                else{
+                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.user).removeRole(client.guilds.get(DB.getBotData().guild).roles.find('name', role.name))
+                } 
+            }
+        })
     })
-    socket.on('remRole', function(msg){
-        if(verifyID(msg.jwt)){
-            var mbUser = DB.getMobileUserToken(msg.token)
-            var roles = DB.getRoles()
-            roles.forEach(role => {
-                if(role.name == msg.role){
-                    client.guilds.get(DB.getBotData().guild).members.get(mbUser.id).removeRole(client.guilds.get(DB.getBotData().guild).roles.find('name', msg.role))
+
+    socket.on('setChannel', function(msg){
+        var mbUser = DB.getMobileUserToken(msg.token)
+        if(!mbUser)
+            return
+        var channels = DB.getChannels()
+        channels.forEach(channel => {
+            if(channel.alias == msg.name){
+                if(msg.has){
+                    let permission = client.guilds.get(DB.getBotData().guild).channels.find("name", channel.alias).permissionOverwrites.get(mbUser.user);
+                    if(permission){
+                        permission.delete()
+                        console.log("Show", channel.alias)
+                    }
                 }
-            })
-        }
+                else{
+                    let selChannel = client.guilds.get(DB.getBotData().guild).channels.find('name', channel.alias);
+                    if(selChannel){
+                        client.guilds.get(DB.getBotData().guild).channels.find("name", channel.alias).overwritePermissions(client.guilds.get(DB.getBotData().guild).members.get(mbUser.user), {
+                        'READ_MESSAGES': false,
+                        'READ_MESSAGE_HISTORY': false
+                        })
+                        console.log("Hide", channel.alias)
+                    }
+                } 
+            }
+        })
     })
 
     socket.on('getSounds', function(msg){

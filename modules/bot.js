@@ -13,8 +13,8 @@ client.on('ready', () => {
 
 
 client.on('message', msg => {
-        checkForCommand(msg)
-        checkForDiscord(msg) 
+    checkForCommand(msg)
+    checkForDiscord(msg)
 })
 
 
