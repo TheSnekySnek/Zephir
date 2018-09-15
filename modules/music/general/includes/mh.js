@@ -16,7 +16,7 @@ module.exports.handle = function(m){
         console.log(msg)
         search.search({content: msg.name, author: {username: msg.user}}, msg.name)
         .catch(err => {
-          textChannel.reply("The playlist does not contain this ID")
+          console.error(err)
           return
         })
         .then(song => {
