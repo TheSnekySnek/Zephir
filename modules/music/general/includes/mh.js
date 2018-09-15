@@ -23,24 +23,6 @@ module.exports.handle = function(m){
           console.log(song)
           if (song) {
             queue.add(song)
-            queue.getTime()
-            .then((queueTime) => {
-              let pTime = player.time();
-              if (!pTime || !pTime.time || !pTime.song) {
-                pTime.time = 0
-                pTime.song = 0
-              }
-              let embed = new Discord.RichEmbed()
-              .setTitle("**"+song.name+"**")
-              .setColor("#2eaae5")
-              .setFooter("Arkhos Music Bot V2 by TheSnekySnek", client.user.avatarURL)
-              .setThumbnail(song.thumbnail)
-              .setURL(song.link)
-              .addField("Duration", fancyTimeFormat(song.duration))
-              .addField("Starts in", fancyTimeFormat(queueTime + (pTime.song - pTime.time)))
-
-              textChannel.send({embed});
-            })
           }
         })
         .catch(err => {

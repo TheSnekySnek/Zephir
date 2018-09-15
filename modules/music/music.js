@@ -67,6 +67,7 @@ module.exports = {
                 
                 case "setqueue":
                     DB.setMBQueue(id, m.data)
+                    socketC.emit("queue", {id: id, data: m.data})
                     break;
 
                 case "setplaylist":
