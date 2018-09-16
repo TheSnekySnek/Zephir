@@ -2365,7 +2365,7 @@ if (ADB.getBattleSettings().enabled) {
 
         },
 
-        consumables: function (message, command, args) {
+        shop: function (message, command, args) {
             var items = db.get('items').value()
             let embed = new Discord.RichEmbed()
                 .setTitle("- Consumables -")
@@ -2716,7 +2716,7 @@ if (ADB.getBattleSettings().enabled) {
                     .addField("Winner", message.author.username, true)
                     .addField("Loser", mob.name, true)
                     .addField("Total Damage Dealt", tmbDmg + "\n--------------", true)
-                    .addField("Total Damage Received", tusrDmg, true)
+                    .addField("Total Damage Dealt", tusrDmg, true)
                     .addField("Loot", "\n--------------", false)
                 if (loot != "") {
                     var items = db.get('items').value()
@@ -2795,8 +2795,8 @@ if (ADB.getBattleSettings().enabled) {
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                     .addField("Winner", mob.name, true)
                     .addField("Loser", message.member.displayName, true)
+                    .addField("Total Damage Dealt", tusrDmg, true)
                     .addField("Total Damage Dealt", tmbDmg, true)
-                    .addField("Total Damage Received", tusrDmg, true)
                 await message.member.send(embed)
                 db.get('users')
                     .find({ "id": message.author.id })
