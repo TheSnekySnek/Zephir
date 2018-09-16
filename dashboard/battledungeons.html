@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Battles</title>
 
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"> 
-
+    <link rel="stylesheet" href="css/switchery.css" />
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
     <!--<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">-->
@@ -60,7 +60,7 @@
                             <a href="/">
                                 <i class="fab fa-discord fa-lg"></i>Bot</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="commands.html">
                                 <i class="fas fa-comment-alt fa-lg"></i>Commands</a>
                         </li>
@@ -80,14 +80,14 @@
                             <a href="musicbots.html">
                                 <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-khanda fa-lg"></i>Battles</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <ul class="list-unstyled navbar__sub-list js-sub-list" style="display:block;">
                                 <li>
                                     <a href="battles.html">Settings</a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a href="battledungeons.html">Dungeons</a>
                                 </li>
                                 <li>
@@ -113,7 +113,7 @@
                             <a href="/">
                                 <i class="fab fa-discord fa-lg"></i>Bot</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="commands.html">
                                 <i class="fas fa-comment-alt fa-lg"></i>Commands</a>
                         </li>
@@ -133,14 +133,14 @@
                             <a href="musicbots.html">
                                 <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-khanda fa-lg"></i>Battles</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <ul class="list-unstyled navbar__sub-list js-sub-list" style="display:block;">
                                 <li>
                                     <a href="battles.html">Settings</a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a href="battledungeons.html">Dungeons</a>
                                 </li>
                                 <li>
@@ -163,78 +163,86 @@
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
-                    <div class="container-fluid">
+                    <div id="baseline" class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Commands</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#largeModal"><i class="zmdi zmdi-plus"></i>add command</button>
+                                    <h2 class="title-1">Dungeons</h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 30px;">
-                            <div class="col-lg-12">
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped table-earning">
-                                        <thead>
-                                            <tr>
-                                                <th>Command</th>
-                                                <th>Reply</th>
-                                                <th class="text-right">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="comms">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-
             <!-- modal large -->
-			<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="largeModalLabel">New Command</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Command</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <input type="text" id="commandName" name="text-input" placeholder="!command" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Reply</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <input type="text" id="commandReply" name="text-input" placeholder="Reply" class="form-control">
-                                        </div>
-                                    </div>
-                                    <button class="au-btn au-btn--block au-btn--green m-b-20" id="addCommand" style="width: 130px;margin: 0 auto;">ADD</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- end modal large -->
-
-
+            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="largeModalLabel">Mob Edit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="text-input" class=" form-control-label">Name</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="text" id="mobname" name="text-input" placeholder="name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="text-input" class=" form-control-label">Icon</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="text" id="mobicon" name="text-input" placeholder="icon" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="text-input" class=" form-control-label">HP</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="number" id="mobhp" name="text-input" placeholder="hp" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="text-input" class=" form-control-label">ATK</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="number" id="mobatk" name="text-input" placeholder="atk" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="text-input" class=" form-control-label">Bio</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="text" id="mobbio" name="text-input" placeholder="bio" class="form-control">
+                                </div>
+                            </div>
+                            <button class="au-btn au-btn--block au-btn--green m-b-20" id="saveMob" style="width: 130px;margin: 0 auto;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal large -->
             <!-- END PAGE CONTAINER-->
         </div>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -251,14 +259,78 @@
     <script src="vendor/circle-progress/circle-progress.min.js"></script>
     <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="js/switchery.js"></script>
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
     <script src="js/zephir.js"></script>
+    
     <script>
-        getCommands()
+        $('#saveMob').click(function(e) {
+            var mob = {
+                name: $('#mobname').val(),
+                icon: $('#mobicon').val(),
+                hp: parseInt($('#mobhp').val()),
+                atk: parseInt($('#mobatk').val()),
+                bio: $('#mobbio').val()
+            }
+            window.dungeons[window.currentDungeon][window.currentMob] = mob
+            socket.emit('setBattleMobs', {jwt: getCookie("jwt"), data: window.dungeons});
+            location.reload()
+        })
+        function editMob(d, m) {
+            window.currentDungeon = d
+            window.currentMob = m
+            $('#mobname').val(window.dungeons[d][m].name)
+            $('#mobicon').val(window.dungeons[d][m].icon)
+            $('#mobhp').val(window.dungeons[d][m].hp)
+            $('#mobatk').val(window.dungeons[d][m].atk)
+            $('#mobbio').val(window.dungeons[d][m].bio)
+        }
+        socket.on('getBattleMobs', function(msg){
+            window.dungeons = msg
+            for (let i = 0; i < msg.length; i++) {
+                $('#baseline').append(`<div class="row" style="margin-top: 30px;">
+                    <div class="col-lg-12">
+                        <div class="table-responsive table--no-card m-b-30">
+                            <table class="table table-borderless table-striped table-earning">
+                                <thead>
+                                    <tr>
+                                        <th>Dungeon ${i+1}</th>
+                                        <th>Name</th>
+                                        <th>HP</th>
+                                        <th>ATK</th>
+                                        <th>Bio</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dungeon${i}">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`)
+                for (let k = 0; k < msg[i].length; k++) {
+                    $('#dungeon' + i).append(`
+                    <tr>
+                        <td style="vertical-align: middle;text-align: cemter;"><img style="max-width: 64px;" src="${msg[i][k].icon == "" ? "https://images-ext-1.discordapp.net/external/DFl2owCqFuJJ3ziJ2bCEpLjWMvKDTr8AMuaZvQOGOtk/https/cdn.discordapp.com/attachments/233701911168155649/490541818090487808/Mob_Icon_Default_NoBg.png" : msg[i][k].icon}" alt=""></td>
+                        <td style="vertical-align: middle;text-align: cemter;">${msg[i][k].name}</td>
+                        <td style="vertical-align: middle;text-align: cemter;">${msg[i][k].hp}</td>
+                        <td style="vertical-align: middle;text-align: cemter;">${msg[i][k].atk}</td>
+                        <td style="vertical-align: middle;text-align: cemter;">${msg[i][k].bio}</td>
+                        <td class="text-right" style="vertical-align: middle;">
+                            <button data-toggle="modal" data-target="#largeModal" style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="editMob(${i}, ${k})" class="btn btn-secondary mb-1 del-btn com-del">
+                                    <i class="far fa-pencil-alt" style="position: absolute;top: 6px;left: 7px;"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    `)
+                }
+                
+            }
+        })
+        socket.emit('getBattleMobs', {jwt: getCookie("jwt")});
     </script>
 
 </body>

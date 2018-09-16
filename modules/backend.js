@@ -8,6 +8,7 @@ const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var music = require('../modules/music/music')
+const fs = require('fs')
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +26,31 @@ io.on('connection', function(socket){
             DB.saveBotData(msg.data)
             restart()
         }
-        
+    })
+    socket.on('getBattleMobs', function(msg){
+        if(verifyID(msg.jwt))
+            socket.emit('getBattleMobs', getBattleMobs())
+    })
+    socket.on('getBattleItems', function(msg){
+        if(verifyID(msg.jwt))
+            socket.emit('getBattleItems', getBattleItems())
+    })
+    socket.on('setBattleMobs', function(msg){
+        if(verifyID(msg.jwt)){
+            var def = JSON.parse(fs.readFileSync("modules/commands/defaults/defbattles.json"))
+            def.mobs = msg.data
+            fs.writeFileSync("modules/commands/defaults/defbattles.json", JSON.stringify(def))
+            setBattleMobs(msg.data)
+        }  
+    })
+    socket.on('setBattleItems', function(msg){
+        if(verifyID(msg.jwt)){
+            var def = fs.readFileSync("modules/commands/defaults/defbattles.json")
+            def.items = msg.data
+            fs.writeFileSync("modules/commands/defaults/defbattles.json", def)
+            BDB.set("items", msg.data).write()
+            commandsHandler.reloadModules()
+        }
     })
     socket.on('getBattleSettings', function(msg){
         if(verifyID(msg.jwt))

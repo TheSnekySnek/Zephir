@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const commandsHandler = require('./commandHandler');
+global.commandsHandler = require('./commandHandler');
 const DB = require('../modules/db')
 var guildId = ""
 global.client = new Discord.Client({fetchAllMembers: true});

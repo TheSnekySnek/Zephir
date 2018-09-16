@@ -9,7 +9,7 @@
     <!-- Title Page-->
     <title>Dashboard</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -69,20 +69,31 @@
                                 <i class="fas fa-sitemap fa-lg"></i>Roles</a>
                         </li>
                         <li>
-                                <a href="sounds.html">
-                                    <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
+                            <a href="sounds.html">
+                                <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
                         </li>
                         <li>
-                                <a href="channels.html">
-                                        <i class="fas fa-hashtag fa-lg"></i>Channels</a>
+                            <a href="channels.html">
+                                <i class="fas fa-hashtag fa-lg"></i>Channels</a>
                         </li>
                         <li>
                             <a href="musicbots.html">
                                 <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
-                        <li>
-                            <a href="battles.html">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="fas fa-khanda fa-lg"></i>Battles</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="battles.html">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="battledungeons.html">Dungeons</a>
+                                </li>
+                                <li>
+                                    <a href="battleitems.html">Items</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -111,22 +122,32 @@
                                 <i class="fas fa-sitemap fa-lg"></i>Roles</a>
                         </li>
                         <li>
-                                <a href="sounds.html">
-                                    <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
+                            <a href="sounds.html">
+                                <i class="fas fa-volume-down fa-lg"></i>Sounds</a>
                         </li>
                         <li>
-                                <a href="channels.html">
-                                        <i class="fas fa-hashtag fa-lg"></i>Channels</a>
+                            <a href="channels.html">
+                                <i class="fas fa-hashtag fa-lg"></i>Channels</a>
                         </li>
                         <li>
                             <a href="musicbots.html">
                                 <i class="fas fa-music fa-lg"></i>Music Bots</a>
                         </li>
-                        <li>
-                            <a href="battles.html">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="fas fa-khanda fa-lg"></i>Battles</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="battles.html">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="battledungeons.html">Dungeons</a>
+                                </li>
+                                <li>
+                                    <a href="battleitems.html">Items</a>
+                                </li>
+                            </ul>
                         </li>
-                        
                     </ul>
                 </nav>
             </div>
@@ -151,12 +172,12 @@
                             </div>
                         </div>
                         <div class="row" style="margin-top: 30px;">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <strong>Bot</strong> Information
-                                </div>
-                                <div class="card-body card-block">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Bot</strong> Information
+                                    </div>
+                                    <div class="card-body card-block">
                                         <div class="row form-group">
                                             <div class="col col-md-3">
                                                 <label for="text-input" class=" form-control-label">Nickname</label>
@@ -183,72 +204,72 @@
                                             </div>
                                         </div>
                                         <button class="au-btn au-btn--block au-btn--green m-b-20" style="width: 130px;margin: 0 auto;" id="botSaveBtn">Save</button>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
+                    <!-- END MAIN CONTENT-->
+
+                    <!-- END PAGE CONTAINER-->
                 </div>
+
             </div>
-            <!-- END MAIN CONTENT-->
 
-            <!-- END PAGE CONTAINER-->
-        </div>
+            <!-- Jquery JS-->
+            <script src="vendor/jquery-3.2.1.min.js"></script>
 
-    </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <!-- Bootstrap JS-->
+            <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+            <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+            <!-- Vendor JS       -->
+            <script src="vendor/slick/slick.min.js">
+            </script>
+            <script src="vendor/wow/wow.min.js"></script>
+            <script src="vendor/animsition/animsition.min.js"></script>
+            <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+            </script>
+            <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+            <script src="vendor/counter-up/jquery.counterup.min.js">
+            </script>
+            <script src="vendor/circle-progress/circle-progress.min.js"></script>
+            <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+            <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+            <script src="vendor/select2/select2.min.js">
+            </script>
 
-    <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
+            <!-- Main JS-->
+            <script src="js/main.js"></script>
+            <script src="js/zephir.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
+            <script>
+                getBotData()
 
-    <!-- Main JS-->
-    <script src="js/main.js"></script>
-    <script src="js/zephir.js"></script>
-
-    <script>
-        getBotData()
-
-        $('#botSaveBtn').click(function(e) {
-            swal({
-                title: "Are you sure?",
-                text: "This will reload the bot",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                })
-                .then((doit) => {
-                if (doit) {
-                    setBotData({
-                        nickname: $('#botName').val(),
-                        token: $('#botToken').val(),
-                        guild: $('#botGuild').val()
+                $('#botSaveBtn').click(function (e) {
+                    swal({
+                        title: "Are you sure?",
+                        text: "This will reload the bot",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
                     })
-                    swal("Done... The bot is rebooting", {
-                    icon: "success",
-                    });
-                } else {
-                }
-                });
-        })
-    </script>
+                        .then((doit) => {
+                            if (doit) {
+                                setBotData({
+                                    nickname: $('#botName').val(),
+                                    token: $('#botToken').val(),
+                                    guild: $('#botGuild').val()
+                                })
+                                swal("Done... The bot is rebooting", {
+                                    icon: "success",
+                                });
+                            } else {
+                            }
+                        });
+                })
+            </script>
 
 </body>
 
