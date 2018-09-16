@@ -1772,6 +1772,7 @@ function cap(string) {
 }
 
 function createUser(member) {
+
     var userData = {
         id: member.id,
         damageTaken: 0,
@@ -2108,7 +2109,7 @@ if (ADB.getBattleSettings().enabled) {
             var ratio = (users[usrRank-1].wins + users[usrRank-1].pvpwins) / ((users[usrRank-1].loses + users[usrRank-1].pvploses)+1)
             embed.setTitle( usrRank + ". "  + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName)
             embed.setDescription("Highest Dungeon: " + users[usrRank-1].maxDungeon + "\nTotal Games: " + (users[usrRank-1].wins + users[usrRank-1].loses + users[usrRank-1].pvpwins + users[usrRank-1].pvploses) + "\nWin Ratio: " +  ratio.toFixed(2) + "\n----------------------" )
-            
+
             message.channel.send(embed)
         },
         profile: function (message, command, args) {
@@ -2123,7 +2124,7 @@ if (ADB.getBattleSettings().enabled) {
             else {
                 var user = getUser(message.author.id)
                 if (!user) {
-                    createUser(message.member)
+                    createUser(message.author)
                     user = getUser(message.author.id)
                 }
                 printProfile(user, message)
@@ -2319,7 +2320,7 @@ if (ADB.getBattleSettings().enabled) {
                         .setColor("#dcbc3f")
                         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
                     for (let i = 0; i < items[type].length; i++) {
-                        
+
                         for (var t in items[type][i]) {
                             var msg = ""
                             var item = items[type][i]
@@ -2542,7 +2543,8 @@ if (ADB.getBattleSettings().enabled) {
                 await message.author.send(embed)
             }
             else {
-                await message.author.send(embed)
+              await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
+              await message.author.send(embed)
             }
 
             if (availPotions[3] || availPotions[4] || availPotions[5] || availPotions[6] || availPotions[7] || availPotions[8]) {
@@ -2906,7 +2908,7 @@ if (ADB.getBattleSettings().enabled) {
                 message.channel.send("Adversary does not exist")
                 return
             }
-            
+
             var userid2 = db.get("users").value()[parseInt(args[0])].id
             if (userid2 == message.author.id) {
                 message.channel.send("You can't battle yourself!")
@@ -2926,7 +2928,7 @@ if (ADB.getBattleSettings().enabled) {
                 message.channel.send("You cannot battle this person")
                 return
             }
-            
+
             var auth = getUserStats(user1)
             var opp = getUserStats(user2)
             if (user1.gamesToday >= auth.bp) {
@@ -3188,7 +3190,7 @@ if (ADB.getBattleSettings().enabled) {
                 }
 
                 ADB.setCoins(user2.id, usrBattleCoins.amount + lootBattleCoins2)
-                
+
 
                 let embed2 = new Discord.RichEmbed()
                     .setTitle("- Battle Summary -")
