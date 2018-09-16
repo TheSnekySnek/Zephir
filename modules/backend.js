@@ -27,7 +27,14 @@ io.on('connection', function(socket){
         }
         
     })
-
+    socket.on('getBattleSettings', function(msg){
+        if(verifyID(msg.jwt))
+        socket.emit('getBattleSettings', DB.getBattleSettings())
+    })
+    socket.on('setBattleSettings', function(msg){
+        if(verifyID(msg.jwt))
+            DB.setBattleSettings(msg.data)
+    })
     socket.on('getCommands', function(msg){
         if(verifyID(msg.jwt))
         socket.emit('getCommands', DB.getCommands())

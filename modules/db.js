@@ -16,6 +16,21 @@ if(global.setupUser != ""){
             token: "",
             guild: ""
         },
+        battles:{
+            enabled: true,
+            noDropRate: 2000000, //Lower -> more drops
+            textChannel: "",
+            allowSell: true,
+            allowBuy: true,
+            displayArmory: true,
+            dungeonCoins: 50,
+            battleCoins: 100,
+            maxLvlDif: 3,
+            baseHP: 50,
+            baseATK: 0,
+            baseLuck: 1,
+            baseBP: 10
+        },
         mobile: [],
         music: {
             mb: [],
@@ -31,7 +46,14 @@ if(global.setupUser != ""){
         })
   .write()
 }
-
+module.exports.getBattleSettings = function() {
+    return db.get('battles')
+     .value()
+}
+module.exports.setBattleSettings = function(data) {
+    return db.set('battles', data)
+    .write()
+}
 module.exports.getMBs = function() {
     return db.get('music.mb')
      .value()

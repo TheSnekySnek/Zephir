@@ -291,23 +291,7 @@ module.exports = {
     catch(e){
       console.error(e)
     }
-  }/*,
-  april: function(message, command, args){
-    try{
-      console.log("APPP")
-      var n = "🐍"
-      var nicknames = []
-      client.guilds.get("227129311067504640").members.every((member) => {
-        if(member.nickname != n)
-          member.setNickname(n)
-        return true
-      })
-    }
-    catch(e){
-      console.error(e)
-    }
-  }*/
-
+  }
 }
 
 function rankEmbed(user, coins, rank) {
@@ -368,8 +352,8 @@ async function addSpecialRole(message, name, type) {
   }
   userCoins = DB.getCoins(user).amount
   if(userCoins >= REWARDS.specialRole){
-    var role = await client.guilds.get("227129311067504640").createRole({name: name, color: 'GREY'})
-    client.guilds.get("227129311067504640").members.get(message.author.id).addRole(role.id)
+    var role = await client.guilds.get(DB.getBotData().guild).createRole({name: name, color: 'GREY'})
+    client.guilds.get(DB.getBotData().guild).members.get(message.author.id).addRole(role.id)
     DB.addUnlock(user, "specialRole")
     DB.deleteCoins(user, REWARDS.specialRole)
     message.reply("Your new role " + name + " has been created and given to you")

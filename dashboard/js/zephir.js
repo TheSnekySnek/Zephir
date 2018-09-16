@@ -263,19 +263,46 @@ socket.on('mbdebug', function(msg){
 
 function getCHs(el1, el2) {
   socket.on('getCHs', function(msg){
-    msg.vcs.forEach(vc => {
-      $(el1).append(
-        `<option value="${vc.id}">${vc.name}</option>`
-      )
-    });
-    msg.tcs.forEach(tc => {
-      $(el2).append(
-        `<option value="${tc.id}">${tc.name}</option>`
-      )
-    });
-    
+    if(el1){
+      msg.vcs.forEach(vc => {
+        $(el1).append(
+          `<option value="${vc.id}">${vc.name}</option>`
+        )
+      });
+    }
+    if(el2){
+      msg.tcs.forEach(tc => {
+        $(el2).append(
+          `<option value="${tc.id}">${tc.name}</option>`
+        )
+      });
+    }
   })
   socket.emit('getCHs', {jwt: getCookie("jwt")});
 }
 
+function getBattleSettings() {
+  socket.on('getBattleSettings', function(msg){
+
+    $('#enabled').prop('checked', msg.enabled);
+    $('#allowbuy').prop('checked', msg.allowBuy);
+    $('#allowsell').prop('checked', msg.allowSell);
+    $('#displayarmory').prop('checked', msg.displayArmory);
+    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+      elems.forEach(function(html) {
+      var switchery = new Switchery(html);
+    });
+    $('#droprate').val(msg.noDropRate)
+    $('#duncoins').val(msg.dungeonCoins)
+    $('#batcoins').val(msg.battleCoins)
+    $('#maxlvl').val(msg.maxLvlDif)
+    $('#basehp').val(msg.baseHP)
+    $('#baseatk').val(msg.baseATK)
+    $('#baseluck').val(msg.baseLuck)
+    $('#basebp').val(msg.baseBP)
+    if(msg.textChannel != "")
+      $('#textch').val(msg.textChannel);
+  })
+  socket.emit('getBattleSettings', {jwt: getCookie("jwt")});
+}
 

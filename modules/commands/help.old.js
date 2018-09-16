@@ -2,23 +2,23 @@ const schedule = require('node-schedule')
 const request = require('request')
 const DB = require('../../modules/db')
 const wd = require("word-definition");
-const COLORS =
+const COLORS = 
   {
-    black : "Black",
-    blue : "Blue",
-    cyan : "Cyan",
-    darkblue : "Dark Souls",
-    darkred : "Dark Red",
-    electricblue : "Electric Blue",
-    green : "Green",
-    gray : "Gray",
-    indigo : "Indigo",
-    lime : "Lime",
-    orange : "Orange",
-    pink : "Pink",
-    purple : "Purple",
-    red : "Red",
-    yellow : "Yellow"
+    black: "Black",
+    blue: "Blue",
+    cyan: "Cyan",
+    darkblue: "Dark Blue",
+    darkred: "Dark Red",
+    electricblue: "Electric Blue",
+    green: "Green",
+    gray: "Gray",
+    indigo: "Indigo",
+    lime: "Lime",
+    orange: "Orange",
+    pink: "Pink",
+    purple: "Purple",
+    red: "Red",
+    yellow: "Yellow"
   }
 
 module.exports = {
@@ -67,10 +67,10 @@ ${def.definition}`)
     try {
       console.log(message.content)
       console.log(command);
-
+      
       var city = message.content.replace("!" + command + " ", "")
       console.log(city);
-
+      
       request(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=073c07e8a5dbe9fca2524f508a9c41c8&units=metric`, function (error, response, body) {
         var wData = JSON.parse(body)
         var icn = wData.weather[0].main
@@ -78,7 +78,7 @@ ${def.definition}`)
           case "Clouds":
             icn = ":cloud:"
             break;
-
+        
           default:
           icn = ":sunny:"
             break;
@@ -99,12 +99,12 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
   },
   colors: function(message, command, args) {
     try {
-      let response = "\n__Color : Command__\n\n";
+      let response = "\n\n";
       for (var key in COLORS) {
         if (!COLORS.hasOwnProperty(key)) continue;
-
+        
         var obj = COLORS[key];
-        response += obj +" : " + key + "\n"
+        response += key +": " + obj + "\n"
       }
         message.reply(response);
     } catch (e) {
@@ -194,7 +194,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
               icon_url: "https://cdn.discordapp.com/attachments/233701911168155649/419476816244375563/Arkhos_Black3.png"
           }
       }})
-
+    
     }
     catch(e){
       console.log(e)
@@ -209,7 +209,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
         var coins = DB.getCoins(message.author.id).amount
         message.reply("+200 Arkoins have been added to your stash, spend them wisely!")
         DB.setCoins(message.author.id, coins+200)
-
+        
       }
       else{
         var now = new Date().getTime();
@@ -221,9 +221,9 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        message.reply("You've already requested your daily ration... Come back in **" + hours + "h " + minutes+"m "+seconds+ "s**")
+        message.reply("You've already requested your daily ration... Come back in **" + hours + "h:" + minutes+"m:"+seconds+ "s**")
       }
-
+      
     }
     catch(e){
       console.log(e)
@@ -233,7 +233,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
 
 schedule.scheduleJob('0 6 * * *', () => {
   DB.emptyDailyUser()
-})
+}) 
 
 
 var dailyUsers = []
