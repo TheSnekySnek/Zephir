@@ -231,7 +231,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
   }
 }
 
-schedule.scheduleJob('0 6 * * *', () => {
+schedule.scheduleJob('0 0 * * *', () => {
   DB.emptyDailyUser()
 })
 
