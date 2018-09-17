@@ -75,7 +75,7 @@ module.exports = {
             }
             embed.addField("Rank #" + (i+1), message.guild.members.get(coins[i].user).displayName + "\nArkoins: " + coins[i].amount + "\nWalked: " + w + "\n--------------------------\n", true)
           }
-        }  
+        }
         embed.addField("----------------------------------------------------------------------", "Do you even climb bro?")
       message.channel.send(embed)
     } catch (e) {
@@ -158,16 +158,40 @@ module.exports = {
 
   coins: async function(message, command, args) {
     try{
-      var coins = DB.getCoins(message.author.id).amount
-      if(coins)
-        message.reply("You have: " + coins + " Arkoins")
-      else
+      var coins = DB.getCoins(message.author.id)
+      var usr = args[0]
+      var auth = message.guild.members.get(message.author.id)
+
+      if(!usr){
+      if(coins) {
+        message.reply("\nYou have: " + coins.amount + " Arkoins")
+      }
+      else if (!auth) {
         message.reply("You have: 0 Arkoins")
+      }
     }
+
+      else {
+
+        var HR = message.guild.members.get(message.author.id).highestRole.name
+        var user = message.guild.members.get(usr).displayName
+        var amt = parseInt(args[1])
+        var usrCoins = DB.getCoins(usr)
+
+      if ((HR == "Owner" || HR == "Co-Owner") && amt) {
+        DB.setCoins(usr, usrCoins.amount + amt)
+        message.channel.send("<@" + usr + "> \nTotal Arkoins Received: **+" + amt + "**")
+      }
+    }
+
+}
+
     catch(e){
       console.log(e)
     }
   },
+
+
 
   claim: async function(message, command, args) {
     try{
@@ -180,7 +204,7 @@ module.exports = {
           }
           if(DB.getUnlock(message.author.id, "color")){
             message.reply("You already have unlocked colors")
-            return 
+            return
           }
           var res = await question(message, "This will deduct " + REWARDS.colors + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
           if(res === "yes"){
@@ -312,7 +336,7 @@ function rankEmbed(user, coins, rank) {
     .addField("Battle Points:", 0, true)
     .addField("Distance Walked:", walked + "m", true)
     .addField("------------------------------------------------------------------", "Do you even climb bro?")
-    
+
     return embed
 }
 
@@ -328,7 +352,7 @@ function isPatreon(user){
   catch(e){
     return false
   }
-  
+
 }
 
 const REWARDS = {
@@ -343,12 +367,12 @@ async function addSpecialRole(message, name, type) {
   var no = ["admin", "administrator", "owner", "developer"]
   if(no.includes(name.toLowerCase())){
     message.reply("Invalid role name")
-    return 
+    return
   }
   user = message.author.id
   if(DB.getUnlock(user, "specialRole")){
     message.reply("You already have a special role: " + pres.rewards.specialRole.name)
-    return 
+    return
   }
   userCoins = DB.getCoins(user).amount
   if(userCoins >= REWARDS.specialRole){
@@ -364,7 +388,7 @@ async function addSpecialRole(message, name, type) {
 }
 
 async function addSound(message, url, com) {
-  
+
   if(DB.getSound(com)){
     message.reply("Sound already taken")
     return
@@ -417,7 +441,7 @@ function question(message, text, accepted = []){
             nm.reply("Please provide a correct answer")
             message.channel.send("Possible answers: " + accepted.join(" / "))
           }
-        } 
+        }
         else{
           hasAnswered = true
           resolve(nm.content)
@@ -457,7 +481,7 @@ function totalCoins(user) {
         case "specialRole":
           coins.amount += REWARDS.specialRole
           break;
-      
+
         default:
           break;
       }

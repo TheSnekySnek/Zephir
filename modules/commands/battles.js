@@ -241,7 +241,7 @@ function printInventory(user, message, args) {
                     itemDesc += ("  :game_die: " + item.luck)
                 }
 
-                embed.addField(i + ". {lvl." + item.lvl + "} - " + item.name, itemDesc + "\n:moneybag: Price: " + item.lvl * 50 + "\n:scales: Quantity: " + ItemsType[i] + "\n- - - - - - - - - - - - - - - ", false)
+                embed.addField(i + ". {lvl." + item.lvl + "} - " + item.name, itemDesc + "\n:moneybag: Price: " + item.lvl * 100 + "\n:scales: Quantity: " + ItemsType[i] + "\n- - - - - - - - - - - - - - - ", false)
             }
         }
         message.author.send(embed)
@@ -304,7 +304,7 @@ function printInventory(user, message, args) {
                             itemDesc += ("  :game_die: " + item.luck)
                         }
 
-                        embed.addField(i + ". {lvl." + item.lvl + "} - " + item.name, itemDesc + "\n:moneybag: Price: " + item.lvl * 50 + "\n:scales: Quantity: " + ItemsType[i] + "\n- - - - - - - - - - - - - - - ", false)
+                        embed.addField(i + ". {lvl." + item.lvl + "} - " + item.name, itemDesc + "\n:moneybag: Price: " + item.lvl * 100 + "\n:scales: Quantity: " + ItemsType[i] + "\n- - - - - - - - - - - - - - - ", false)
                     }
                 }
                 message.author.send(embed)
@@ -804,12 +804,14 @@ if (ADB.getBattleSettings().enabled) {
                 return
             }
 
+/* old bp +1 code for dungeons (on start)
+
             db.get('users')
                 .find({ "id": message.author.id })
                 .assign({ "gamesToday": user.gamesToday + 1 })
                 .write()
             console.log(stats)
-
+*/
             var mobs = db.get('mobs').value()
             var mob = mobs[lvl][Math.floor(Math.random() * mobs[lvl].length)];
 
@@ -822,8 +824,8 @@ if (ADB.getBattleSettings().enabled) {
 
             // INPUT BATTLE CHANNEL HERE
 
-            client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("A wild **" + mob.name + "** appears. Get ready for battle __" + auth + "__!")
-            message.author.send("A wild **" + mob.name + "** appears. Get ready for battle!")
+            client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("A wild **" + "Lv." + (lvl + 1) + " - " + mob.name + "** appears. Get ready for battle __" + auth + "__!")
+            message.author.send("A wild **" + "Lv." + (lvl + 1) + " - " + mob.name + "** appears. Get ready for battle!")
 
             var mbio = mob.bio
             if (mbio == "") {
@@ -954,6 +956,12 @@ if (ADB.getBattleSettings().enabled) {
                     }
                     var collector = msg.createReactionCollector(filter);
                     collector.on('collect', r => {
+
+  //~~
+                    if (round == 1) {
+                        db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday + 1) }).write()
+                      }
+
                         usrSel = r.emoji.name
                         msg.delete()
                         collector.stop()
@@ -1002,6 +1010,7 @@ if (ADB.getBattleSettings().enabled) {
                     .addField(mob.name + " Health", (mob.hp - tmbDmg) + " / " + mob.hp, true)
 
                 await message.author.send(embed)
+
             } while (tmbDmg < mob.hp && tusrDmg < stats.hp);
             if (tmbDmg >= mob.hp && tusrDmg < stats.hp) {
                 var loot = getLoot(lvl + 1, stats.luck)[0]
@@ -1035,8 +1044,9 @@ if (ADB.getBattleSettings().enabled) {
                                     msg += " :heart: " + loot[t]
                             }
                             if (t == "atk") {
-                                if (loot[t] < 1 && loot[t] > 0)
+                                if (loot[t] < 1 && loot[t] > 0) {
                                     msg += " :crossed_swords: " + loot[t] * 100 + "%"
+                                    }
                                 else
                                     msg += " :crossed_swords: " + loot[t]
                             }
