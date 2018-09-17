@@ -45,11 +45,10 @@ io.on('connection', function(socket){
     })
     socket.on('setBattleItems', function(msg){
         if(verifyID(msg.jwt)){
-            var def = fs.readFileSync("modules/commands/defaults/defbattles.json")
+            var def = JSON.parse(fs.readFileSync("modules/commands/defaults/defbattles.json"))
             def.items = msg.data
-            fs.writeFileSync("modules/commands/defaults/defbattles.json", def)
-            BDB.set("items", msg.data).write()
-            commandsHandler.reloadModules()
+            fs.writeFileSync("modules/commands/defaults/defbattles.json", JSON.stringify(def))
+            setBattleItems(msg.data)
         }
     })
     socket.on('getBattleSettings', function(msg){
