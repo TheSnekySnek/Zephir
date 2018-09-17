@@ -289,10 +289,21 @@
                 lvl: parseInt($('#itemlvl').val()),
             }
             if($('#itemhp').val() != ""){
-                item["hp"] = parseInt($('#itemhp').val())
+                if(parseInt($('#itemhp').val())){
+                    item["hp"] = parseInt($('#itemhp').val())
+                }
+                else{
+                    item["hp"] = parseFloat($('#itemhp').val())
+                }
             }
             if($('#itematk').val() != ""){
-                item["atk"] = parseInt($('#itematk').val())
+                if(parseInt($('#itematk').val())){
+                    item["atk"] = parseInt($('#itematk').val())
+                }
+                else{
+                    item["atk"] = parseFloat($('#itematk').val())
+                }
+                
             }
             if($('#itemluck').val() != ""){
                 item["luck"] = parseInt($('#itemluck').val())
