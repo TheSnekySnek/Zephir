@@ -56,8 +56,8 @@ function getLoot(lvl, luck) {
     var lootArray = []
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = Math.floor((items.weapon.length / dnum) * (lvl - 1)); i < items[type].length; i++) {
-                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.floor((items.weapon.length / dnum) * (lvl - 1)))))), result: { type: type, id: i } })
+            for (let i = Math.round((items.weapon.length / dnum) * (lvl - 1)); i < items[type].length; i++) {
+                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.round((items.weapon.length / dnum) * (lvl - 1)))))), result: { type: type, id: i } })
             }
         }
     }
