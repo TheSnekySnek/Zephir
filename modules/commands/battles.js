@@ -1093,10 +1093,11 @@ if (ADB.getBattleSettings().enabled) {
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                     .addField("Winner", mob.name, true)
-                    .addField("Loser", message.member.displayName, true)
+                    .addField("Loser",client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName, true)
                     .addField("Total Damage Dealt", tusrDmg, true)
                     .addField("Total Damage Dealt", tmbDmg, true)
-                await message.member.send(embed)
+                await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
+                await message.author.send(embed)
                 db.get('users')
                     .find({ "id": message.author.id })
                     .assign({ "loses": user.loses + 1 })
@@ -1118,8 +1119,8 @@ if (ADB.getBattleSettings().enabled) {
                 }
                 ADB.setCoins(message.author.id, usrCoins.amount + lootCoins)
                 embed.addField("Arkoins", "+" + lootCoins, true)
-                await message.channel.send(embed)
-                await message.member.send(embed)
+                await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
+                await message.author.send(embed)
             }
 
         },
@@ -1248,8 +1249,8 @@ if (ADB.getBattleSettings().enabled) {
 
             var round = 1
             var mn1, mn2
-            await message.guild.members.get(user2.id).user.send("You have been challenged by: " + message.member.displayName)
-            await message.member.send("You have challenged: " + message.guild.members.get(user2.id).displayName)
+            await message.guild.members.get(user2.id).user.send("You have been challenged by: " + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName)
+            await client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).send("You have challenged: " + message.guild.members.get(user2.id).displayName)
 
             //INPUT BATTLE CHANNEL HERE
             await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "__ has challenged __" + client.guilds.get(ADB.getBotData().guild).members.get(user2.id).displayName + "__ to battle!")
@@ -1340,7 +1341,7 @@ if (ADB.getBattleSettings().enabled) {
                     .setTitle("- Round " + round + " Summary -")
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
-                    .addField("Choices", "You: " + res2 + "\n" + message.member.displayName + ": " + res1 + "\n----------------------------------------------------")
+                    .addField("Choices", "You: " + res2 + "\n" + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + ": " + res1 + "\n----------------------------------------------------")
 
                 if ((res1 == '💧' && res2 == '🔥') || (res1 == '🔥' && res2 == '🌱') || (res1 == '🌱' && res2 == '💧')) {
                     dmg2 += st1.atk
@@ -1380,7 +1381,7 @@ if (ADB.getBattleSettings().enabled) {
                 embed2.addField("Damage Dealt", dmg1, true)
                     .addField("Damage Received", dmg2, true)
                     .addField("Your Health", (st2.hp - tdm2) + " / " + st2.hp, true)
-                    .addField(message.member.displayName + "'s Health", (st1.hp - tdm1) + " / " + st1.hp, true)
+                    .addField(client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "'s Health", (st1.hp - tdm1) + " / " + st1.hp, true)
 
                 await message.author.send(embed1)
                 await message.guild.members.get(user2.id).user.send(embed2)
@@ -1417,7 +1418,7 @@ if (ADB.getBattleSettings().enabled) {
                     .setTitle("- Battle Summary -")
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-                    .addField("Winner", message.member.displayName+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Winner", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName+ "\n- - - - - - - - - - - - - -", true)
                     .addField("Loser", "You", true)
                     .addField("Total Damage Dealt", tdm1+ "\n- - - - - - - - - - - - - -", true)
                     .addField("Total Damage Received", tdm2, true)
@@ -1449,7 +1450,7 @@ if (ADB.getBattleSettings().enabled) {
                 await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed3)
 
                 await message.guild.members.get(user2.id).user.send(embed2)
-                await message.member.send(embed1)
+                await client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).send(embed1)
 
 
                 db.get('users')
@@ -1494,7 +1495,7 @@ if (ADB.getBattleSettings().enabled) {
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                     .addField("Winner", "You"+ "\n- - - - - - - - - - - - - -", true)
-                    .addField("Loser", message.member.displayName, true)
+                    .addField("Loser", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName, true)
                     .addField("Total Damage Dealt", tdm1+ "\n- - - - - - - - - - - - - -", true)
                     .addField("Total Damage Received", tdm2, true)
                     .addField("Loot", "\n- - - - - - - - - - - - - -", false)
@@ -1517,7 +1518,7 @@ if (ADB.getBattleSettings().enabled) {
                 await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed3)
 
                 await message.guild.members.get(user2.id).user.send(embed2)
-                await message.member.send(embed1)
+                await client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).send(embed1)
 
 
                 db.get('users')
@@ -1570,7 +1571,7 @@ if (ADB.getBattleSettings().enabled) {
                 await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed3)
 
                 await message.guild.members.get(user2.id).user.send(embed2)
-                await message.member.send(embed1)
+                await client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).send(embed1)
             }
         },
     }
