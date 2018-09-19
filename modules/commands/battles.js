@@ -403,6 +403,10 @@ if (ADB.getBattleSettings().enabled) {
             for (let i = 0; i < 20; i++) {
                 if(!users[i])
                     break
+                if(!client.guilds.get(ADB.getBotData().guild).members.get(users[i].id)){
+                    embed.addField((i+1) + ". " + "Missing user", "User has left", true)
+                    continue
+                }
                 if(message.author.id == users[i].id)
                     usrRank = i+1
                 var ratio = (users[i].wins + users[i].pvpwins) / ((users[i].loses + users[i].pvploses)+1)
