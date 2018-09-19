@@ -1143,7 +1143,7 @@ if (ADB.getBattleSettings().enabled) {
             if (!args[0]) {
                 var us = db.get("users").value()
                 for (let i = 0; i < us.length; i++) {
-                    if(!client.guilds.get(ADB.getBotData().guild).members.get(us[i])){
+                    if(!client.guilds.get(ADB.getBotData().guild).members.get(us[i].id)){
                         us.splice(i, 1)
                     }
                 }
