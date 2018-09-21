@@ -58,6 +58,7 @@ function getLoot(lvl, luck) {
         if (items.hasOwnProperty(type)) {
             for (let i = Math.round((items.weapon.length / dnum) * (lvl - 1)); i < items[type].length; i++) {
                 lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.round((items.weapon.length / dnum) * (lvl - 1)))))), result: { type: type, id: i } })
+                //lootArray.push({ chance: getLootZ(type, i, lvl)*100, result: { type: type, id: i } })
             }
         }
     }
@@ -67,6 +68,13 @@ function getLoot(lvl, luck) {
     let loot = lootTable.chooseWithReplacement(1)
     console.log(loot)
     return loot
+}
+
+function getLootZ(type, id, lvl) {
+    var items = db.get('items').value()
+    var i1dc = 100
+    var i2dc = 40
+    return Math.round((((items[type][id].lvl) - items.weapon.length)*-1)/100) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items.weapon.length/100)) * items[type][id].lvl)/100)) / (25-1) * lvl-1) - ((0.2/(25-1)) *lvl-1);
 }
 
 function cap(string) {
@@ -155,15 +163,16 @@ function getUserStats(user) {
 function printProfile(user, message) {
     var items = db.get('items').value()
     var stats = getUserStats(user)
-    if (stats.bp < 0)
-        stats.bp = 0
+    var cbp = stats.bp - user.gamesToday
+    if(cbp < 0)
+        cbp = 0
     let embed = new Discord.RichEmbed()
         .setTitle("- Battle Profile -")
         .setDescription("For " + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "\n------------------------------------------------------------------")
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
         .addField("Ranking: Unavailable", "Battles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
-        .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:game_die:  Luck: " + stats.luck + "\n:fireworks: Battle Points: " + (stats.bp - user.gamesToday) + " / " + stats.bp + "\n\n------------------------------------------------------------------")
+        .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:game_die:  Luck: " + stats.luck + "\n:fireworks: Battle Points: " + cbp + " / " + stats.bp + "\n\n------------------------------------------------------------------")
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
         if (user.equiped.hasOwnProperty(type)) {
