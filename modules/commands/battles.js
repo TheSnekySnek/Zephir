@@ -54,24 +54,31 @@ function getLoot(lvl, luck) {
     var items = db.get('items').value()
     var dnum = db.get('mobs').value().length
     var lootArray = []
+    var tl = lvl-1
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = 0; i < items[type].length; i++) {
-                lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.round((items.weapon.length / dnum) * (lvl - 1)))))), result: { type: type, id: i } })
+            for (let i = tl-5; i < tl+5; i++) {
+                if(items[type][i]){
+                    console.log(i-tl, (-1/25) * Math.pow(i-tl, 2) + 1)
+                    lootArray.push({ chance: (-1/25) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } })
+                }
             }
         }
     }
     //console.log(lootArray)
-    let loot = lootArray[Math.floor(Math.random() * lootArray.length)].result
-    console.log(loot)
-    console.log("Loot chance for" + loot.type + " / " + loot.id + " = " + getLootZ(loot.type, loot.id, lvl, luck))
-    if (1 == Math.round(Math.random() * Math.round((100 / Math.round(getLootZ(loot.type, loot.id, lvl, luck) * 100))))) {
-        return loot
+    let lootTable = new lootastic.LootTable(lootArray)
+    let lt = lootTable.chooseWithReplacement(1)[0]
+    console.log(lt)
+    var loot = getLootZ(lt.type, lt.id, lvl, luck)
+    if (1 == Math.round(Math.random() * Math.round((100 / Math.round(loot * 100))))) {
+        loot = lt
     } else {
-        return ""
+        loot = ""
     }
-
+    return loot
 }
+
+
 
 function getLootZ(type, id, lvl, luck) {
     var items = db.get('items').value()
@@ -80,12 +87,13 @@ function getLootZ(type, id, lvl, luck) {
     var i2dc = 40
     var i1bdc = 40
     var i2bdc = 1
-    var itemDropChance = Math.round(((((((i1bdc-(i2bdc-1))/100)/items[type].length) * ((items[type][id].lvl-1)-items[type].length)*-1)) + ((i2bdc-1)/100)) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items[type].length/100)) * items[type][id].lvl-1)/100)) / (dungeons.length-1) * lvl-1) - (((items[type].length/100)/(dungeons.length-1)) * lvl-1))
-    if (luck = 1)
+    var itemDropChance = ((((((i1bdc-(i2bdc-1))/100)/items[type].length) * ((items[type][id].lvl-1)-items[type].length)*-1)) + ((i2bdc-1)/100)) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items[type].length/100)) * items[type][id].lvl-1)/100)) / (dungeons.length-1) * lvl-1) - (((items[type].length/100)/(dungeons.length-1)) * lvl-1)
+    if (luck == 1)
         itemDropChance = (itemDropChance + (itemDropChance * ((luck - 1) / 100)))
     else
         itemDropChance = (itemDropChance + (itemDropChance * (luck / 100)))
 
+    console.log(itemDropChance)
     return itemDropChance
 }
 
