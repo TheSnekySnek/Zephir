@@ -1,1 +1,1680 @@
-{"users":[],"battles":[],"mobs":[[{"name":"Rat","icon":"","hp":15,"atk":3,"bio":""},{"name":"Worm","icon":"","hp":7,"atk":2,"bio":""},{"name":"Snail","icon":"","hp":20,"atk":1,"bio":""},{"name":"Squirrel","icon":"","hp":15,"atk":5,"bio":""},{"name":"Bird","icon":"","hp":15,"atk":4,"bio":""}],[{"name":"Crow","hp":20,"atk":4,"bio":"","icon":""},{"name":"Wolf","hp":30,"atk":3,"bio":"","icon":""},{"name":"Hippo","hp":35,"atk":4,"bio":"","icon":""},{"name":"Swordfish","hp":25,"atk":5,"bio":"","icon":""},{"name":"Snake","hp":15,"atk":7,"bio":"","icon":""}],[{"name":"Octopus","hp":45,"atk":8,"bio":"","icon":""},{"name":"Shark","hp":55,"atk":6,"bio":"","icon":""},{"name":"Bear","hp":70,"atk":5,"bio":"","icon":""},{"name":"Platypuss","hp":40,"atk":10,"bio":"","icon":""},{"name":"Lion","hp":65,"atk":7,"bio":"","icon":""}],[{"name":"Windows Firewall","hp":110,"atk":11,"bio":"","icon":""},{"name":"Norton Antivirus","hp":100,"atk":13,"bio":"","icon":""},{"name":"Mom's Password","hp":130,"atk":10,"bio":"","icon":""},{"name":"Windows Update","hp":150,"atk":15,"bio":"","icon":""},{"name":"Lag","hp":170,"atk":12,"bio":"","icon":""}],[{"name":"Pikachu","hp":185,"atk":15,"bio":"","icon":""},{"name":"Missingno","hp":250,"atk":25,"bio":"","icon":""},{"name":"Charizard","hp":200,"atk":22,"bio":"","icon":""},{"name":"Blastoise","hp":210,"atk":18,"bio":"","icon":""},{"name":"Venusaur","hp":235,"atk":20,"bio":"","icon":""}],[{"name":"Sabertooth","hp":320,"atk":37,"bio":"","icon":""},{"name":"Woolly Mammoth","hp":350,"atk":40,"bio":"","icon":""},{"name":"Dodo","hp":250,"atk":28,"bio":"","icon":""},{"name":"Western Black Rhinoceros","hp":290,"atk":45,"bio":"","icon":""},{"name":"Tasmanian Tiger","hp":270,"atk":35,"bio":"","icon":""}],[{"name":"Mario","hp":450,"atk":60,"bio":"","icon":""},{"name":"Sonic","hp":400,"atk":50,"bio":"","icon":""},{"name":"Link","hp":420,"atk":70,"bio":"","icon":""},{"name":"Kirby","hp":375,"atk":55,"bio":"","icon":""},{"name":"Fox McCloud","hp":390,"atk":75,"bio":"","icon":""}],[{"name":"A horde of Feminists","hp":550,"atk":90,"bio":"","icon":""},{"name":"Anti-Autism Vaccine","hp":500,"atk":85,"bio":"","icon":""},{"name":"72 Genders","hp":480,"atk":72,"bio":"","icon":""},{"name":"Gluten Allergies","hp":525,"atk":80,"bio":"","icon":""},{"name":"Honest Politician","hp":600,"atk":100,"bio":"","icon":""}],[{"name":"Homer Simpson","hp":750,"atk":125,"bio":"","icon":""},{"name":"Rick & Morty","hp":850,"atk":170,"bio":"","icon":""},{"name":"Eric Cartman","hp":700,"atk":110,"bio":"","icon":""},{"name":"Dr. Zoidberg","hp":765,"atk":160,"bio":"","icon":""},{"name":"Sterling Archer","hp":800,"atk":145,"bio":"","icon":""}],[{"name":"Erectile Dysfunction","hp":975,"atk":250,"bio":"","icon":""},{"name":"Crippling Depression","hp":950,"atk":200,"bio":"","icon":""},{"name":"Osteoporosis","hp":925,"atk":215,"bio":"","icon":""},{"name":"Ligma","hp":900,"atk":230,"bio":"","icon":""},{"name":"Having Big Bones","hp":1000,"atk":185,"bio":"","icon":""}],[{"name":"Bowser","hp":1250,"atk":325,"bio":"","icon":""},{"name":"Dracula","hp":1100,"atk":275,"bio":"","icon":""},{"name":"Kerrigan","hp":1200,"atk":400,"bio":"","icon":""},{"name":"GLaDOS","hp":1300,"atk":350,"bio":"","icon":""},{"name":"Dr. Eggman","hp":1050,"atk":300,"bio":"","icon":""}],[{"name":"Your Shadow","hp":1500,"atk":350,"bio":"","icon":""},{"name":"Bathroom Mirror","hp":1400,"atk":325,"bio":"","icon":""},{"name":"Crying yourself to Sleep","hp":1575,"atk":375,"bio":"","icon":""},{"name":"That one Pimple on your Nose","hp":1650,"atk":400,"bio":"","icon":""},{"name":"Your Hopes and Dreams","hp":1750,"atk":450,"bio":"","icon":""}],[{"name":"Zombie","hp":1900,"atk":550,"bio":"","icon":""},{"name":"Werewolf","hp":1800,"atk":525,"bio":"","icon":""},{"name":"Vampire","hp":1975,"atk":575,"bio":"","icon":""},{"name":"Kraken","hp":2015,"atk":600,"bio":"","icon":""},{"name":"Banshee","hp":2150,"atk":650,"bio":"","icon":""}],[{"name":"Sidewalk Dog Poop","hp":2100,"atk":725,"bio":"","icon":""},{"name":"Lego on the Floor","hp":2300,"atk":675,"bio":"","icon":""},{"name":"Bird shit on your shoulder","hp":2650,"atk":700,"bio":"","icon":""},{"name":"Gum in your Hair","hp":2500,"atk":650,"bio":"","icon":""},{"name":"Drive-by Puddle Splash","hp":2700,"atk":690,"bio":"","icon":""}],[{"name":"T-Rex","hp":3150,"atk":900,"bio":"","icon":""},{"name":"Spinosaurus","hp":2700,"atk":875,"bio":"","icon":""},{"name":"Velociraptor","hp":2500,"atk":925,"bio":"","icon":""},{"name":"Pterodactyl","hp":2900,"atk":750,"bio":"","icon":""},{"name":"Mosasaurus","hp":3100,"atk":890,"bio":"","icon":""}],[{"name":"Left over Ikea Screw","hp":3400,"atk":1200,"bio":"","icon":""},{"name":"Drawer of Dead Batteries","hp":3250,"atk":1175,"bio":"","icon":""},{"name":"Creaky Staircase","hp":3500,"atk":1250,"bio":"","icon":""},{"name":"Weak Door Handle","hp":3150,"atk":1195,"bio":"","icon":""},{"name":"Uneven Chair Leg","hp":3000,"atk":1150,"bio":"","icon":""}],[{"name":"U.F.O.","hp":3700,"atk":1400,"bio":"","icon":""},{"name":"Big Foot","hp":3550,"atk":1375,"bio":"","icon":""},{"name":"Nessie","hp":3800,"atk":1450,"bio":"","icon":""},{"name":"Chupacabra","hp":3450,"atk":1395,"bio":"","icon":""},{"name":"Leprechaun","hp":3300,"atk":1350,"bio":"","icon":""}],[{"name":"A Dirty Laundry Pile","hp":4500,"atk":1700,"bio":"","icon":""},{"name":"Grandma's Forgotten Cheese","hp":4000,"atk":1600,"bio":"","icon":""},{"name":"Leaky Garbage Bag","hp":4250,"atk":1750,"bio":"","icon":""},{"name":"Shower Hair Clumps","hp":4400,"atk":1600,"bio":"","icon":""},{"name":"Sweaty Gym Shoes","hp":4100,"atk":1675,"bio":"","icon":""}],[{"name":"Basilisk","hp":5000,"atk":2100,"bio":"","icon":""},{"name":"Lord Voldemort","hp":5150,"atk":1900,"bio":"","icon":""},{"name":"Dementor","hp":4750,"atk":1800,"bio":"","icon":""},{"name":"Aragog","hp":5250,"atk":2300,"bio":"","icon":""},{"name":"Cerberus","hp":5600,"atk":2500,"bio":"","icon":""}],[{"name":"Monster under the Bed","hp":6400,"atk":3600,"bio":"","icon":""},{"name":"The Man in your Closet","hp":5900,"atk":2850,"bio":"","icon":""},{"name":"Crossing the Road without Holding Hands","hp":6100,"atk":3150,"bio":"","icon":""},{"name":"Having to Shower everyday","hp":6050,"atk":3000,"bio":"","icon":""},{"name":"\"Buy the Bread, i'll wait in the Car\"","hp":6500,"atk":3400,"bio":"","icon":""}],[{"name":"Dr. Doom","hp":7300,"atk":4100,"bio":"","icon":""},{"name":"Shredder","hp":7100,"atk":4350,"bio":"","icon":""},{"name":"Skeletor","hp":7500,"atk":4500,"bio":"","icon":""},{"name":"The Joker","hp":6750,"atk":3950,"bio":"","icon":""},{"name":"Ganondorf","hp":6900,"atk":4200,"bio":"","icon":""}],[{"name":"Hercules","hp":8000,"atk":5025,"bio":"","icon":""},{"name":"Achilles","hp":8150,"atk":4875,"bio":"","icon":""},{"name":"Prometheus","hp":8400,"atk":5450,"bio":"","icon":""},{"name":"Odysseus","hp":7875,"atk":5000,"bio":"","icon":""},{"name":"Perseus","hp":7590,"atk":4600,"bio":"","icon":""}],[{"name":"Slamming your Pinky Toe in a Corner","hp":9000,"atk":7000,"bio":"","icon":""},{"name":"That Morning Leg Cramp","hp":10000,"atk":6100,"bio":"","icon":""},{"name":"Cats unplugging your Wires","hp":8975,"atk":5700,"bio":"","icon":""},{"name":"That one song stuck in your head","hp":10500,"atk":6400,"bio":"","icon":""},{"name":"\"Oh a food item!\" best 2 years ago","hp":9500,"atk":6800,"bio":"","icon":""}],[{"name":"Zekrow","hp":9999,"atk":9000,"bio":"","icon":""},{"name":"TheSnekySnek","hp":13000,"atk":7500,"bio":"","icon":""},{"name":"FuzzyWabbit","hp":11000,"atk":6000,"bio":"","icon":""},{"name":"Robsteals","hp":8500,"atk":8000,"bio":"","icon":""},{"name":"Nainfirmière","hp":9700,"atk":6700,"bio":"","icon":""}],[{"name":"Zeus","hp":10000,"atk":13500,"bio":"","icon":""},{"name":"Hades","hp":17500,"atk":14000,"bio":"","icon":""},{"name":"Hecate","hp":15000,"atk":10000,"bio":"","icon":""},{"name":"Poseidon","hp":12500,"atk":11500,"bio":"","icon":""},{"name":"Ra","hp":20000,"atk":13000,"bio":"","icon":""}]],"items":{"helmet":[{"name":"Messy Morning Hair","hp":5,"lvl":1},{"name":"A Wig from the attic","hp":8,"lvl":2},{"name":"Kitchen Lady's Hairnet","hp":12,"lvl":3},{"name":"A Tinfoil Hat","hp":15,"lvl":4},{"name":"Caesar's Laurel Wreath","hp":25,"lvl":5},{"name":"Bart Simpson's Spiky Hair","hp":30,"lvl":6},{"name":"Daft Punk's Rainbow Helmet","hp":45,"bp":1,"lvl":7},{"name":"Crash Bandicoot's Aku Aku Mask","hp":70,"lvl":8},{"name":"Cubone's Skull","hp":140,"lvl":9},{"name":"Goldi's Locks","hp":100,"luck":10,"lvl":10},{"name":"Loki's Horns","hp":200,"bp":2,"luck":10,"lvl":11},{"name":"Darth Vader's Respirator","hp":180,"atk":45,"lvl":12},{"name":"Majora's Mask","hp":210,"atk":100,"lvl":13},{"name":"Jack Sparrow's Bandana","hp":250,"luck":15,"lvl":14},{"name":"Medusa's Severed Head","hp":350,"bp":1,"lvl":15},{"name":"Batman's Ears","hp":500,"atk":150,"bp":1,"lvl":16},{"name":"The Sorting Hat","hp":700,"atk":200,"bp":2,"lvl":17},{"name":"Sunbro's Bucket Helm","hp":1000,"atk":420,"luck":25,"lvl":18},{"name":"The Mask","hp":1500,"atk":750,"lvl":19},{"name":"Cuphead's Cup Head","hp":3000,"atk":1000,"bp":5,"lvl":20}],"chest":[{"name":"Dirty T-Shirt","hp":5,"lvl":1},{"name":"Mom's Apron","hp":8,"lvl":2},{"name":"A Mexican's Pancho","hp":45,"lvl":3},{"name":"A Cardboard Box","hp":75,"bp":1,"lvl":4},{"name":"The Arc Reactor","hp":130,"lvl":5},{"name":"Samus' Suit","hp":250,"lvl":6},{"name":"Ninja Turtle Shell","hp":350,"lvl":7},{"name":"Donkey Kong's Barrel","hp":650,"lvl":8},{"name":"Goofy Goober T-Shirt","hp":725,"lvl":9},{"name":"Elite Knight's Armor","hp":1250,"atk":200,"lvl":10},{"name":"Crimson Tunic","hp":1000,"bp":3,"lvl":11},{"name":"Professioanl Sumo Suit","hp":2000,"atk":-50,"lvl":12},{"name":"Dumbledore's Cloak","hp":1500,"luck":10,"lvl":13},{"name":"Iron Golem Armor","hp":3000,"lvl":14},{"name":"Deadpool's Overalls","hp":500,"atk":500,"lvl":15},{"name":"Rathalos Flaming Armor","hp":4500,"bp":2,"lvl":16},{"name":"Shadow Priest Tunic","hp":4000,"luck":15,"lvl":17},{"name":"A Forest of Chest Hair","hp":6000,"lvl":18},{"name":"Pedobear Suit","hp":7750,"luck":10,"lvl":19},{"name":"Elder Dragon Armor","hp":9500,"atk":1000,"bp":1,"lvl":20}],"pants":[{"name":"Stained Shorts","lvl":1,"hp":5},{"name":"Hawaiian Skirt","hp":10,"lvl":2},{"name":"Hula Hoop","hp":35,"lvl":3},{"name":"Your Mom's Leopard Thong","hp":80,"lvl":4},{"name":"Wooden Pirate Leg","hp":110,"lvl":5},{"name":"Tarzan's Crotch Cloth","hp":150,"lvl":6},{"name":"Goofy Goober Pants","hp":170,"lvl":7},{"name":"Wet Towel","hp":185,"lvl":8},{"name":"Sexy Male Stockings","hp":225,"lvl":9},{"name":"Iron Golem Pants","hp":300,"lvl":10},{"name":"Tommy Pickle's Diaper","hp":400,"lvl":11},{"name":"Your Dad's Speedo","hp":475,"lvl":12},{"name":"Shadow Priest Robes","hp":550,"luck":10,"lvl":13},{"name":"Centaur's Bottoms","hp":700,"lvl":14},{"name":"Adam's Crotch Leaf","hp":1000,"lvl":15},{"name":"Crimson Robes","hp":1300,"bp":2,"lvl":16},{"name":"Elite Knight Pants","hp":1750,"atk":100,"lvl":17},{"name":"Hulk's Ripped Shorts","hp":2500,"lvl":18},{"name":"Pile of Fallen Leaves","hp":4000,"lvl":19},{"name":"Elder Dragon Pants","hp":6000,"bp":1,"lvl":20}],"boots":[{"name":"Flip Flops","hp":5,"lvl":1},{"name":"Socks and Sandals","hp":10,"lvl":2},{"name":"Crocs","hp":30,"lvl":3},{"name":"Cinderalla's Glass Slipper","hp":75,"lvl":4},{"name":"A Samurai's Wooden Tongs","hp":90,"lvl":5},{"name":"Puss in Boots","hp":140,"lvl":6},{"name":"Hermes' Flying Boots","hp":190,"lvl":7},{"name":"Tony Hawk's Skateboard","hp":230,"lvl":8},{"name":"Bear Slippers","hp":300,"lvl":9},{"name":"Boots from Dora the Explorer","hp":360,"lvl":10},{"name":"Iron Golem Grieves","hp":430,"lvl":11},{"name":"Sonic's Speedy Shoes","hp":500,"lvl":12},{"name":"Crimson Shoes","hp":775,"bp":1,"lvl":13},{"name":"Elite Knight Grieves","hp":850,"atk":50,"lvl":14},{"name":"Hoverboard","hp":1000,"lvl":15},{"name":"Shadow Priest Shoes","hp":1500,"luck":5,"lvl":16},{"name":"One Punch Man's Red Rubber Boots","hp":2000,"lvl":17},{"name":"Dobby's Socks","hp":3000,"lvl":18},{"name":"Elder Dragon Grieves","hp":4000,"atk":150,"bp":1,"lvl":19},{"name":"Achilles' Heelies","hp":5000,"lvl":20}],"accessory":[{"name":"Grandpa's Wristwatch","hp":-10,"lvl":1},{"name":"Yellow Rubber Glove","atk":50,"lvl":2},{"name":"Dora's Backpack","hp":25,"bp":1,"lvl":3},{"name":"Michael Jackson's White Glove","hp":20,"bp":2,"lvl":4},{"name":"Mario Sunshine's Jetpack","bp":2,"lvl":5},{"name":"Yoshi's Egg","hp":100,"atk":100,"lvl":7},{"name":"Ben 10's Omnitrix","atk":200,"lvl":9},{"name":"Companion Cube","hp":300,"bp":1,"lvl":10},{"name":"Sorcerer's Stone","hp":500,"bp":1,"lvl":10},{"name":"Sauron's Ring","hp":-100,"atk":100,"bp":1,"lvl":11},{"name":"Harry's Invisibility Cloak","hp":-150,"atk":150,"lvl":12},{"name":"Goblet of Fire","hp":-800,"atk":-50,"bp":5,"lvl":13},{"name":"Scooby Snacks","hp":750,"lvl":14},{"name":"Pegasus Wings","hp":200,"atk":200,"lvl":14},{"name":"Masterball","atk":300,"lvl":15},{"name":"Nimbus Cloud","hp":500,"atk":400,"bp":-1,"lvl":17},{"name":"Maurauder's Map","hp":-300,"atk":800,"bp":1,"lvl":18},{"name":"Batman's Utility Belt","hp":500,"atk":1000,"bp":1,"lvl":19},{"name":"Dragonballs","hp":-500,"atk":2000,"bp":-2,"lvl":20}],"weapon":[{"name":"A Wet Toothbrush","atk":5,"lvl":1},{"name":"A Schoolkid's Rubber Slingshot","atk":12,"lvl":2},{"name":"Bob Ross's Paintbrush","atk":45,"lvl":3},{"name":"Here's Johnny's Axe","atk":85,"lvl":4},{"name":"Skywalker's Right Hand","atk":100,"hp":-20,"lvl":5},{"name":"Elon Musk's Flamethrower","atk":250,"hp":-100,"bp":1,"lvl":6},{"name":"Spock's Phaser","atk":190,"lvl":7},{"name":"An Abandoned Portal Gun","atk":250,"lvl":8},{"name":"Gordon's Crowbar","atk":325,"hp":-50,"lvl":9},{"name":"Hulk's Giant Fist","atk":600,"hp":-250,"lvl":10},{"name":"Olivander's Wand","atk":300,"bp":1,"lvl":11},{"name":"Merlin's Sword","atk":420,"lvl":12},{"name":"Deathnote","atk":375,"hp":-100,"bp":2,"lvl":13},{"name":"Thor's Hammer","atk":675,"lvl":14},{"name":"Holy Hand Grenade","atk":800,"hp":-100,"lvl":15},{"name":"A Tetris Block","atk":1500,"lvl":16},{"name":"The Infinity Gauntlet","atk":1050,"hp":-400,"bp":4,"lvl":17},{"name":"Kirby's Big Succ","atk":3500,"bp":2,"lvl":18},{"name":"The Chancla","atk":5100,"luck":15,"lvl":19},{"name":"Anime Body Pillow","atk":7000,"hp":-300,"lvl":20}],"consumable":[{"name":"Small BP Potion","lvl":5,"bp":5,"price":7500},{"name":"Large BP Potion","lvl":10,"bp":10,"price":15000},{"name":"Fill Me Up Scotty","lvl":25,"bp":0,"price":20000},{"name":"Small Dungeon Potion","lvl":5,"hp":0,"price":2500},{"name":"Large Dungeon Potion","lvl":10,"hp":0,"price":5000},{"name":"Small Dungeon Elixir","lvl":5,"atk":0,"price":2500},{"name":"Large Dungeon Elixir","lvl":10,"atk":0,"price":5000},{"name":"Small Magic Elixir","lvl":5,"luck":15,"price":5000},{"name":"Large Magic Elixir","lvl":10,"luck":30,"price":10000}]}}
+{
+    "users": [],
+    "battles": [],
+    "mobs": [
+      [
+        {
+          "name": "Rat",
+          "hp": 29,
+          "atk": 4,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051403092164618/rat.png"
+        },
+        {
+          "name": "Worm",
+          "hp": 26,
+          "atk": 2,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051441398743042/worm.png"
+        },
+        {
+          "name": "Snail",
+          "hp": 27,
+          "atk": 3,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051408326524938/snail.png"
+        },
+        {
+          "name": "Squirrel",
+          "hp": 30,
+          "atk": 5,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051391142461440/ezgif-1-c622c51cc0.png"
+        },
+        {
+          "name": "Bird",
+          "hp": 28,
+          "atk": 3,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051391524143104/ezgif-1-bfa08110f8.png"
+        }
+      ],
+      [
+        {
+          "name": "Crow",
+          "hp": 45,
+          "atk": 4,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491044732169093130/523483.png"
+        },
+        {
+          "name": "Wolf",
+          "hp": 50,
+          "atk": 6,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491052048054222848/wolf.png"
+        },
+        {
+          "name": "Hippo",
+          "hp": 56,
+          "atk": 8,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051398759317519/hippo.png"
+        },
+        {
+          "name": "Swordfish",
+          "hp": 53,
+          "atk": 7,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491052043511791616/swordfish.png"
+        },
+        {
+          "name": "Snake",
+          "hp": 48,
+          "atk": 5,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051394682454056/ezgif-1-e512c5c4cc.png"
+        }
+      ],
+      [
+        {
+          "name": "Octopus",
+          "hp": 82,
+          "atk": 9,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051398591414283/octo.png"
+        },
+        {
+          "name": "Shark",
+          "hp": 78,
+          "atk": 8,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051405994360832/shark.png"
+        },
+        {
+          "name": "Bear",
+          "hp": 90,
+          "atk": 12,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051385199263745/bear.png"
+        },
+        {
+          "name": "Platypuss",
+          "hp": 75,
+          "atk": 8,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491051401506717700/platy.png"
+        },
+        {
+          "name": "Lion",
+          "hp": 85,
+          "atk": 11,
+          "bio": "",
+          "icon": "https://orig00.deviantart.net/92ce/f/2012/287/6/8/scar_vector_by_thecraprightart-d5hryzz.png"
+        }
+      ],
+      [
+        {
+          "name": "Windows Firewall",
+          "hp": 115,
+          "atk": 14,
+          "bio": "",
+          "icon": "https://cdn.tenforums.com/geek/gars/images/2/types/thumb_Windows_Firewall.png"
+        },
+        {
+          "name": "Norton Antivirus",
+          "hp": 110,
+          "atk": 12,
+          "bio": "",
+          "icon": "https://now.symassets.com/content/dam/norton/global/images/non-product/logos/schema-norton-logo.jpg"
+        },
+        {
+          "name": "Mom's Password",
+          "hp": 135,
+          "atk": 18,
+          "bio": "",
+          "icon": "https://msr7.net/images/frustrated-computer-user-15.jpg"
+        },
+        {
+          "name": "Windows Update",
+          "hp": 125,
+          "atk": 16,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491037967700328450/windows-updates-install-process-so-long.png"
+        },
+        {
+          "name": "Lag",
+          "hp": 120,
+          "atk": 15,
+          "bio": "",
+          "icon": "http://i.imgur.com/2gcGCJi.gif"
+        }
+      ],
+      [
+        {
+          "name": "Pikachu",
+          "hp": 220,
+          "atk": 21,
+          "bio": "",
+          "icon": "https://pa1.narvii.com/6339/1d8b4ef95b8bde981998ce90c97dc84bb24b4e82_hq.gif"
+        },
+        {
+          "name": "Missingno",
+          "hp": 240,
+          "atk": 25,
+          "bio": "",
+          "icon": "https://orig00.deviantart.net/2819/f/2017/063/8/c/missingno__gif_by_pokemon_ranger_sumi-db18737.gif"
+        },
+        {
+          "name": "Charizard",
+          "hp": 235,
+          "atk": 24,
+          "bio": "",
+          "icon": "https://i.giphy.com/media/LopkxTkHwvE0U/source.gif"
+        },
+        {
+          "name": "Blastoise",
+          "hp": 230,
+          "atk": 23,
+          "bio": "",
+          "icon": "https://78.media.tumblr.com/a0f0e55555ba27229ad97965d5a1f0ea/tumblr_o6rxakd7lg1txe8e9o1_500.gif"
+        },
+        {
+          "name": "Venusaur",
+          "hp": 225,
+          "atk": 22,
+          "bio": "",
+          "icon": "https://i.gifer.com/4o45.gif"
+        }
+      ],
+      [
+        {
+          "name": "Sabertooth",
+          "hp": 255,
+          "atk": 28,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/iceage/images/2/2f/Diego4.png"
+        },
+        {
+          "name": "Woolly Mammoth",
+          "hp": 260,
+          "atk": 30,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/vsbattles/images/2/28/Manfred.png"
+        },
+        {
+          "name": "Dodo",
+          "hp": 240,
+          "atk": 25,
+          "bio": "",
+          "icon": "https://www.dodo.com/sites/dodo/files/2018-08/Dodo_08_Plan_LRG_717x750.png"
+        },
+        {
+          "name": "Western Black Rhinoceros",
+          "hp": 250,
+          "atk": 27,
+          "bio": "",
+          "icon": "https://planetrhino.tcu.edu/wp-content/themes/rhino/images/rhino.png"
+        },
+        {
+          "name": "Tasmanian Tiger",
+          "hp": 245,
+          "atk": 26,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/233701911168155649/491270037345140757/tasmanian_tiger.png"
+        }
+      ],
+      [
+        {
+          "name": "Mario",
+          "hp": 305,
+          "atk": 32,
+          "bio": "",
+          "icon": "http://icons.iconarchive.com/icons/ph03nyx/super-mario/128/Paper-Mario-icon.png"
+        },
+        {
+          "name": "Sonic",
+          "hp": 300,
+          "atk": 30,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491040896406650911/sonic-the-hedgehog-2-1104968.png"
+        },
+        {
+          "name": "Link",
+          "hp": 315,
+          "atk": 35,
+          "bio": "",
+          "icon": "https://www.yourepo.com/images/icons/daveswitch.png?1459783977"
+        },
+        {
+          "name": "Kirby",
+          "hp": 310,
+          "atk": 33,
+          "bio": "",
+          "icon": "https://kirby.nintendo.com/assets/img/home/kirby-powerful.png"
+        },
+        {
+          "name": "Fox McCloud",
+          "hp": 310,
+          "atk": 34,
+          "bio": "",
+          "icon": "https://ubistatic19-a.akamaihd.net/marketingresource/en-us/starlink/game/assets/images/sl_pilotdetail-gemini_ncsa.png"
+        }
+      ],
+      [
+        {
+          "name": "A horde of Feminists",
+          "hp": 390,
+          "atk": 42,
+          "bio": "",
+          "icon": "https://thenypost.files.wordpress.com/2018/01/feminism-conformity-marko.jpg"
+        },
+        {
+          "name": "Anti-Autism Vaccine",
+          "hp": 385,
+          "atk": 40,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491041760080953354/autismpro-e1513045104223.png"
+        },
+        {
+          "name": "72 Genders",
+          "hp": 375,
+          "atk": 38,
+          "bio": "",
+          "icon": "https://learn.uvm.edu/wordpress_3_4b/wp-content/uploads/GenderGraphic-e1433379746312-655x473.jpg"
+        },
+        {
+          "name": "Gluten Allergies",
+          "hp": 380,
+          "atk": 39,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491042802638258178/maxresdefault.jpg"
+        },
+        {
+          "name": "Honest Politician",
+          "hp": 370,
+          "atk": 37,
+          "bio": "",
+          "icon": "https://www.billboard.com/files/styles/article_main_image/public/media/donald-trump-thumbs-up-aug-2015-billboard-650.jpg"
+        }
+      ],
+      [
+        {
+          "name": "Homer Simpson",
+          "hp": 460,
+          "atk": 50,
+          "bio": "",
+          "icon": "http://icons.iconarchive.com/icons/jonathan-rey/simpsons/256/Homer-Simpson-04-Happy-icon.png"
+        },
+        {
+          "name": "Rick & Morty",
+          "hp": 500,
+          "atk": 55,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/rickandmorty/images/1/1e/Rick_and_morty_icon.png"
+        },
+        {
+          "name": "Eric Cartman",
+          "hp": 480,
+          "atk": 52,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/southpark/images/c/c4/Eric-cartman.png"
+        },
+        {
+          "name": "Dr. Zoidberg",
+          "hp": 485,
+          "atk": 54,
+          "bio": "",
+          "icon": "https://firecore.com/sites/default/files/styles/image_responsive/public/pictures/picture-257172-1449578468.png"
+        },
+        {
+          "name": "Sterling Archer",
+          "hp": 470,
+          "atk": 51,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491045875678969856/sterling.png"
+        }
+      ],
+      [
+        {
+          "name": "Erectile Dysfunction",
+          "hp": 675,
+          "atk": 80,
+          "bio": "",
+          "icon": "https://mycanadianpharmacyteam.com/wp-content/uploads/2016/09/viagra-professional-300x254.png"
+        },
+        {
+          "name": "Crippling Depression",
+          "hp": 670,
+          "atk": 78,
+          "bio": "",
+          "icon": "https://i.kym-cdn.com/entries/icons/original/000/021/245/crippling_depression.jpg"
+        },
+        {
+          "name": "Osteoporosis",
+          "hp": 658,
+          "atk": 73,
+          "bio": "",
+          "icon": "http://gwinnettpetwatchers.com/wp-content/uploads/2015/02/Dog-with-Bone.png"
+        },
+        {
+          "name": "Ligma",
+          "hp": 650,
+          "atk": 70,
+          "bio": "",
+          "icon": "https://i.giphy.com/media/BIA2rRLTq0ibe/giphy.webp"
+        },
+        {
+          "name": "Having Big Bones",
+          "hp": 665,
+          "atk": 75,
+          "bio": "",
+          "icon": "https://mbtskoudsalg.com/images/dinosaur-bones-png-4.png"
+        }
+      ],
+      [
+        {
+          "name": "Bowser",
+          "hp": 710,
+          "atk": 82,
+          "bio": "",
+          "icon": "https://www.mariowiki.com/images/thumb/7/7e/Bowser_-_Mario_Party_10.png/250px-Bowser_-_Mario_Party_10.png"
+        },
+        {
+          "name": "Dracula",
+          "hp": 700,
+          "atk": 80,
+          "bio": "",
+          "icon": "http://icons-for-free.com/icon/download-dracula_halloween_holidays_vampire_icon-321404.png"
+        },
+        {
+          "name": "Kerrigan",
+          "hp": 720,
+          "atk": 86,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491052861527031828/Kerrigan_Icon_Spray.png"
+        },
+        {
+          "name": "GLaDOS",
+          "hp": 715,
+          "atk": 84,
+          "bio": "",
+          "icon": "https://i.kym-cdn.com/entries/icons/original/000/010/203/glados.png"
+        },
+        {
+          "name": "Dr. Eggman",
+          "hp": 705,
+          "atk": 80,
+          "bio": "",
+          "icon": "https://pre00.deviantart.net/72ac/th/pre/f/2018/034/c/6/dr__eggman_2018_render_by_jaysonjeanchannel-dc23vw3.png"
+        }
+      ],
+      [
+        {
+          "name": "Your Shadow",
+          "hp": 800,
+          "atk": 100,
+          "bio": "",
+          "icon": "https://banner2.kisspng.com/20180426/cae/kisspng-demon-ghost-darkness-shadow-person-clip-art-shadow-5ae1a25a8e4fa9.9795025515247366025829.jpg"
+        },
+        {
+          "name": "Bathroom Mirror",
+          "hp": 810,
+          "atk": 103,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/492466652072640512/mirror.png"
+        },
+        {
+          "name": "Crying yourself to Sleep",
+          "hp": 825,
+          "atk": 110,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491054096669868033/landscape-1474301239-dawson-cry-face.jpg"
+        },
+        {
+          "name": "That one Pimple on your Nose",
+          "hp": 815,
+          "atk": 105,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/491054879541035008/157501273-612x612.jpg"
+        },
+        {
+          "name": "Your Hopes and Dreams",
+          "hp": 820,
+          "atk": 108,
+          "bio": "",
+          "icon": "http://www.stickpng.com/assets/images/580b585b2edbce24c47b2794.png"
+        }
+      ],
+      [
+        {
+          "name": "Zombie",
+          "hp": 1000,
+          "atk": 125,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/plantsvszombies/images/d/d6/Plants_vs._Zombies_Icon_%28Version_1.9.9%29.png"
+        },
+        {
+          "name": "Werewolf",
+          "hp": 1030,
+          "atk": 130,
+          "bio": "",
+          "icon": "http://samcodes.co.uk/wp-content/gallery/werewolf-tycoon-1-icons-logos/iTunesArtwork%402x_new.png"
+        },
+        {
+          "name": "Vampire",
+          "hp": 1020,
+          "atk": 130,
+          "bio": "",
+          "icon": "https://us.123rf.com/450wm/drawkman/drawkman1609/drawkman160900181/62567199-cartoon-bat-head-icon-halloween-vector-bat-vampire-icon-or-avatar.jpg"
+        },
+        {
+          "name": "Kraken",
+          "hp": 1060,
+          "atk": 140,
+          "bio": "",
+          "icon": "https://cdn180.picsart.com/230675829047212.png"
+        },
+        {
+          "name": "Banshee",
+          "hp": 1040,
+          "atk": 135,
+          "bio": "",
+          "icon": "http://monster-wiki.com/images/monster_portrait/Lostyghost_3.jpg"
+        }
+      ],
+      [
+        {
+          "name": "Sidewalk Dog Poop",
+          "hp": 1280,
+          "atk": 170,
+          "bio": "",
+          "icon": "https://i5.walmartimages.com/asr/a93598bc-e157-43a6-89dd-e6ea888eef70_1.c61d143aee02f3901dec55185f36f264.jpeg?"
+        },
+        {
+          "name": "Lego on the Floor",
+          "hp": 1320,
+          "atk": 180,
+          "bio": "",
+          "icon": "http://pngimg.com/uploads/lego/lego_PNG47.png"
+        },
+        {
+          "name": "Bird shit on your shoulder",
+          "hp": 1300,
+          "atk": 175,
+          "bio": "",
+          "icon": "http://www.lifeberrys.com/img/article/bird-poop-on-clothes-1509952073-lb.jpg"
+        },
+        {
+          "name": "Gum in your Hair",
+          "hp": 1250,
+          "atk": 160,
+          "bio": "",
+          "icon": "https://authorityremedies.com/wp-content/uploads/2016/07/Gum-in-Hair.jpg"
+        },
+        {
+          "name": "Drive-by Puddle Splash",
+          "hp": 1260,
+          "atk": 165,
+          "bio": "",
+          "icon": "https://i2-prod.bristolpost.co.uk/news/motoring/article652500.ece/ALTERNATES/s1200/Splashing-pedestrians-with-puddle-water-in-car.jpg"
+        }
+      ],
+      [
+        {
+          "name": "T-Rex",
+          "hp": 1900,
+          "atk": 250,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/jurrassic-wolrd/images/f/f8/T-Rex.png"
+        },
+        {
+          "name": "Spinosaurus",
+          "hp": 1780,
+          "atk": 235,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/walkingwith/images/a/aa/SpinosaurusInfobox.png"
+        },
+        {
+          "name": "Velociraptor",
+          "hp": 1775,
+          "atk": 230,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/jurassicpark/images/d/dd/Fallen_kingdom_blue_the_velociraptor_v3_by_sonichedgehog2-dc9x53o.png"
+        },
+        {
+          "name": "Pterodactyl",
+          "hp": 1750,
+          "atk": 225,
+          "bio": "",
+          "icon": "https://mbtskoudsalg.com/images/pterodactyl-transparent-5.png"
+        },
+        {
+          "name": "Mosasaurus",
+          "hp": 1850,
+          "atk": 245,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/405168682529062914/492465567027036160/mosasaurus.png"
+        }
+      ],
+      [
+        {
+          "name": "Left over Ikea Screw",
+          "hp": 2100,
+          "atk": 270,
+          "bio": "",
+          "icon": "https://i.ytimg.com/vi/ozFwaR9e8l0/maxresdefault.jpg"
+        },
+        {
+          "name": "Drawer of Dead Batteries",
+          "hp": 2075,
+          "atk": 265,
+          "bio": "",
+          "icon": "https://sustainingourworld.com/wp-content/uploads/2014/09/Dead-batteries.jpg"
+        },
+        {
+          "name": "Creaky Staircase",
+          "hp": 2050,
+          "atk": 260,
+          "bio": "",
+          "icon": "https://www.thespruce.com/thmb/yZeSzCeGjKguPaae_CBnoBy-g8Y=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/Wooden-Stairs-510587539-576eab965f9b58587566bb4e.jpg"
+        },
+        {
+          "name": "Weak Door Handle",
+          "hp": 2000,
+          "atk": 250,
+          "bio": "",
+          "icon": "https://i.pinimg.com/originals/a1/bc/69/a1bc690fbff44e2465f8c57f9de3ccb6.jpg"
+        },
+        {
+          "name": "Uneven Chair Leg",
+          "hp": 2025,
+          "atk": 255,
+          "bio": "",
+          "icon": "http://wildlyspun.com/wp-content/uploads/2018/03/how-to-repair-a-broken-wooden-chair-leg-broken-chair-repair-repair-cracked-wooden-chair-leg.jpg"
+        }
+      ],
+      [
+        {
+          "name": "U.F.O.",
+          "hp": 2650,
+          "atk": 320,
+          "bio": "",
+          "icon": "https://mbtskoudsalg.com/images/ufo-png-6.png"
+        },
+        {
+          "name": "Big Foot",
+          "hp": 2600,
+          "atk": 315,
+          "bio": "",
+          "icon": "https://images-na.ssl-images-amazon.com/images/I/91n0Co6u2mL._SL1500_.jpg"
+        },
+        {
+          "name": "Nessie",
+          "hp": 2700,
+          "atk": 325,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/224705116194865152/491062016593625090/united-airlines-safety-video-2015_750xx1200-675-0-343.jpg"
+        },
+        {
+          "name": "Chupacabra",
+          "hp": 2550,
+          "atk": 310,
+          "bio": "",
+          "icon": "https://i.pinimg.com/236x/52/2a/a3/522aa3a5e947b48937be93182e7a5e00--middle-fingers-ugly-animals.jpg"
+        },
+        {
+          "name": "Leprechaun",
+          "hp": 2500,
+          "atk": 300,
+          "bio": "",
+          "icon": "https://res.cloudinary.com/teepublic/image/private/s--Lx5MjyWN--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1518166062/production/designs/2350826_0.jpg"
+        }
+      ],
+      [
+        {
+          "name": "A Dirty Laundry Pile",
+          "hp": 3000,
+          "atk": 370,
+          "bio": "",
+          "icon": "http://2.bp.blogspot.com/-XUUOvYe8SBQ/T2Vnf0jkyJI/AAAAAAAABuw/bYnBRkuI6ok/s1600/laundry%2520pile.jpg"
+        },
+        {
+          "name": "Grandma's Forgotten Cheese",
+          "hp": 2975,
+          "atk": 365,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/224705116194865152/491063498307141652/ddvnpg6tlmhz.png"
+        },
+        {
+          "name": "Leaky Garbage Bag",
+          "hp": 2950,
+          "atk": 360,
+          "bio": "",
+          "icon": "https://banner2.kisspng.com/20180403/ese/kisspng-plastic-bag-rubbish-bins-waste-paper-baskets-bin-garbage-5ac449f9492840.6302409815228134332997.jpg"
+        },
+        {
+          "name": "Shower Hair Clumps",
+          "hp": 2925,
+          "atk": 355,
+          "bio": "",
+          "icon": "http://www.notasipictured.org/gallery/images/11.jpg"
+        },
+        {
+          "name": "Sweaty Gym Shoes",
+          "hp": 2900,
+          "atk": 350,
+          "bio": "",
+          "icon": "https://www.mensjournal.com/wp-content/uploads/mf/stinky_feet_shoes_dirty_sneakers_main.jpg?w=1200&h=1200&crop=1"
+        }
+      ],
+      [
+        {
+          "name": "Basilisk",
+          "hp": 3750,
+          "atk": 450,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/224705116194865152/491064720410017802/Basilisk_-_FBcases_1501169243.png"
+        },
+        {
+          "name": "Lord Voldemort",
+          "hp": 3500,
+          "atk": 425,
+          "bio": "",
+          "icon": "http://pngimg.com/uploads/nose/nose_PNG21.png"
+        },
+        {
+          "name": "Dementor",
+          "hp": 3600,
+          "atk": 430,
+          "bio": "",
+          "icon": "https://cache.popcultcha.com.au/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/a/satsa8006-harry-potter-dementor-18th-scale-action-figure-01.1526348193.png"
+        },
+        {
+          "name": "Aragog",
+          "hp": 3700,
+          "atk": 445,
+          "bio": "",
+          "icon": "https://cdn.vox-cdn.com/thumbor/nG8RO1vCNI4nJedT39zobzGbHqU=/0x0:942x471/1200x800/filters:focal(396x161:546x311)/cdn.vox-cdn.com/uploads/chorus_image/image/59985717/unnamed.0.png"
+        },
+        {
+          "name": "Cerberus",
+          "hp": 3650,
+          "atk": 435,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/224705116194865152/491066319907848205/Cerberus.png"
+        }
+      ],
+      [
+        {
+          "name": "Monster under the Bed",
+          "hp": 5500,
+          "atk": 730,
+          "bio": "",
+          "icon": "https://pre00.deviantart.net/1086/th/pre/i/2016/276/a/3/the_monster_under_the_bed_by_qube_core-dajr5bs.jpg"
+        },
+        {
+          "name": "The Man in your Closet",
+          "hp": 5300,
+          "atk": 715,
+          "bio": "",
+          "icon": "http://1023blakefm.com/files/2015/02/507185731-630x420.jpg"
+        },
+        {
+          "name": "Crossing the Road without Holding Hands",
+          "hp": 5000,
+          "atk": 705,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491067742015717386/when-can-you-leave-your-child-unsupervised-1024x576-1524252260.jpg"
+        },
+        {
+          "name": "Having to Shower everyday",
+          "hp": 5150,
+          "atk": 710,
+          "bio": "",
+          "icon": "https://i.redd.it/ao65iuet37h11.jpg"
+        },
+        {
+          "name": "\"Buy the Bread, i'll wait in the Car\"",
+          "hp": 5400,
+          "atk": 720,
+          "bio": "",
+          "icon": "http://www.xennoxdiamonds.com.au/wp-content/uploads/2014/06/nervous-guy.jpg"
+        }
+      ],
+      [
+        {
+          "name": "Dr. Doom",
+          "hp": 6250,
+          "atk": 765,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/avengersalliancetactics/images/f/f8/Dr._Doom_Portrait_Art.png"
+        },
+        {
+          "name": "Shredder",
+          "hp": 6150,
+          "atk": 755,
+          "bio": "",
+          "icon": "https://vignette.wikia.nocookie.net/tmnt/images/2/26/Shredder_idwgame.png"
+        },
+        {
+          "name": "Skeletor",
+          "hp": 6200,
+          "atk": 760,
+          "bio": "",
+          "icon": "https://i.pinimg.com/564x/ef/f5/dc/eff5dcf04d7cd2ab39597114bba0cd1f.jpg"
+        },
+        {
+          "name": "The Joker",
+          "hp": 6000,
+          "atk": 745,
+          "bio": "",
+          "icon": "http://pngimg.com/uploads/joker/joker_PNG18.png"
+        },
+        {
+          "name": "Ganondorf",
+          "hp": 6075,
+          "atk": 750,
+          "bio": "",
+          "icon": "http://informatica.olvbreda.nl/LoladR/The%20Legend%20of%20Zelda%20A%20Link%20Between%20Worlds%20Ganon.png"
+        }
+      ],
+      [
+        {
+          "name": "Hercules",
+          "hp": 7800,
+          "atk": 880,
+          "bio": "",
+          "icon": "https://mbtskoudsalg.com/images/disney-hercules-png-8.png"
+        },
+        {
+          "name": "Achilles",
+          "hp": 7650,
+          "atk": 865,
+          "bio": "",
+          "icon": "https://orig00.deviantart.net/b4f2/f/2016/352/2/9/achilles_png_render_by_mrvideo_vidman-das0bx3.png"
+        },
+        {
+          "name": "Prometheus",
+          "hp": 8000,
+          "atk": 900,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491071687274790933/11ccfe8440c71f3f788e5ea8fbb5678e.png"
+        },
+        {
+          "name": "Odysseus",
+          "hp": 7900,
+          "atk": 890,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491072199151845378/main-qimg-2690850f961d94d231f20edfd972db21.png"
+        },
+        {
+          "name": "Perseus",
+          "hp": 7500,
+          "atk": 850,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491072768318898196/4389aa6c5fe9372c087d4bddc3a6802b_1.png"
+        }
+      ],
+      [
+        {
+          "name": "Slamming your Pinky Toe in a Corner",
+          "hp": 11000,
+          "atk": 1100,
+          "bio": "",
+          "icon": "https://i.imgur.com/Bq5EoHR.gif"
+        },
+        {
+          "name": "That Morning Leg Cramp",
+          "hp": 10000,
+          "atk": 1000,
+          "bio": "",
+          "icon": "https://nhsinformassets.blob.core.windows.net/cache/2/9/8/b/0/a/298b0a91aed6968bc9b85abf2d1c5c11072fb353.jpg"
+        },
+        {
+          "name": "Cats unplugging your Wires",
+          "hp": 10600,
+          "atk": 1060,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491099302626721793/Cat-Chewing-Cord.jpg"
+        },
+        {
+          "name": "That one song stuck in your head",
+          "hp": 10850,
+          "atk": 1085,
+          "bio": "",
+          "icon": "http://www.logo-designer.co/wp-content/uploads/2016/05/hyperloop-one-logo-design.png"
+        },
+        {
+          "name": "\"Oh a food item!\" best 2 years ago",
+          "hp": 10300,
+          "atk": 1030,
+          "bio": "",
+          "icon": "http://technotes.alconox.com/wp-content/uploads/2016/06/EXPIREDcanstockphoto6017057.jpg"
+        }
+      ],
+      [
+        {
+          "name": "Zekrow",
+          "hp": 19000,
+          "atk": 1900,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491098488004673537/134df336e9cb1220ff46e983fb71e506.png"
+        },
+        {
+          "name": "TheSnekySnek",
+          "hp": 17000,
+          "atk": 1700,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/avatars/83519111514034176/a_deaef98aba16570a3fda53355838e20d.gif"
+        },
+        {
+          "name": "FuzzyWabbit",
+          "hp": 16000,
+          "atk": 1600,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/avatars/287930075628830720/c5de3beb3cb1566f92e24e574ad54b82.png"
+        },
+        {
+          "name": "Robsteals",
+          "hp": 16500,
+          "atk": 1650,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/avatars/107336815756787712/a_622f4a4870a1fca741af65ffbb2f66cc.gif"
+        },
+        {
+          "name": "Nainfirmière",
+          "hp": 15000,
+          "atk": 1550,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/avatars/195983881172680704/8f4105abefc03df93754a123a1f704b4.png"
+        }
+      ],
+      [
+        {
+          "name": "Zeus",
+          "hp": 30000,
+          "atk": 3100,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491095881442000906/zeus.png"
+        },
+        {
+          "name": "Hades",
+          "hp": 34000,
+          "atk": 3400,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491097900236013568/hades.png"
+        },
+        {
+          "name": "Hecate",
+          "hp": 32000,
+          "atk": 3500,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491087126239248395/91a0ba4dfa9f56b37507bf879b31057a.png"
+        },
+        {
+          "name": "Poseidon",
+          "hp": 33000,
+          "atk": 3300,
+          "bio": "",
+          "icon": "https://gbf.wiki/images/thumb/4/43/Poseidon.png/408px-Poseidon.png"
+        },
+        {
+          "name": "Ra",
+          "hp": 35000,
+          "atk": 3500,
+          "bio": "",
+          "icon": "https://cdn.discordapp.com/attachments/477906879146754076/491093404600631306/ra.png"
+        }
+      ]
+    ],
+    "items": {
+      "helmet": [
+        {
+          "name": "Messy Morning Hair",
+          "hp": 6,
+          "lvl": 1
+        },
+        {
+          "name": "A Wig from the attic",
+          "hp": 10,
+          "lvl": 2
+        },
+        {
+          "name": "Kitchen Lady's Hairnet",
+          "hp": 16,
+          "lvl": 3
+        },
+        {
+          "name": "A Tinfoil Hat",
+          "hp": 24,
+          "lvl": 4
+        },
+        {
+          "name": "Caesar's Laurel Wreath",
+          "hp": 44,
+          "lvl": 5
+        },
+        {
+          "name": "Bart Simpson's Spiky Hair",
+          "hp": 50,
+          "lvl": 6
+        },
+        {
+          "name": "Daft Punk's Rainbow Helmet",
+          "hp": 60,
+          "bp": 1,
+          "lvl": 7
+        },
+        {
+          "name": "Aku Aku Mask",
+          "hp": 75,
+          "lvl": 8
+        },
+        {
+          "name": "Cubone's Skull",
+          "hp": 90,
+          "lvl": 9
+        },
+        {
+          "name": "Goldi's Locks",
+          "hp": 130,
+          "luck": 5,
+          "lvl": 10
+        },
+        {
+          "name": "Loki's Horns",
+          "hp": 140,
+          "bp": 2,
+          "luck": 5,
+          "lvl": 11
+        },
+        {
+          "name": "Darth Vader's Respirator",
+          "hp": 160,
+          "atk": 20,
+          "lvl": 12
+        },
+        {
+          "name": "Majora's Mask",
+          "hp": 200,
+          "bp": 2,
+          "lvl": 13
+        },
+        {
+          "name": "Jack Sparrow's Bandana",
+          "hp": 250,
+          "luck": 10,
+          "lvl": 14
+        },
+        {
+          "name": "Medusa's Severed Head",
+          "hp": 350,
+          "bp": 1,
+          "lvl": 15
+        },
+        {
+          "name": "Batman's Ears",
+          "hp": 400,
+          "atk": 30,
+          "bp": 1,
+          "lvl": 16
+        },
+        {
+          "name": "The Sorting Hat",
+          "hp": 580,
+          "bp": 2,
+          "luck": 10,
+          "lvl": 17
+        },
+        {
+          "name": "Sunbro's Bucket Helm",
+          "hp": 1000,
+          "atk": 100,
+          "luck": 15,
+          "lvl": 18
+        },
+        {
+          "name": "The Mask",
+          "hp": 2000,
+          "bp": 3,
+          "lvl": 19
+        },
+        {
+          "name": "Cuphead's Cup Head",
+          "hp": 6000,
+          "atk": 400,
+          "bp": 4,
+          "lvl": 20
+        }
+      ],
+      "chest": [
+        {
+          "name": "Dirty T-Shirt",
+          "hp": 12,
+          "lvl": 1
+        },
+        {
+          "name": "Mom's Apron",
+          "hp": 20,
+          "lvl": 2
+        },
+        {
+          "name": "A Mexican's Pancho",
+          "hp": 32,
+          "lvl": 3
+        },
+        {
+          "name": "A Cardboard Box",
+          "hp": 48,
+          "bp": 1,
+          "lvl": 4
+        },
+        {
+          "name": "The Arc Reactor",
+          "hp": 88,
+          "lvl": 5
+        },
+        {
+          "name": "Samus' Suit",
+          "hp": 110,
+          "lvl": 6
+        },
+        {
+          "name": "Ninja Turtle Shell",
+          "hp": 130,
+          "lvl": 7
+        },
+        {
+          "name": "Donkey Kong's Barrel",
+          "hp": 150,
+          "lvl": 8
+        },
+        {
+          "name": "Goofy Goober T-Shirt",
+          "hp": 185,
+          "lvl": 9
+        },
+        {
+          "name": "Elite Knight's Armor",
+          "hp": 250,
+          "atk": 15,
+          "lvl": 10
+        },
+        {
+          "name": "Crimson Tunic",
+          "hp": 285,
+          "bp": 3,
+          "lvl": 11
+        },
+        {
+          "name": "Professioanl Sumo Suit",
+          "hp": 380,
+          "atk": -10,
+          "lvl": 12
+        },
+        {
+          "name": "Dumbledore's Cloak",
+          "hp": 400,
+          "luck": 10,
+          "lvl": 13
+        },
+        {
+          "name": "Iron Golem Armor",
+          "hp": 525,
+          "lvl": 14
+        },
+        {
+          "name": "Deadpool's Overalls",
+          "hp": 700,
+          "atk": 50,
+          "bp": -2,
+          "lvl": 15
+        },
+        {
+          "name": "Rathalos Flaming Armor",
+          "hp": 800,
+          "bp": 2,
+          "lvl": 16
+        },
+        {
+          "name": "Shadow Priest Tunic",
+          "hp": 1150,
+          "luck": 10,
+          "lvl": 17
+        },
+        {
+          "name": "A Forest of Chest Hair",
+          "hp": 1800,
+          "lvl": 18
+        },
+        {
+          "name": "Pedobear Suit",
+          "hp": 4000,
+          "atk": 100,
+          "luck": 10,
+          "lvl": 19
+        },
+        {
+          "name": "Elder Dragon Armor",
+          "hp": 12000,
+          "atk": 100,
+          "bp": 3,
+          "lvl": 20
+        }
+      ],
+      "pants": [
+        {
+          "name": "Stained Shorts",
+          "hp": 9,
+          "lvl": 1
+        },
+        {
+          "name": "Hawaiian Skirt",
+          "hp": 15,
+          "lvl": 2
+        },
+        {
+          "name": "Hula Hoop",
+          "hp": 24,
+          "lvl": 3
+        },
+        {
+          "name": "Your Mom's Leopard Thong",
+          "hp": 36,
+          "lvl": 4
+        },
+        {
+          "name": "Wooden Pirate Leg",
+          "hp": 66,
+          "lvl": 5
+        },
+        {
+          "name": "Tarzan's Crotch Cloth",
+          "hp": 75,
+          "lvl": 6
+        },
+        {
+          "name": "Goofy Goober Pants",
+          "hp": 90,
+          "lvl": 7
+        },
+        {
+          "name": "Wet Towel",
+          "hp": 110,
+          "lvl": 8
+        },
+        {
+          "name": "Sexy Male Stockings",
+          "hp": 140,
+          "lvl": 9
+        },
+        {
+          "name": "Iron Golem Pants",
+          "hp": 190,
+          "lvl": 10
+        },
+        {
+          "name": "Tommy Pickle's Diaper",
+          "hp": 215,
+          "lvl": 11
+        },
+        {
+          "name": "Your Dad's Speedo",
+          "hp": 240,
+          "lvl": 12
+        },
+        {
+          "name": "Shadow Priest Robes",
+          "hp": 300,
+          "luck": 10,
+          "lvl": 13
+        },
+        {
+          "name": "Centaur's Bottoms",
+          "hp": 375,
+          "lvl": 14
+        },
+        {
+          "name": "Adam's Crotch Leaf",
+          "hp": 525,
+          "lvl": 15
+        },
+        {
+          "name": "Crimson Robes",
+          "hp": 600,
+          "bp": 2,
+          "lvl": 16
+        },
+        {
+          "name": "Elite Knight Pants",
+          "hp": 850,
+          "atk": 40,
+          "lvl": 17
+        },
+        {
+          "name": "Hulk's Ripped Shorts",
+          "hp": 1400,
+          "lvl": 18
+        },
+        {
+          "name": "Pile of Fallen Leaves",
+          "hp": 3000,
+          "lvl": 19
+        },
+        {
+          "name": "Elder Dragon Pants",
+          "hp": 9000,
+          "luck": 20,
+          "lvl": 20
+        }
+      ],
+      "boots": [
+        {
+          "name": "Flip Flops",
+          "hp": 3,
+          "lvl": 1
+        },
+        {
+          "name": "Socks and Sandals",
+          "hp": 5,
+          "lvl": 2
+        },
+        {
+          "name": "Crocs",
+          "hp": 8,
+          "lvl": 3
+        },
+        {
+          "name": "Cinderalla's Glass Slipper",
+          "hp": 12,
+          "lvl": 4
+        },
+        {
+          "name": "A Samurai's Wooden Tongs",
+          "hp": 22,
+          "lvl": 5
+        },
+        {
+          "name": "Puss in Boots",
+          "hp": 26,
+          "lvl": 6
+        },
+        {
+          "name": "Hermes' Flying Boots",
+          "hp": 35,
+          "lvl": 7
+        },
+        {
+          "name": "Tony Hawk's Skateboard",
+          "hp": 40,
+          "lvl": 8
+        },
+        {
+          "name": "Bear Slippers",
+          "hp": 50,
+          "lvl": 9
+        },
+        {
+          "name": "Boots from Dora the Explorer",
+          "hp": 65,
+          "lvl": 10
+        },
+        {
+          "name": "Iron Golem Grieves",
+          "hp": 75,
+          "lvl": 11
+        },
+        {
+          "name": "Sonic's Speedy Shoes",
+          "hp": 90,
+          "luck": 5,
+          "lvl": 12
+        },
+        {
+          "name": "Crimson Shoes",
+          "hp": 100,
+          "bp": 1,
+          "lvl": 13
+        },
+        {
+          "name": "Elite Knight Grieves",
+          "hp": 125,
+          "atk": 25,
+          "lvl": 14
+        },
+        {
+          "name": "Hoverboard",
+          "hp": 175,
+          "lvl": 15
+        },
+        {
+          "name": "Shadow Priest Shoes",
+          "hp": 200,
+          "luck": 5,
+          "lvl": 16
+        },
+        {
+          "name": "One Punch Man's Red Rubber Boots",
+          "hp": 280,
+          "lvl": 17
+        },
+        {
+          "name": "Dobby's Socks",
+          "hp": 480,
+          "lvl": 18
+        },
+        {
+          "name": "Elder Dragon Grieves",
+          "hp": 1000,
+          "atk": 50,
+          "bp": 1,
+          "lvl": 19
+        },
+        {
+          "name": "Achilles' Heelies",
+          "hp": 3000,
+          "atk": 100,
+          "lvl": 20
+        }
+      ],
+      "accessory": [
+        {
+          "name": "Grandpa's Wristwatch",
+          "atk": 2,
+          "lvl": 1
+        },
+        {
+          "name": "Yellow Rubber Glove",
+          "atk": 3,
+          "lvl": 2
+        },
+        {
+          "name": "Dora's Backpack",
+          "atk": 5,
+          "lvl": 3
+        },
+        {
+          "name": "Michael Jackson's White Glove",
+          "hp": 20,
+          "bp": 2,
+          "lvl": 4
+        },
+        {
+          "name": "Mario Sunshine's Jetpack",
+          "bp": 1,
+          "atk": 8,
+          "lvl": 5
+        },
+        {
+          "name": "Yoshi's Egg",
+          "hp": 15,
+          "atk": 10,
+          "lvl": 6
+        },
+        {
+          "name": "Ben 10's Omnitrix",
+          "atk": 14,
+          "lvl": 7
+        },
+        {
+          "name": "Companion Cube",
+          "hp": 15,
+          "atk": 18,
+          "lvl": 8
+        },
+        {
+          "name": "Sorcerer's Stone",
+          "atk": 20,
+          "bp": 1,
+          "lvl": 9
+        },
+        {
+          "name": "Sauron's Ring",
+          "hp": -60,
+          "atk": 35,
+          "bp": 2,
+          "lvl": 10
+        },
+        {
+          "name": "Alchemist's Grimoire",
+          "lvl": 10
+        },
+        {
+          "name": "Harry's Invisibility Cloak",
+          "atk": 30,
+          "lvl": 11
+        },
+        {
+          "name": "Goblet of Fire",
+          "hp": -120,
+          "atk": 10,
+          "bp": 4,
+          "lvl": 12
+        },
+        {
+          "name": "Scooby Snacks",
+          "hp": 150,
+          "lvl": 13
+        },
+        {
+          "name": "Pegasus Wings",
+          "hp": 100,
+          "atk": 55,
+          "lvl": 14
+        },
+        {
+          "name": "Masterball",
+          "atk": 80,
+          "lvl": 15
+        },
+        {
+          "name": "Activated Trap Card",
+          "atk": 80,
+          "hp": 150,
+          "bp": 1,
+          "luck": 5,
+          "lvl": 16
+        },
+        {
+          "name": "Nimbus Cloud",
+          "atk": 140,
+          "bp": -2,
+          "lvl": 17
+        },
+        {
+          "name": "Maurauder's Map",
+          "hp": -200,
+          "atk": 230,
+          "bp": 1,
+          "lvl": 18
+        },
+        {
+          "name": "Batman's Utility Belt",
+          "hp": 200,
+          "atk": 350,
+          "luck": 10,
+          "lvl": 19
+        },
+        {
+          "name": "Dragonballs",
+          "hp": -200,
+          "atk": 800,
+          "bp": -1,
+          "lvl": 20
+        }
+      ],
+      "weapon": [
+        {
+          "name": "A Wet Toothbrush",
+          "atk": 4,
+          "lvl": 1
+        },
+        {
+          "name": "A Schoolkid's Rubber Slingshot",
+          "atk": 5,
+          "lvl": 2
+        },
+        {
+          "name": "Bob Ross's Paintbrush",
+          "atk": 8,
+          "lvl": 3
+        },
+        {
+          "name": "Here's Johnny's Axe",
+          "atk": 12,
+          "lvl": 4
+        },
+        {
+          "name": "Skywalker's Right Hand",
+          "atk": 20,
+          "hp": -20,
+          "lvl": 5
+        },
+        {
+          "name": "Elon Musk's Flamethrower",
+          "atk": 15,
+          "bp": 1,
+          "lvl": 6
+        },
+        {
+          "name": "Spock's Phaser",
+          "atk": 20,
+          "lvl": 7
+        },
+        {
+          "name": "An Abandoned Portal Gun",
+          "atk": 25,
+          "lvl": 8
+        },
+        {
+          "name": "Gordon's Crowbar",
+          "atk": 40,
+          "hp": -25,
+          "lvl": 9
+        },
+        {
+          "name": "Hulk's Giant Fist",
+          "atk": 50,
+          "lvl": 10
+        },
+        {
+          "name": "Olivander's Wand",
+          "atk": 55,
+          "bp": 1,
+          "lvl": 11
+        },
+        {
+          "name": "Merlin's Sword",
+          "atk": 75,
+          "lvl": 12
+        },
+        {
+          "name": "Deathnote",
+          "atk": 90,
+          "hp": -50,
+          "bp": 1,
+          "lvl": 13
+        },
+        {
+          "name": "Thor's Hammer",
+          "atk": 100,
+          "lvl": 14
+        },
+        {
+          "name": "Holy Hand Grenade",
+          "atk": 150,
+          "luck": 5,
+          "lvl": 15
+        },
+        {
+          "name": "A Tetris Block",
+          "atk": 165,
+          "lvl": 16
+        },
+        {
+          "name": "The Infinity Gauntlet",
+          "atk": 250,
+          "hp": -100,
+          "bp": 3,
+          "lvl": 17
+        },
+        {
+          "name": "Kirby's Big Succ",
+          "atk": 400,
+          "luck": 10,
+          "lvl": 18
+        },
+        {
+          "name": "The Chancla",
+          "atk": 800,
+          "luck": 15,
+          "lvl": 19
+        },
+        {
+          "name": "Anime Body Pillow",
+          "atk": 1500,
+          "bp": 1,
+          "luck": 5,
+          "lvl": 20
+        }
+      ],
+      "consumable": [
+        {
+          "name": "Small BP Potion",
+          "bp": 5,
+          "price": 7500,
+          "lvl": 8
+        },
+        {
+          "name": "Large BP Potion",
+          "bp": 10,
+          "price": 15000,
+          "lvl": 15
+        },
+        {
+          "name": "Fill Me Up Scotty",
+          "bp": 0,
+          "price": 20000,
+          "lvl": 20
+        },
+        {
+          "name": "Small Dungeon Potion",
+          "hp": 0.15,
+          "price": 2500,
+          "lvl": 8
+        },
+        {
+          "name": "Large Dungeon Potion",
+          "hp": 0.3,
+          "price": 5000,
+          "lvl": 14
+        },
+        {
+          "name": "Small Dungeon Elixir",
+          "atk": 0.15,
+          "price": 2500,
+          "lvl": 10
+        },
+        {
+          "name": "Large Dungeon Elixir",
+          "atk": 0.3,
+          "price": 5000,
+          "lvl": 15
+        },
+        {
+          "name": "Small Magic Elixir",
+          "luck": 15,
+          "price": 5000,
+          "lvl": 10
+        },
+        {
+          "name": "Large Magic Elixir",
+          "luck": 30,
+          "price": 10000,
+          "lvl": 15
+        }
+      ]
+    }
+  }
+  

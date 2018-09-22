@@ -191,7 +191,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
           timestamp: new Date(),
           footer: {
               text: "This is a footer. No feet were harmed in the making of this description",
-              icon_url: "https://cdn.discordapp.com/attachments/233701911168155649/419476816244375563/Arkhos_Black3.png"
+              icon_url: "https://cdn.discordapp.com/avatars/313743285233385472/2f3d1b13b53d4a8ce5e399616a597a3a.png"
           }
       }})
 

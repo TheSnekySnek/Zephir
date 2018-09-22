@@ -13,19 +13,19 @@ var defaultTemplate = require('./defaults/defbattles.json')
 
 db.defaults(defaultTemplate).write()
 
-global.setBattleMobs = function(mobs) {
+global.setBattleMobs = function (mobs) {
     db.set("mobs", mobs).write()
 }
 
-global.setBattleItems = function(items) {
+global.setBattleItems = function (items) {
     db.set("items", items).write()
 }
 
-global.getBattleMobs = function(mobs) {
+global.getBattleMobs = function (mobs) {
     return db.get("mobs").value()
 }
 
-global.getBattleItems = function(items) {
+global.getBattleItems = function (items) {
     return db.get("items").value()
 }
 
@@ -56,25 +56,37 @@ function getLoot(lvl, luck) {
     var lootArray = []
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = Math.round((items.weapon.length / dnum) * (lvl - 1)); i < items[type].length; i++) {
+            for (let i = 0; i < items[type].length; i++) {
                 lootArray.push({ chance: Math.ceil((100000 / Math.pow(2, i - (Math.round((items.weapon.length / dnum) * (lvl - 1)))))), result: { type: type, id: i } })
-                //lootArray.push({ chance: getLootZ(type, i, lvl)*100, result: { type: type, id: i } })
             }
         }
     }
-    lootArray.push({ chance: bs.noDropRate / (luck), result: "" })
-    console.log(lootArray)
-    let lootTable = new lootastic.LootTable(lootArray)
-    let loot = lootTable.chooseWithReplacement(1)
+    //console.log(lootArray)
+    let loot = lootArray[Math.floor(Math.random() * lootArray.length)].result
     console.log(loot)
-    return loot
+    console.log("Loot chance for" + loot.type + " / " + loot.id + " = " + getLootZ(loot.type, loot.id, lvl, luck))
+    if (1 == Math.round(Math.random() * Math.round((100 / Math.round(getLootZ(loot.type, loot.id, lvl, luck) * 100))))) {
+        return loot
+    } else {
+        return ""
+    }
+
 }
 
-function getLootZ(type, id, lvl) {
+function getLootZ(type, id, lvl, luck) {
     var items = db.get('items').value()
+    var dungeons = db.get('mobs').value()
     var i1dc = 100
     var i2dc = 40
-    return Math.round((((items[type][id].lvl) - items.weapon.length)*-1)/100) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items.weapon.length/100)) * items[type][id].lvl)/100)) / (25-1) * lvl-1) - ((0.2/(25-1)) *lvl-1);
+    var i1bdc = 40
+    var i2bdc = 1
+    var itemDropChance = Math.round(((((((i1bdc-(i2bdc-1))/100)/items[type].length) * ((items[type][id].lvl-1)-items[type].length)*-1)) + ((i2bdc-1)/100)) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items[type].length/100)) * items[type][id].lvl-1)/100)) / (dungeons.length-1) * lvl-1) - (((items[type].length/100)/(dungeons.length-1)) * lvl-1))
+    if (luck = 1)
+        itemDropChance = (itemDropChance + (itemDropChance * ((luck - 1) / 100)))
+    else
+        itemDropChance = (itemDropChance + (itemDropChance * (luck / 100)))
+
+    return itemDropChance
 }
 
 function cap(string) {
@@ -91,6 +103,7 @@ function createUser(member) {
         pvpwins: 0,
         pvploses: 0,
         gamesToday: 0,
+        alchemy: false,
         maxDungeon: 0,
         inventory: {
             helmet: [],
@@ -164,14 +177,14 @@ function printProfile(user, message) {
     var items = db.get('items').value()
     var stats = getUserStats(user)
     var cbp = stats.bp - user.gamesToday
-    if(cbp < 0)
+    if (cbp < 0)
         cbp = 0
     let embed = new Discord.RichEmbed()
         .setTitle("- Battle Profile -")
         .setDescription("For " + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "\n------------------------------------------------------------------")
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
-        .addField("Ranking: Unavailable", "Battles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
+        .addField("Ranking: #" + profilerank(user), "Highest Dungeon: " + user.maxDungeon + "\nBattles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
         .addField("Attributes", "------------------------------------------------------------------\n\n:heart: Health: " + (stats.hp - user.damageTaken) + " / " + stats.hp + "\n:crossed_swords: Attack: " + stats.atk + "\n:game_die:  Luck: " + stats.luck + "\n:fireworks: Battle Points: " + cbp + " / " + stats.bp + "\n\n------------------------------------------------------------------")
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
@@ -188,6 +201,9 @@ function printProfile(user, message) {
             }
             if (items[type][user.equiped[type]].luck) {
                 itemDesc += ("\n   *Luck " + items[type][user.equiped[type]].luck + "*")
+            }
+            if (items[type][user.equiped[type]].name == "Alchemist's Grimoire") {
+                itemDesc += ("\n A recipe for victory 🥃")
             }
             embed.addField(cap(type), itemDesc + "\n", true)
         }
@@ -374,56 +390,93 @@ function getAvailableChampions(lvl) {
     return av
 }
 
+function profilerank(user) {
+    var users = db.get('users').value()
+    function bylvl(a, b) {
+        if (a.maxDungeon > b.maxDungeon)
+            return -1
+        else if (a.maxDungeon < b.maxDungeon)
+            return 1
+        else {
+            var ratioa = (a.wins + a.pvpwins) / ((a.loses + a.pvploses) + 1)
+            var ratiob = (b.wins + b.pvpwins) / ((b.loses + b.pvploses) + 1)
+            if (ratioa > ratiob)
+                return -1
+            else if (ratioa < ratiob)
+                return 1
+            else {
+                var ta = a.wins + a.pvpwins + a.loses + a.pvploses
+                var tb = b.wins + b.pvpwins + b.loses + b.pvploses
+                if (ta > tb)
+                    return -1
+                else if (ta < tb)
+                    return 1
+            }
+        }
+    }
+    users.sort(bylvl)
 
+    var usrRank
+    for (let i = 0; i < users.length; i++) {
+        if (!users[i])
+            break
+        if (!client.guilds.get(ADB.getBotData().guild).members.get(users[i].id)) {
+            continue
+        }
+        if (user.id == users[i].id)
+            usrRank = i + 1
+    }
+    return usrRank
+}
 
 
 if (ADB.getBattleSettings().enabled) {
     module.exports = {
         battlerank: function (message, command, args) {
             var users = db.get('users').value()
-            function bylvl(a,b) {
-                if(a.maxDungeon > b.maxDungeon)
+            function bylvl(a, b) {
+                if (a.maxDungeon > b.maxDungeon)
                     return -1
-                else if(a.maxDungeon < b.maxDungeon)
+                else if (a.maxDungeon < b.maxDungeon)
                     return 1
-                else{
-                    var ratioa = (a.wins + a.pvpwins) / ((a.loses + a.pvploses)+1)
-                    var ratiob = (b.wins + b.pvpwins) / ((b.loses + b.pvploses)+1)
-                    if(ratioa > ratiob)
+                else {
+                    var ratioa = (a.wins + a.pvpwins) / ((a.loses + a.pvploses) + 1)
+                    var ratiob = (b.wins + b.pvpwins) / ((b.loses + b.pvploses) + 1)
+                    if (ratioa > ratiob)
                         return -1
-                    else if(ratioa < ratiob)
+                    else if (ratioa < ratiob)
                         return 1
-                    else{
+                    else {
                         var ta = a.wins + a.pvpwins + a.loses + a.pvploses
                         var tb = b.wins + b.pvpwins + b.loses + b.pvploses
-                        if(ta > tb)
+                        if (ta > tb)
                             return -1
-                        else if(ta < tb)
+                        else if (ta < tb)
                             return 1
                     }
                 }
             }
             users.sort(bylvl)
             let embed = new Discord.RichEmbed()
-                        .setColor("#dcbc3f")
-                        .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/478976690895192065/leaderboard-300x300.png")
-                        .addField("- Battle Ranks -", "----------------------")
+                .setColor("#dcbc3f")
+                .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/478976690895192065/leaderboard-300x300.png")
+                .addField("- Battle Ranks -", "----------------------")
             var usrRank
             for (let i = 0; i < 20; i++) {
-                if(!users[i])
+                if (!users[i])
                     break
-                if(!client.guilds.get(ADB.getBotData().guild).members.get(users[i].id)){
-                    embed.addField((i+1) + ". " + "Missing user", "User has left", true)
+                if (!client.guilds.get(ADB.getBotData().guild).members.get(users[i].id)) {
+                    embed.addField((i + 1) + ". " + "Missing user", "User has left", true)
                     continue
                 }
-                if(message.author.id == users[i].id)
-                    usrRank = i+1
-                var ratio = (users[i].wins + users[i].pvpwins) / ((users[i].loses + users[i].pvploses)+1)
-                embed.addField((i+1) + ". " + client.guilds.get(ADB.getBotData().guild).members.get(users[i].id).displayName, "Highest Dungeon: " + users[i].maxDungeon + "\nTotal Games: " + (users[i].wins + users[i].loses + users[i].pvpwins + users[i].pvploses) + "\nWin Ratio: " +  ratio.toFixed(2), true)
+                if (message.author.id == users[i].id)
+                    usrRank = i + 1
+                var ratio = (users[i].wins + users[i].pvpwins) / ((users[i].loses + users[i].pvploses) + 1)
+                embed.addField((i + 1) + ". " + client.guilds.get(ADB.getBotData().guild).members.get(users[i].id).displayName, "Highest Dungeon: " + users[i].maxDungeon + "\nTotal Games: " + (users[i].wins + users[i].loses + users[i].pvpwins + users[i].pvploses) + "\nWin Ratio: " + ratio.toFixed(2), true)
             }
-            var ratio = (users[usrRank-1].wins + users[usrRank-1].pvpwins) / ((users[usrRank-1].loses + users[usrRank-1].pvploses)+1)
-            embed.setTitle( usrRank + ". "  + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName)
-            embed.setDescription("Highest Dungeon: " + users[usrRank-1].maxDungeon + "\nTotal Games: " + (users[usrRank-1].wins + users[usrRank-1].loses + users[usrRank-1].pvpwins + users[usrRank-1].pvploses) + "\nWin Ratio: " +  ratio.toFixed(2) + "\n----------------------" )
+            var ratio = (users[usrRank - 1].wins + users[usrRank - 1].pvpwins) / ((users[usrRank - 1].loses + users[usrRank - 1].pvploses) + 1)
+            embed.setTitle(usrRank + ". " + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName)
+            embed.setDescription("Highest Dungeon: " + users[usrRank - 1].maxDungeon + "\nTotal Games: " + (users[usrRank - 1].wins + users[usrRank - 1].loses + users[usrRank - 1].pvpwins + users[usrRank - 1].pvploses) + "\nWin Ratio: " + ratio.toFixed(2) + "\n----------------------")
 
             message.channel.send(embed)
         },
@@ -735,6 +788,34 @@ if (ADB.getBattleSettings().enabled) {
                 return
             }
 
+            if (user.alchemy == true) {
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                db.get('users')
+                    .find({ "id": message.author.id })
+                    .assign({ "alchemy": false })
+                    .write()
+            }
+
+
+            if (user.equiped.accessory == 10 && user.alchemy == false) {
+                user.inventory["consumable"].push(3)
+                user.inventory["consumable"].push(4)
+                user.inventory["consumable"].push(5)
+                user.inventory["consumable"].push(6)
+                user.inventory["consumable"].push(7)
+                user.inventory["consumable"].push(8)
+                db.get('users')
+                    .find({ "id": message.author.id })
+                    .assign({ "alchemy": true })
+                    .write()
+                //db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+            }
+
             var stats = getUserStats(user)
             var availPotions = getAvailablePotions(user)
             if (user.gamesToday >= stats.bp) {
@@ -777,7 +858,6 @@ if (ADB.getBattleSettings().enabled) {
                                 //INPUT BATTLE CHANNEL HERE
                                 client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[0].bp)
 
-
                                 break;
                             case "🎆":
                                 user.inventory.consumable.splice(user.inventory.consumable.indexOf(1), 1)
@@ -817,14 +897,14 @@ if (ADB.getBattleSettings().enabled) {
                 return
             }
 
-/* old bp +1 code for dungeons (on start)
-
-            db.get('users')
-                .find({ "id": message.author.id })
-                .assign({ "gamesToday": user.gamesToday + 1 })
-                .write()
-            console.log(stats)
-*/
+            /* old bp +1 code for dungeons (on start)
+            
+                        db.get('users')
+                            .find({ "id": message.author.id })
+                            .assign({ "gamesToday": user.gamesToday + 1 })
+                            .write()
+                        console.log(stats)
+            */
             var mobs = db.get('mobs').value()
             var mob = mobs[lvl][Math.floor(Math.random() * mobs[lvl].length)];
 
@@ -861,8 +941,8 @@ if (ADB.getBattleSettings().enabled) {
                 await message.author.send(embed)
             }
             else {
-              await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
-              await message.author.send(embed)
+                await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
+                await message.author.send(embed)
             }
 
             if (availPotions[3] || availPotions[4] || availPotions[5] || availPotions[6] || availPotions[7] || availPotions[8]) {
@@ -903,40 +983,124 @@ if (ADB.getBattleSettings().enabled) {
                 collector.on('collect', r => {
                     switch (r.emoji.name) {
                         case "💙":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.hp += Math.ceil(stats.hp * items.consumable[3].hp)
-                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[3].hp + "%"))
+                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[3].hp) + "%")
                             break;
                         case "💛":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.hp += Math.ceil(stats.hp * items.consumable[4].hp)
-                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[4].hp + "%"))
+                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[4].hp) + "%")
                             break;
                         case "🗡":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.atk += Math.ceil(stats.atk * items.consumable[5].atk)
-                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[5].atk + "%"))
+                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[5].atk) + "%")
                             break;
 
                         case "🥊":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.atk += Math.ceil(stats.atk * items.consumable[6].atk)
-                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[6].atk + "%"))
+                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[6].atk) + "%")
                             break;
 
                         case "🌀":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.luck += items.consumable[7].luck
                             message.channel.send("You have been granted: LUCK +" + items.consumable[7].luck + "%")
                             break;
 
                         case "🔱":
-                            user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                            if (user.alchemy == true && user.equiped.accessory == 10) {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(3), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(4), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(5), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(6), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(7), 1)
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                                db.get('users')
+                                    .find({ "id": message.author.id })
+                                    .assign({ "alchemy": false })
+                                    .write()
+                            }
+                            else {
+                                user.inventory.consumable.splice(user.inventory.consumable.indexOf(8), 1)
+                            }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.luck += items.consumable[8].luck
                             message.channel.send("You have been granted: LUCK +" + items.consumable[8].luck + "%")
@@ -960,20 +1124,20 @@ if (ADB.getBattleSettings().enabled) {
                     await msg.react('🔥')
                     await msg.react('🌱')
                     var filter = (reaction, usr) => {
-                        if(usr.id == user.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')){
+                        if (usr.id == user.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
                             return true
                         }
-                        else{
+                        else {
                             return false
                         }
                     }
                     var collector = msg.createReactionCollector(filter);
                     collector.on('collect', r => {
 
-  //~~
-                    if (round == 1) {
-                        db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday + 1) }).write()
-                      }
+                        //~~
+                        if (round == 1) {
+                            db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday + 1) }).write()
+                        }
 
                         usrSel = r.emoji.name
                         msg.delete()
@@ -1026,7 +1190,7 @@ if (ADB.getBattleSettings().enabled) {
 
             } while (tmbDmg < mob.hp && tusrDmg < stats.hp);
             if (tmbDmg >= mob.hp && tusrDmg < stats.hp) {
-                var loot = getLoot(lvl + 1, stats.luck)[0]
+                var loot = getLoot(lvl + 1, stats.luck)
                 console.log(loot)
                 if (loot.result)
                     loot = loot.result
@@ -1059,7 +1223,7 @@ if (ADB.getBattleSettings().enabled) {
                             if (t == "atk") {
                                 if (loot[t] < 1 && loot[t] > 0) {
                                     msg += " :crossed_swords: " + loot[t] * 100 + "%"
-                                    }
+                                }
                                 else
                                     msg += " :crossed_swords: " + loot[t]
                             }
@@ -1116,7 +1280,7 @@ if (ADB.getBattleSettings().enabled) {
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
                     .addField("Winner", mob.name, true)
-                    .addField("Loser",client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName, true)
+                    .addField("Loser", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName, true)
                     .addField("Total Damage Dealt", tusrDmg, true)
                     .addField("Total Damage Dealt", tmbDmg, true)
                 await client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send(embed)
@@ -1152,7 +1316,7 @@ if (ADB.getBattleSettings().enabled) {
             if (!args[0]) {
                 var us = db.get("users").value()
                 for (let i = 0; i < us.length; i++) {
-                    if(!client.guilds.get(ADB.getBotData().guild).members.get(us[i].id)){
+                    if (!client.guilds.get(ADB.getBotData().guild).members.get(us[i].id)) {
                         us.splice(i, 1)
                     }
                 }
@@ -1194,7 +1358,7 @@ if (ADB.getBattleSettings().enabled) {
                         if (us[i].id == message.author.id) {
                             continue
                         }
-                        ch += i + ". " + message.guild.members.get(us[i].id).displayName + "\n"
+                        ch += i + ". " + client.guilds.get(ADB.getBotData().guild).members.get(us[i].id).displayName + "\n"
                         var usrStat = getUserStats(us[i])
                         st += "HP: " + usrStat.hp + " ATK: " + usrStat.atk + " BP: " + usrStat.bp + "\n"
                         embed.addField(ch, st, true)
@@ -1250,7 +1414,7 @@ if (ADB.getBattleSettings().enabled) {
                 message.channel.send("You are not registered. Please do !profile to register")
                 return
             }
-            if(!getAvailableChampions(user1.maxDungeon).includes(parseInt(args[0]))){
+            if (!getAvailableChampions(user1.maxDungeon).includes(parseInt(args[0]))) {
                 message.channel.send("You cannot battle this person")
                 return
             }
@@ -1292,10 +1456,10 @@ if (ADB.getBattleSettings().enabled) {
                     await msg1.react('🔥')
                     await msg1.react('🌱')
                     var filter1 = (reaction, usr) => {
-                        if(usr.id == user1.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')){
+                        if (usr.id == user1.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
                             return true
                         }
-                        else{
+                        else {
                             return false
                         }
                     }
@@ -1320,10 +1484,10 @@ if (ADB.getBattleSettings().enabled) {
                     await msg2.react('🔥')
                     await msg2.react('🌱')
                     var filter2 = (reaction, usr) => {
-                        if(usr.id == user2.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')){
+                        if (usr.id == user2.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
                             return true
                         }
-                        else{
+                        else {
                             return false
                         }
                     }
@@ -1425,7 +1589,7 @@ if (ADB.getBattleSettings().enabled) {
                     .setTitle("- Battle Summary -")
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-                    .addField("Winner", "You"+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Winner", "You" + "\n- - - - - - - - - - - - - -", true)
                     .addField("Loser", message.guild.members.get(user2.id).displayName, true)
                     .addField("Total Damage Dealt", tdm2 + "\n- - - - - - - - - - - - - -", true)
                     .addField("Total Damage Received", tdm1, true)
@@ -1446,9 +1610,9 @@ if (ADB.getBattleSettings().enabled) {
                     .setTitle("- Battle Summary -")
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-                    .addField("Winner", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Winner", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "\n- - - - - - - - - - - - - -", true)
                     .addField("Loser", "You", true)
-                    .addField("Total Damage Dealt", tdm1+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Total Damage Dealt", tdm1 + "\n- - - - - - - - - - - - - -", true)
                     .addField("Total Damage Received", tdm2, true)
 
 
@@ -1522,9 +1686,9 @@ if (ADB.getBattleSettings().enabled) {
                     .setTitle("- Battle Summary -")
                     .setColor("#dcbc3f")
                     .setThumbnail("https://cdn1.iconfinder.com/data/icons/school-icons-2/512/trophy_award_ribon-512.png")
-                    .addField("Winner", "You"+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Winner", "You" + "\n- - - - - - - - - - - - - -", true)
                     .addField("Loser", client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName, true)
-                    .addField("Total Damage Dealt", tdm1+ "\n- - - - - - - - - - - - - -", true)
+                    .addField("Total Damage Dealt", tdm1 + "\n- - - - - - - - - - - - - -", true)
                     .addField("Total Damage Received", tdm2, true)
                     .addField("Loot", "\n- - - - - - - - - - - - - -", false)
                     .addField("Arkoins", "+" + lootBattleCoins2, true)
