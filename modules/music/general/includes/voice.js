@@ -137,17 +137,22 @@ async function handleSpeech(member, intent, value) {
 }
 
 function cleanRec(id) {
-    fs.readdir(recordingsPath, (err, files) => {
-        if (err) throw err;
-
-        for (const file of files) {
-            if (file.indexOf(id) > -1) {
-                fs.unlink(path.join(recordingsPath, file), err => {
-                    if (err) throw err;
-                });
+    try {
+        fs.readdir(recordingsPath, (err, files) => {
+            if (err) throw err;
+    
+            for (const file of files) {
+                if (file.indexOf(id) > -1) {
+                    fs.unlink(path.join(recordingsPath, file), err => {
+                        if (err) throw err;
+                    });
+                }
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.error(error)
+    }
+    
 }
 
 module.exports = {
