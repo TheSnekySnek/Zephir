@@ -13,7 +13,7 @@ var listenStreams = new Map();
 var recordingsPath = "./modules/music/general/includes/rec"
 
 async function handleSpeech(member, intent, value) {
-    
+
     console.log("Intent", intent)
     console.log("Value", value)
     switch (intent) {
@@ -136,23 +136,20 @@ async function handleSpeech(member, intent, value) {
     }
 }
 
-function cleanRec(id) {
+function cleanRec(basename) {
     try {
-        fs.readdir(recordingsPath, (err, files) => {
-            if (err) throw err;
-    
-            for (const file of files) {
-                if (file.indexOf(id) > -1) {
-                    fs.unlink(path.join(recordingsPath, file), err => {
-                        if (err) throw err;
-                    });
-                }
-            }
+        fs.unlink(path.join(recordingsPath, basename + ".raw_pcm"), err => {
+            //console.error(err)
+        });
+        fs.unlink(path.join(recordingsPath, basename + ".wav"), err => {
+            //console.error(err)
+        });
+        fs.unlink(path.join(recordingsPath, basename + ".opus_string"), err => {
+            //console.error(err)
         });
     } catch (error) {
-        console.error(error)
+        //console.error(error)
     }
-    
 }
 
 module.exports = {
@@ -201,7 +198,7 @@ module.exports = {
                                 path.join(recordingsPath, basename + '.raw_pcm'),
                                 path.join(recordingsPath, basename + '.wav'),
                                 (function (data) {
-                                    cleanRec(member.id)
+                                    cleanRec(basename)
                                     if (data != null) {
                                         console.log(data)
                                         if (data.entities.intent) {
