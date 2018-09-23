@@ -16,6 +16,7 @@ global.player = require('./includes/player');
 global.lyrics = require('./includes/lyrics');
 global.queue = require('./includes/queue');
 global.search = require('./includes/search');
+global.voice = require('./includes/voice');
 global.stats = require('./includes/statManager');
 MH = require('./includes/mh');
 
@@ -26,6 +27,8 @@ client.on('error', console.error);
 client.on('disconnect', () => console.log('I just disconnected, making sure you know, I will reconnect now...'));
 
 client.on('reconnecting', () => console.log('I am reconnecting now!'));
+
+client.on('guildMemberSpeaking', voice.handleSpeaking.bind(this));
 
 process.on('message', function(m) {
   MH.handle(m)
@@ -90,7 +93,8 @@ function start(botId, token, guild, tChannel, vChannel, playlist) {
     client.guilds.get(guild).channels.get(vChannel).join()
     .then((voice_connection) => {
       console.log("joined")
-      player.start(voice_connection);
+      
+      player.start(voice_connection)
     });
   })
 

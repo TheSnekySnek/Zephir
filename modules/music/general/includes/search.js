@@ -203,6 +203,9 @@ module.exports = {
                 if (!error && response.statusCode == 200) {
                   let $ = cheerio.load(body);
                   var vid = $("#results > ol > li > ol > li:nth-of-type(2) > div").attr('data-context-item-id');
+                  if(!vid)
+                    vid = body.substring(body.indexOf("/watch?v=") + 9, body.indexOf("/watch?v=") + 20)
+                  console.log(vid)
                   ytdl.getInfo("https://www.youtube.com/watch?v=" + vid, (error, info) => {
                     if (error) {
                       reject(error);
