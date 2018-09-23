@@ -72,7 +72,7 @@ function ping() {
     }
   }, 1000);
 }
-setInterval(ping, 4000);
+//setInterval(ping, 4000);
 
 function start(botId, token, guild, tChannel, vChannel, playlist) {
   /**

@@ -16,6 +16,7 @@ module.exports = {
         };
 
         var child = fork(program, parameters, options);
+        process.on("exit", () => child.kill())
         console.log("Child Forked")
         child.stdout.on('data', function(data) {
             console.log(data.toString());
