@@ -2,32 +2,37 @@ const schedule = require('node-schedule')
 const request = require('request')
 const DB = require('../../modules/db')
 const wd = require("word-definition");
+const fs = require("fs");
+const download = require('image-downloader')
+var GIFEncoder = require('gifencoder');
+const imagemin = require('imagemin');
+const imageminGiflossy = require('imagemin-giflossy');
 const COLORS =
   {
-    black : "Black",
-    blue : "Blue",
-    cyan : "Cyan",
-    darkblue : "Dark Souls",
-    darkred : "Dark Red",
-    electricblue : "Electric Blue",
-    green : "Green",
-    gray : "Gray",
-    indigo : "Indigo",
-    lime : "Lime",
-    orange : "Orange",
-    pink : "Pink",
-    purple : "Purple",
-    red : "Red",
-    yellow : "Yellow"
+    black: "Black",
+    blue: "Blue",
+    cyan: "Cyan",
+    darkblue: "Dark Souls",
+    darkred: "Dark Red",
+    electricblue: "Electric Blue",
+    green: "Green",
+    gray: "Gray",
+    indigo: "Indigo",
+    lime: "Lime",
+    orange: "Orange",
+    pink: "Pink",
+    purple: "Purple",
+    red: "Red",
+    yellow: "Yellow"
   }
 
 module.exports = {
 
-  wiki: function(message, command, args) {
+  wiki: function (message, command, args) {
     try {
-      if(args[0]){
+      if (args[0]) {
         var lang = "en"
-        if(args[1]){
+        if (args[1]) {
           switch (args[1]) {
             case "en":
               lang = "en"
@@ -45,8 +50,8 @@ module.exports = {
         }
         wd.getDef(args[0], lang, null, (def) => {
           console.log(def)
-          if(def.err){
-            message.channel.send("Could not get a definition for the word **" + def.word + "**. Try using a diferent language (**!wiki "+ def.word + " [en / fr / de]**)")
+          if (def.err) {
+            message.channel.send("Could not get a definition for the word **" + def.word + "**. Try using a diferent language (**!wiki " + def.word + " [en / fr / de]**)")
             return
           }
           message.channel.send(`:book:**Word:** ${def.word}
@@ -56,14 +61,14 @@ module.exports = {
 ${def.definition}`)
         });
       }
-      else{
+      else {
         message.channel.send("Please provide a word")
       }
     } catch (e) {
       console.error(e);
     }
   },
-  weather: function(message, command, args) {
+  weather: function (message, command, args) {
     try {
       console.log(message.content)
       console.log(command);
@@ -80,7 +85,7 @@ ${def.definition}`)
             break;
 
           default:
-          icn = ":sunny:"
+            icn = ":sunny:"
             break;
         }
         console.log(wData)
@@ -97,85 +102,137 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
       console.error(e);
     }
   },
-  colors: function(message, command, args) {
+
+
+  satellite: async function (message, command, args) {
+    try {
+      var inimsg = await message.channel.send("Establishing satellite link...")
+      var jpeg = require('jpeg-js')
+      var region = "eu"
+      var hours = 2
+      var dat = new Date()
+      var encoder = new GIFEncoder(845, 615);
+      var imId = Math.random()*9999
+      encoder.createReadStream().pipe(fs.createWriteStream('./modules/commands/weather/clouds' + imId + '.gif'))
+      encoder.start()
+      encoder.setRepeat(0)
+      encoder.setDelay(300)
+      encoder.setQuality(10)
+      for (let i = 0; i < hours; i++) {
+        for (let k = 0; k < 4; k++) {
+          var min = 0 + k * 15
+          if(min == 0)
+            min = "00"
+          var uri = `https://en.sat24.com/image?type=visual&region=${region}&timestamp=${dat.getFullYear()}${dat.getMonth()+1 > 9 ? dat.getMonth()+1 : "0" + (dat.getMonth()+1)}${dat.getDate()}${dat.getHours()-(hours+2-i)}${min}`
+          
+          console.log(uri)
+          try {
+            await download.image({url: uri, dest: "./modules/commands/weather/clouds" + imId +  ".jpg", timeout: 8000})
+            if (fs.statSync("./modules/commands/weather/clouds" + imId +  ".jpg").size > 1000) {
+              var pixels = jpeg.decode(fs.readFileSync("./modules/commands/weather/clouds" + imId +  ".jpg")).data;
+              encoder.addFrame(pixels)
+              fs.unlinkSync("./modules/commands/weather/clouds" + imId +  ".jpg")
+            }
+          } catch (error) {
+            console.log(error)
+            message.channel.send("Satellite is unreachable. Try again later")
+            return
+          }
+        }
+      }
+      encoder.finish()
+      inimsg.delete()
+      await message.channel.send({
+        files: ["./modules/commands/weather/clouds" + imId +  ".gif"]
+      })
+      fs.unlinkSync("./modules/commands/weather/clouds" + imId +  ".gif")
+
+    }
+    catch (e) {
+      console.error(e);
+    }
+  },
+
+
+  colors: function (message, command, args) {
     try {
       let response = "\n__Color : Command__\n\n";
       for (var key in COLORS) {
         if (!COLORS.hasOwnProperty(key)) continue;
 
         var obj = COLORS[key];
-        response += obj +" : " + key + "\n"
+        response += obj + " : " + key + "\n"
       }
-        message.reply(response);
+      message.reply(response);
     } catch (e) {
       console.error(e);
     }
   },
-  color: async function(message, command, args) {
+  color: async function (message, command, args) {
     try {
-      if(!DB.getUnlock(message.author.id, "color")){
+      if (!DB.getUnlock(message.author.id, "color")) {
         message.reply("You need to claim the 'color' reward by doing !claim 1")
         return
       }
-      if(COLORS[args[0]]){
+      if (COLORS[args[0]]) {
         let colorRole = message.guild.roles.find("name", COLORS[args[0]])
-        if(colorRole)
-        {
+        if (colorRole) {
           for (var key in COLORS) {
-            if(message.member.colorRole.name == COLORS[key]){
+            if (message.member.colorRole.name == COLORS[key]) {
               message.member.removeRole(message.member.colorRole)
             }
           }
           message.member.addRole(colorRole)
-          .then(()=> {
-            if(message.member.colorRole.name != COLORS[args[0]]){
-              message.reply("It seems like you have an admin role.\nYou will not be able to set a color");
-              message.member.removeRole(colorRole);
-            }
-            else{
-              message.reply("You are now " + COLORS[args[0]]);
-            }
-          })
+            .then(() => {
+              if (message.member.colorRole.name != COLORS[args[0]]) {
+                message.reply("It seems like you have an admin role.\nYou will not be able to set a color");
+                message.member.removeRole(colorRole);
+              }
+              else {
+                message.reply("You are now " + COLORS[args[0]]);
+              }
+            })
         }
         else {
           message.reply("Color not available")
         }
       }
-      else{
+      else {
         message.reply("Color not available")
       }
     } catch (e) {
       console.error(e);
     }
   },
-  rewards: async function(message, command, args) {
-    try{
+  rewards: async function (message, command, args) {
+    try {
       //Addcoins
-      message.channel.send({embed:{
+      message.channel.send({
+        embed: {
           title: "Arkhos Server Rewards",
           description: "Total Arkoins: ",
           url: "https://beta.arkhos.net/",
           color: 0x33FFBB,
-          fields:[
+          fields: [
             {
-                name: "Tier 1 | Color - 5,000 Arkoins",
-                value: "Gain permanent access to the !color command and change your color at will! \nHow progressive of us...",
-                inline: false
+              name: "Tier 1 | Color - 5,000 Arkoins",
+              value: "Gain permanent access to the !color command and change your color at will! \nHow progressive of us...",
+              inline: false
             },
             {
-                name: "Tier 2 | Roles - 25,000 Arkoins",
-                value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins!",
-                inline: false
+              name: "Tier 2 | Roles - 25,000 Arkoins",
+              value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins!",
+              inline: false
             },
             {
-                name: "Tier 3 | GIFs - 50,000 Arkoins",
-                value: "No longer will your memes be dreams with this amazing GIF command! \nFind a pic and let it rip :smiling_imp:",
-                inline: false
+              name: "Tier 3 | GIFs - 50,000 Arkoins",
+              value: "No longer will your memes be dreams with this amazing GIF command! \nFind a pic and let it rip :smiling_imp:",
+              inline: false
             },
             {
-                name: "Tier 4 | Sound - 100,000 Arkoins",
-                value: "Create a custom sound command to use in Voice Channels, Arkhos will personally come in and play a sound (.mp3) of your choosing! (PS: Batteries not included)",
-                inline: false
+              name: "Tier 4 | Sound - 100,000 Arkoins",
+              value: "Create a custom sound command to use in Voice Channels, Arkhos will personally come in and play a sound (.mp3) of your choosing! (PS: Batteries not included)",
+              inline: false
             },
             {
               name: "Tier 5 | Music - 500,000 Arkoins",
@@ -187,45 +244,46 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
               value: "Tired of farming Arkoins? Not getting anything done hoe-ing like that? \nWorry not, much like EA we have our very own pay to win loot boxes!\nClick the link, give us all your credit card info and TADA, you just became the coolest monkey in the jungle! GG\n\nhttps://www.patreon.com/Arkhos\n\nPS: In all seriousness though, thank you! We really appreciate the support < 3",
               inline: false
             }
-            ],
+          ],
           timestamp: new Date(),
           footer: {
-              text: "This is a footer. No feet were harmed in the making of this description",
-              icon_url: "https://cdn.discordapp.com/avatars/313743285233385472/2f3d1b13b53d4a8ce5e399616a597a3a.png"
+            text: "This is a footer. No feet were harmed in the making of this description",
+            icon_url: "https://cdn.discordapp.com/avatars/313743285233385472/2f3d1b13b53d4a8ce5e399616a597a3a.png"
           }
-      }})
+        }
+      })
 
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
   },
-  daily: async function(message, command, args) {
-    try{
-      if(!DB.getDailyUser(message.author.id)){
+  daily: async function (message, command, args) {
+    try {
+      if (!DB.getDailyUser(message.author.id)) {
         DB.addDailyUser(message.author.id)
-        if(!DB.getCoins(message.author.id))
+        if (!DB.getCoins(message.author.id))
           DB.addCoins(message.author.id)
         var coins = DB.getCoins(message.author.id).amount
         message.reply("+200 Arkoins have been added to your stash, spend them wisely!")
-        DB.setCoins(message.author.id, coins+200)
+        DB.setCoins(message.author.id, coins + 200)
 
       }
-      else{
+      else {
         var now = new Date().getTime();
         var countDownDate = new Date();
-        countDownDate.setDate(countDownDate.getDate()+1)
-        countDownDate.setHours(0,0,0,0);
+        countDownDate.setDate(countDownDate.getDate() + 1)
+        countDownDate.setHours(0, 0, 0, 0);
         var distance = countDownDate - now;
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        message.reply("You've already requested your daily ration... Come back in **" + hours + "h " + minutes+"m "+seconds+ "s**")
+        message.reply("You've already requested your daily ration... Come back in **" + hours + "h " + minutes + "m " + seconds + "s**")
       }
 
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
   }
