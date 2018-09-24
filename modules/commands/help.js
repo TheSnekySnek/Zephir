@@ -119,11 +119,14 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
       encoder.setDelay(300)
       encoder.setQuality(10)
       for (let i = 0; i < hours; i++) {
+        var htime = dat.getHours()-(hours+2-i)
+        if(htime < 10)
+          htime = "0"+htime
         for (let k = 0; k < 4; k++) {
           var min = 0 + k * 15
           if(min == 0)
             min = "00"
-          var uri = `https://en.sat24.com/image?type=visual&region=${region}&timestamp=${dat.getFullYear()}${dat.getMonth()+1 > 9 ? dat.getMonth()+1 : "0" + (dat.getMonth()+1)}${dat.getDate()}${dat.getHours()-(hours+2-i)}${min}`
+          var uri = `https://en.sat24.com/image?type=visual&region=${region}&timestamp=${dat.getFullYear()}${dat.getMonth()+1 > 9 ? dat.getMonth()+1 : "0" + (dat.getMonth()+1)}${dat.getDate()}${htime}${min}`
           
           console.log(uri)
           try {
