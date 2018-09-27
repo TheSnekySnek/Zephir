@@ -49,6 +49,8 @@ function timeForReset() {
     return "You've used all your battle points! \nCome back in **" + hours + "h " + minutes + "m " + seconds + "s** for a free refill."
 }
 
+
+
 function getLoot(lvl, luck) {
     var bs = ADB.getBattleSettings()
     var items = db.get('items').value()
@@ -57,10 +59,14 @@ function getLoot(lvl, luck) {
     var tl = lvl-1
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = tl-20; i < tl+20; i++) {
+            for (let i = tl-items[type].length; i < tl+items[type].length; i++) {
                 if(items[type][i]){
-                    console.log(i-tl, (-1/400) * Math.pow(i-tl, 2) + 1)
-                    lootArray.push({ chance: (-1/400) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } })
+                    var drp = { chance: 1-(1/(1+Math.pow(2,(i-tl)+8))), result: { type: type, id: i } }
+                    if(i-tl > 0)
+                        drp = { chance: 1/(1+Math.pow(2,(i-tl)-8)), result: { type: type, id: i } }
+                    //var drp = { chance: (-1/Math.pow(items[type].length, 2)) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } }
+                    lootArray.push(drp)
+                    console.log(drp)
                 }
             }
         }
@@ -95,7 +101,7 @@ function getLootZ(type, id, lvl, luck) {
     else
         itemDropChance = (itemDropChance + (itemDropChance * (luck / 100)))
 
-    console.log(itemDropChance)
+    //console.log(itemDropChance)
     return itemDropChance
 }
 
