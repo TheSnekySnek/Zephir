@@ -57,10 +57,10 @@ function getLoot(lvl, luck) {
     var tl = lvl-1
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
-            for (let i = tl-5; i < tl+5; i++) {
+            for (let i = tl-20; i < tl+20; i++) {
                 if(items[type][i]){
-                    console.log(i-tl, (-1/25) * Math.pow(i-tl, 2) + 1)
-                    lootArray.push({ chance: (-1/25) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } })
+                    console.log(i-tl, (-1/400) * Math.pow(i-tl, 2) + 1)
+                    lootArray.push({ chance: (-1/400) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } })
                 }
             }
         }
@@ -68,6 +68,8 @@ function getLoot(lvl, luck) {
     //console.log(lootArray)
     let lootTable = new lootastic.LootTable(lootArray)
     let lt = lootTable.chooseWithReplacement(1)[0]
+    if(lt.result)
+        lt = lt.result
     console.log(lt)
     var loot = getLootZ(lt.type, lt.id, lvl, luck)
     if (1 == Math.round(Math.random() * Math.round((100 / Math.round(loot * 100))))) {
