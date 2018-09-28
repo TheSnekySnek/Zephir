@@ -7,6 +7,7 @@ const adapter = new FileSync('data/battles.json')
 const db = low(adapter)
 var Discord = require("discord.js");
 const ADB = require('../../modules/db')
+const math = require('mathjs')
 var defaultTemplate = require('./defaults/defbattles.json')
 
 
@@ -49,19 +50,25 @@ function timeForReset() {
     return "You've used all your battle points! \nCome back in **" + hours + "h " + minutes + "m " + seconds + "s** for a free refill."
 }
 
+function getLootChance(dif) {
+    let scope = {
+        x: dif
+    }
+    return math.eval('1/(1+2^(abs(x)-8))', scope)
 
+    //return 1/(1+Math.pow(2,Math.abs(dif)+8))
+}
 
 function getLoot(lvl, luck) {
     var bs = ADB.getBattleSettings()
     var items = db.get('items').value()
-    var dnum = db.get('mobs').value().length
     var lootArray = []
     var tl = lvl-1
     for (var type in items) {
         if (items.hasOwnProperty(type)) {
             for (let i = tl-items[type].length; i < tl+items[type].length; i++) {
                 if(items[type][i]){
-                    var drp = { chance: 1/(1+Math.pow(2,Math.abs((i-tl))+8)), result: { type: type, id: i } }
+                    var drp = { chance: getLootChance(i-tl), result: { type: type, id: i } }
                     //var drp = { chance: (-1/Math.pow(items[type].length, 2)) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } }
                     lootArray.push(drp)
                     console.log(drp)
