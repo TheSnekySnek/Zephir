@@ -61,9 +61,7 @@ function getLoot(lvl, luck) {
         if (items.hasOwnProperty(type)) {
             for (let i = tl-items[type].length; i < tl+items[type].length; i++) {
                 if(items[type][i]){
-                    var drp = { chance: 1-(1/(1+Math.pow(2,(i-tl)+8))), result: { type: type, id: i } }
-                    if(i-tl > 0)
-                        drp = { chance: 1/(1+Math.pow(2,(i-tl)-8)), result: { type: type, id: i } }
+                    var drp = { chance: 1/(1+Math.pow(2,Math.abs((i-tl))+8)), result: { type: type, id: i } }
                     //var drp = { chance: (-1/Math.pow(items[type].length, 2)) * Math.pow(i-tl, 2) + 1, result: { type: type, id: i } }
                     lootArray.push(drp)
                     console.log(drp)
