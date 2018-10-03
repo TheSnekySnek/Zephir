@@ -126,7 +126,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
           var min = 0 + k * 15
           if(min == 0)
             min = "00"
-          var uri = `https://en.sat24.com/image?type=visual&region=${region}&timestamp=${dat.getFullYear()}${dat.getMonth()+1 > 9 ? dat.getMonth()+1 : "0" + (dat.getMonth()+1)}${dat.getDate()}${htime}${min}`
+          var uri = `https://en.sat24.com/image?type=visual&region=${region}&timestamp=${dat.getFullYear()}${dat.getMonth()+1 > 9 ? dat.getMonth()+1 : "0" + (dat.getMonth()+1)}${dat.getDate() > 9 ? dat.getDate() : "0" + (dat.getDate())}${htime}${min}`
           
           console.log(uri)
           try {
