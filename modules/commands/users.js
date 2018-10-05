@@ -14,8 +14,8 @@ client.on('presenceUpdate', (oldm, newm) => {
       if(newm.roles.get('314180610631401474')){
           console.log("Streamer")
           let rep = newm.presence.game.url.replace('https://www.twitch.tv/', '')
-          let tc = client.guilds.get('227129311067504640').channels.find('name', rep + '_stream')
-          let rol = client.guilds.get('227129311067504640').roles.find('name', rep)
+          let tc = client.guilds.get(DB.getBotData().guild).channels.find('name', rep + '_stream')
+          let rol = client.guilds.get(DB.getBotData().guild).roles.find('name', rep)
           console.log(rep)
           if(tc && rol){
               tc.send(rol + " " + newm.displayName + " is now LIVE :tada:\n" + newm.presence.game.url)
