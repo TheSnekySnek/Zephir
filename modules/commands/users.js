@@ -4,6 +4,26 @@ var qr = require('qr-image');
 var uuidv4 = require('uuid/v4');
 var music = require('../../modules/music/music')
 var Discord = require("discord.js");
+
+
+//FIX
+client.on('presenceUpdate', (oldm, newm) => {
+  if(newm.presence.game)
+  if((!oldm.presence.game || !oldm.presence.game.streaming) && newm.presence.game.streaming){
+      console.log("Update")
+      if(newm.roles.get('314180610631401474')){
+          console.log("Streamer")
+          let rep = newm.presence.game.url.replace('https://www.twitch.tv/', '')
+          let tc = client.guilds.get('227129311067504640').channels.find('name', rep + '_stream')
+          let rol = client.guilds.get('227129311067504640').roles.find('name', rep)
+          console.log(rep)
+          if(tc && rol){
+              tc.send(rol + " " + newm.displayName + " is now LIVE :tada:\n" + newm.presence.game.url)
+          }
+      }
+  }
+})
+
 module.exports = {
 
   rank: function (message, command, args) {
