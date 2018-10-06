@@ -210,7 +210,7 @@ function printProfile(user, message) {
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
         if (user.equiped.hasOwnProperty(type)) {
-            var itemDesc = "{lv." + items[type][user.equiped[type]].lvl + "} **" + "**" + items[type][user.equiped[type]].name + "**"
+            var itemDesc = "**" + items[type][user.equiped[type]].name + "**"
             if (items[type][user.equiped[type]].hp) {
                 itemDesc += ("\n   *HP " + items[type][user.equiped[type]].hp + "*")
             }
@@ -226,7 +226,7 @@ function printProfile(user, message) {
             if (items[type][user.equiped[type]].name == "Alchemist's Grimoire") {
                 itemDesc += ("\n A recipe for victory 🥃")
             }
-            embed.addField(cap(type), itemDesc + "\n", true)
+            embed.addField("{lv." + items[type][user.equiped[type]].lvl + "} " + cap(type), itemDesc + "\n", true)
         }
     }
     message.channel.send(embed)
