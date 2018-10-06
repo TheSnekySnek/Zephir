@@ -210,7 +210,7 @@ function printProfile(user, message) {
         .addField("Equipment", "------------------------------------------------------------------")
     for (var type in user.equiped) {
         if (user.equiped.hasOwnProperty(type)) {
-            var itemDesc = "**" + items[type][user.equiped[type]].name + "**"
+            var itemDesc = "{lv." + items[type][user.equiped[type]].lvl + "} **" + "**" + items[type][user.equiped[type]].name + "**"
             if (items[type][user.equiped[type]].hp) {
                 itemDesc += ("\n   *HP " + items[type][user.equiped[type]].hp + "*")
             }
@@ -1255,7 +1255,7 @@ if (ADB.getBattleSettings().enabled) {
                                     msg += " :game_die: " + loot[t]
                             }
                             if (t == "bp")
-                                if (loot[t] < 1)
+                                if (loot[t] == 0)
                                     msg += " :fireworks: MAX BP"
                                 else
                                     msg += " :fireworks: " + loot[t]
