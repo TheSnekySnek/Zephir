@@ -200,10 +200,9 @@ function printProfile(user, message) {
     var cbp = stats.bp - user.gamesToday
     if (cbp < 0)
         cbp = 0
-
     let embed = new Discord.RichEmbed()
         .setTitle("- Battle Profile -")
-        .setDescription("For " + client.guilds.get(ADB.getBotData().guild).members.get(user.id).displayName + "\n------------------------------------------------------------------")
+        .setDescription("For " + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "\n------------------------------------------------------------------")
         .setColor("#dcbc3f")
         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
         .addField("Ranking: #" + profilerank(user), "Highest Dungeon: " + user.maxDungeon + "\nBattles Won: " + user.wins + "\nBattles Lost: " + user.loses + "\nPVP Battles Won: " + user.pvpwins + "\nPVP Battles Lost: " + user.pvploses + "\n------------------------------------------------------------------")
@@ -920,7 +919,7 @@ if (ADB.getBattleSettings().enabled) {
             }
 
             /* old bp +1 code for dungeons (on start)
-
+            
                         db.get('users')
                             .find({ "id": message.author.id })
                             .assign({ "gamesToday": user.gamesToday + 1 })
@@ -968,30 +967,30 @@ if (ADB.getBattleSettings().enabled) {
             }
 
             if (availPotions[3] || availPotions[4] || availPotions[5] || availPotions[6] || availPotions[7] || availPotions[8]) {
-                var con = await message.author.send("Do you want to use a potion for this fight?\n\n💙 +15% HP \n💛 +30% HP \n🗡 +15% ATK \n🥊 +30% ATK \n🌀 +15% LUCK \n🔱 +30% LUCK\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+                var con = await message.author.send("Do you want to use a potion for this fight?")
                 for (let i = 3; i < availPotions.length; i++) {
                     if (availPotions[i]) {
                         switch (i) {
                             case 3:
-                                await con.react("💙")
+                                con.react("💙")
                                 break;
                             case 4:
-                                await con.react("💛")
+                                con.react("💛")
                                 break;
                             case 5:
-                                await con.react("🗡")
+                                con.react("🗡")
                                 break;
 
                             case 6:
-                                await con.react("🥊")
+                                con.react("🥊")
                                 break;
 
                             case 7:
-                                await con.react("🌀")
+                                con.react("🌀")
                                 break;
 
                             case 8:
-                                await con.react("🔱")
+                                con.react("🔱")
                                 break;
 
                             default:
@@ -1022,7 +1021,7 @@ if (ADB.getBattleSettings().enabled) {
                             }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.hp += Math.ceil(stats.hp * items.consumable[3].hp)
-                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[3].hp))
+                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[3].hp) + "%")
                             break;
                         case "💛":
                             if (user.alchemy == true && user.equiped.accessory == 10) {
@@ -1042,7 +1041,7 @@ if (ADB.getBattleSettings().enabled) {
                             }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.hp += Math.ceil(stats.hp * items.consumable[4].hp)
-                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[4].hp))
+                            message.channel.send("You have been granted: HP +" + Math.ceil(stats.hp * items.consumable[4].hp) + "%")
                             break;
                         case "🗡":
                             if (user.alchemy == true && user.equiped.accessory == 10) {
@@ -1062,7 +1061,7 @@ if (ADB.getBattleSettings().enabled) {
                             }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.atk += Math.ceil(stats.atk * items.consumable[5].atk)
-                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[5].atk))
+                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[5].atk) + "%")
                             break;
 
                         case "🥊":
@@ -1083,7 +1082,7 @@ if (ADB.getBattleSettings().enabled) {
                             }
                             db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                             stats.atk += Math.ceil(stats.atk * items.consumable[6].atk)
-                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[6].atk))
+                            message.channel.send("You have been granted: ATK +" + Math.ceil(stats.atk * items.consumable[6].atk) + "%")
                             break;
 
                         case "🌀":
