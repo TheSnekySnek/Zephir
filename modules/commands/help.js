@@ -7,6 +7,8 @@ const download = require('image-downloader')
 var GIFEncoder = require('gifencoder');
 const imagemin = require('imagemin');
 const imageminGiflossy = require('imagemin-giflossy');
+var rp = require('request-promise');
+var sleep = require('sleep-promise');
 const COLORS =
   {
     black: "Black",
@@ -156,6 +158,94 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
     }
   },
 
+  solve: async function (message, command, args) {
+    var querystring = require('querystring');
+    try {
+      images = message.attachments.array()
+      if(images.length == 0){
+        message.channel.send("No files found")
+        return
+      }
+      image = images[0].url
+      var sessionId = ""
+      var upId = ""
+      var jobId = ""
+      var calId = ""
+      var fin = false
+
+      message.channel.send("Uploading picture...")
+
+      //login
+      var logData = await rp({
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        uri: 'http://nova.astrometry.net/api/login',
+        body: querystring.stringify({
+          "request-json": JSON.stringify({"apikey": "brdwqjigvufzexkj"})
+        }),
+        method: 'POST'
+      })
+      sessionId = JSON.parse(logData).session
+
+      //Send FILE
+      var req = request.post("http://nova.astrometry.net/api/upload", async function (err, resp, body) {
+        if (err) {
+          console.log(err);
+        } else {
+          upId = JSON.parse(body).subid
+          message.channel.send("Image is being processed. This will take some time")
+          while (jobId == "") {
+            var jobData = await rp("http://nova.astrometry.net/api/submissions/" + upId)
+            try {
+              jjob = JSON.parse(jobData)
+              if(jjob.job_calibrations.length != 0 && jjob.job_calibrations[0] != null){
+                jobId = jjob.jobs[0]
+                calId = jjob.job_calibrations[0][1]
+                
+              }
+              else{
+                await sleep(2000)
+              }
+            } catch (error) {
+              await sleep(2000)
+            }
+          }
+          while (!fin) {
+            var jobData = await rp("http://nova.astrometry.net/api/jobs/" + jobId + "/info/")
+            try {
+              jjob = JSON.parse(jobData)
+              if(jjob.status == "success"){
+                fin = true
+              }
+              else{
+                await sleep(5000)
+              }
+            } catch (error) {
+              await sleep(5000)
+            }
+          }
+          
+          await message.channel.send("Annotations", {file: "http://nova.astrometry.net/annotated_display/" + jobId + ".jpg"})
+          await message.channel.send("Coordinates")
+          await message.channel.send("http://nova.astrometry.net/sky_plot/zoom1/" + calId)
+          await message.channel.send("http://nova.astrometry.net/sky_plot/zoom2/" + calId)
+          
+        }
+      });
+      var form = req.form();
+      form.append("request-json", 
+        JSON.stringify({"publicly_visible": "y", "allow_modifications": "d", "session": sessionId, "allow_commercial_use": "d"})
+      )
+      form.append('file', request(image));
+      
+      
+
+    }
+    catch (e) {
+      console.error(e);
+    }
+  },
 
   colors: function (message, command, args) {
     try {

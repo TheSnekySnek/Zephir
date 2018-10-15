@@ -17,6 +17,13 @@ client.on('message', msg => {
     checkForDiscord(msg)
 })
 
+client.on("guildMemberAdd", (member) => {
+    if(member.displayName.includes("gg/") || member.displayName.includes("discord.gg")){
+        member.kick("No Advertising!")
+        console.log("Kicked" + member.displayName)
+    }
+})
+
 //FIX
 client.on('presenceUpdate', (oldm, newm) => {
     if(newm.presence.game)

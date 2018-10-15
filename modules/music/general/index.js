@@ -31,7 +31,7 @@ client.on('reconnecting', () => console.log('I am reconnecting now!'));
 client.on('guildMemberSpeaking', voice.handleSpeaking.bind(this));
 
 process.on('message', function(m) {
-  MH.handle(m)
+    MH.handle(m)
 });
 
 

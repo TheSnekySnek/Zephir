@@ -630,8 +630,8 @@ if (ADB.getBattleSettings().enabled) {
                 ADB.addCoins(message.author.id)
                 usrCoins = ADB.getCoins(message.author.id).amount
             }
-            ADB.setCoins(message.author.id, usrCoins + (items[kind][id].lvl * 100))
-            message.channel.send("Sold **" + items[kind][id].name + "**:" + "\n+ " + (items[kind][id].lvl * 100) + " Arkoins!")
+            ADB.setCoins(message.author.id, usrCoins + (items[kind][id].lvl * 75))
+            message.channel.send("Sold **" + items[kind][id].name + "**:" + "\n+ " + (items[kind][id].lvl * 75) + " Arkoins!")
 
             //INPUT BATTLE CHANNEL HERE ~~
             if (message.channel.type == "dm") {
