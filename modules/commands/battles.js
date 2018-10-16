@@ -1394,7 +1394,7 @@ if (ADB.getBattleSettings().enabled) {
                     for (let i = 0; i < us.length; i++) {
 
 
-                        if ((user.maxDungeon - us[i].maxDungeon) > ADB.getBattleSettings().maxLvlDif) {
+                        if ((user.maxDungeon > (us[i].maxDungeon + ADB.getBattleSettings().maxLvlDif)) || (user.maxDungeon < (us[i].maxDungeon - ADB.getBattleSettings().maxLvlDif))) {
                             continue
                         }
 
