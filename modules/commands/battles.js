@@ -635,7 +635,7 @@ if (ADB.getBattleSettings().enabled) {
 
             //INPUT BATTLE CHANNEL HERE ~~
             if (message.channel.type == "dm") {
-                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "__ sold **" + items[kind][id].name + "**:" + "\n+ " + (items[kind][id].lvl * 100) + " Arkoins!")
+                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "__ sold **" + items[kind][id].name + "**:" + "\n+ " + (items[kind][id].lvl * 75) + " Arkoins!")
             }
         },
 
