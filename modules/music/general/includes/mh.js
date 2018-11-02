@@ -57,7 +57,7 @@ function start(botId, token, guild, tChannel, vChannel, playlist) {
 
     client.guilds.get(guild).channels.get(vChannel).join()
     .then((voice_connection) => {
-      voice.startListening(voice_connection)
+      //voice.startListening(voice_connection)
       player.start(voice_connection);
     });
   })
