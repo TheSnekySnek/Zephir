@@ -1,12 +1,14 @@
 const Discord = require("discord.js");
 global.commandsHandler = require('./commandHandler');
-const filter = require('./filter.js')
+
 const DB = require('../modules/db')
 var guildId = ""
 global.client = new Discord.Client({fetchAllMembers: true});
 /**
  * Declare ready event. This is triggered when the bot has logged in
  */
+
+const filter = require('./filter.js')
 client.on('ready', () => {
     console.log("Bot is logged in");
     checkNickname()
