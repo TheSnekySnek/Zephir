@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 global.commandsHandler = require('./commandHandler');
+const filter = require('./filter.js')
 const DB = require('../modules/db')
 var guildId = ""
 global.client = new Discord.Client({fetchAllMembers: true});
@@ -15,6 +16,7 @@ client.on('ready', () => {
 client.on('message', msg => {
     checkForCommand(msg)
     checkForDiscord(msg)
+    filter.monitor(msg)
 })
 
 client.on("guildMemberAdd", (member) => {

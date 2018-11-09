@@ -1,5 +1,6 @@
 
-const banTreshold = 2
+const banTreshold = 3
+const monTime = 15 // 15min
 var memberFlagCount = {}
 
 
@@ -7,35 +8,32 @@ var memberFlagCount = {}
 function activeMonitoring(member) {
    memberFlagCount[member.id] = {
       flags: 0,
-      spamCount: 0,
       lastTime: new Date()
    }
    setTimeout(() => {
       delete memberFlagCount[member.id]
-   }, 15 * 60000); // 15min
+   }, monTime * 60000);
 }
 
+client.on("guildMemberAdd", (member) => {
+   activeMonitoring(member)
+})
+
 module.exports.monitor = function(message) {
-   
    if(message.member && memberFlagCount.hasOwnProperty(message.member.id)){
-      if(checkSpam(message.content)){
-         memberFlagCount[message.member.id].flags++
+      if(checkSpam(message)){
+         memberFlagCount[message.member.id].flags++ 
+         message.reply("Stop Spamming you have " + (banTreshold - memberFlagCount[message.member.id].flags) + " chance to stop")
       }
-      if(checkNSFW(message)){
-         memberFlagCount[message.member.id].flags++
-      }
+      memberFlagCount[message.member.id].lastTime = new Date()
       if(memberFlagCount[message.member.id] >= banTreshold){
-         console.log("Banning user " + message.member.displayName)
+         message.channel.send(message.member.displayName + " was banned")
       }
    }
 }
 
 function checkSpam(message){
    var nt = new Date()
-   if(message.content.length > 50 && (memberFlagCount[message.member.id].lastTime == 0 | nt - memberFlagCount[message.member.id].lastTime < 10000)){
-      
-      return true
-   }
-   return false
+   return ((message.content.length > 75 && nt - memberFlagCount[message.member.id].lastTime < 5000) || nt - memberFlagCount[message.member.id].lastTime < 1000)
 }
 
