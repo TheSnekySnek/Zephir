@@ -23,7 +23,8 @@ module.exports.monitor = function(message) {
    if(message.member && memberFlagCount.hasOwnProperty(message.member.id)){
       if(checkSpam(message)){
          memberFlagCount[message.member.id].flags++ 
-         message.reply("Stop Spamming you have " + (banTreshold - memberFlagCount[message.member.id].flags) + " chance to stop")
+         if(memberFlagCount[message.member.id].flags > 1)
+            message.channel.send(message.member.displayName + "Stop Spamming you have " + (banTreshold - memberFlagCount[message.member.id].flags) + " chance to stop")
       }
       memberFlagCount[message.member.id].lastTime = new Date()
       if(memberFlagCount[message.member.id] >= banTreshold){
