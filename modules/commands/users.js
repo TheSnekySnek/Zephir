@@ -6,7 +6,7 @@ var music = require('../../modules/music/music')
 var Discord = require("discord.js");
 
 module.exports = {
-    
+
   rank: function (message, command, args) {
     try {
       var cns = DB.getAllCoins()
@@ -280,6 +280,17 @@ module.exports = {
               addSound(message, sUrl, com)
             }
           }
+          case "5":
+            var userCoins = await DB.getCoins(message.author.id).amount
+            if (userCoins < REWARDS.music) {
+              message.reply("Not enough coins")
+              return
+            }
+            var res = await question(message, "This will deduct " + REWARDS.music + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
+            if (res === "yes") {
+              message.channel.send("<@&227173735533117440>" + "\nPlease be patient, an Admin will come help you set up your Music Bot!")
+              }
+
           break;
         default:
           message.reply("Reward is not available yet or invalid")
@@ -357,9 +368,10 @@ function isPatreon(user) {
 
 const REWARDS = {
   colors: 5000,
-  specialRole: 25000,
-  gif: 50000,
-  sound: 100000
+  specialRole: 50000,
+  gif: 100000,
+  sound: 250000,
+  music: 500000,
 }
 
 

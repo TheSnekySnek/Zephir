@@ -1621,6 +1621,12 @@
       ],
       "consumable": [
         {
+          "name": "Rebirth Potion",
+          "status": true,
+          "price": 5000,
+          "lvl": 25
+        },
+        {
           "name": "Small BP Potion",
           "bp": 5,
           "price": 7500,
