@@ -522,6 +522,23 @@ if (ADB.getBattleSettings().enabled) {
             }
 
         },
+        autobattle: function (message, command, args) {
+            var user = getUser(message.author.id)
+            if (user.autoBattle){
+            db.get('users')
+                .find({ "id": message.author.id })
+                .assign({ "autoBattle": false })
+                .write()
+            message.channel.send("Auto Battling has been turned: :x: **OFF**")
+            }
+            else {
+            db.get('users')
+                .find({ "id": message.author.id })
+                .assign({ "autoBattle": true })
+                .write()
+            message.channel.send("Auto Battling has been turned: :white_check_mark: **ON**")
+            }
+        },
         resetbp: function (message, command, args) {
             var HR = message.guild.members.get(message.author.id).highestRole.name
             if (HR != "Owner" && HR != "Co-Owner") {
