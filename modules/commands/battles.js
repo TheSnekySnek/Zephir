@@ -1154,43 +1154,43 @@ if (ADB.getBattleSettings().enabled) {
                 });
             }
 
-
-
             var battler = async function () {
                 return new Promise(async function (resolve, reject) {
                     mbSel = elements[Math.floor(Math.random() * elements.length)];
                     var msg = await message.author.send("__Round " + round + "__")
-                    await msg.react('💧')
-                    await msg.react('🔥')
-                    await msg.react('🌱')
+                    
 
-                    if(user.autoBattle == true){
+                    if(user.autoBattle){
                         usrSel = elements[Math.floor(Math.random() * elements.length)];
                         msg.delete()
                         resolve()
                     }
+                    else{
+                        await msg.react('💧')
+                        await msg.react('🔥')
+                        await msg.react('🌱')
 
-                    var filter = (reaction, usr) => {
-                        if (usr.id == user.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
-                            return true
+                        var filter = (reaction, usr) => {
+                            if (usr.id == user.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
+                                return true
+                            }
+                            else {
+                                return false
+                            }
                         }
-                        else {
-                            return false
-                        }
-                    }
-                    var collector = msg.createReactionCollector(filter);
-                    collector.on('collect', r => {
+                        var collector = msg.createReactionCollector(filter);
+                        collector.on('collect', r => {
 
-                        //~~
-                        if (round == 1) {
-                            db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday + 1) }).write()
-                        }
-
-                        usrSel = r.emoji.name
-                        msg.delete()
-                        collector.stop()
-                        resolve()
-                    });
+                            if (round == 1) {
+                                db.get('users').find({ id: message.author.id }).assign({ gamesToday: (user.gamesToday + 1) }).write()
+                            }
+    
+                            usrSel = r.emoji.name
+                            msg.delete()
+                            collector.stop()
+                            resolve()
+                        });
+                    } 
                 })
             }
             var round = 1
