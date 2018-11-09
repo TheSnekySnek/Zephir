@@ -6,23 +6,7 @@ var music = require('../../modules/music/music')
 var Discord = require("discord.js");
 
 module.exports = {
-    autobattle: function (message, command, args) {
-      var user = getUser(message.author.id)
-      if (user.autoBattle){
-      db.get('users')
-          .find({ "id": message.author.id })
-          .assign({ "autoBattle": false })
-          .write()
-      message.channel.send("Auto Battling has been turned: :x: **OFF**")
-      }
-      else {
-      db.get('users')
-          .find({ "id": message.author.id })
-          .assign({ "autoBattle": true })
-          .write()
-      message.channel.send("Auto Battling has been turned: :white_check_mark: **ON**")
-      }
-  },
+    
   rank: function (message, command, args) {
     try {
       var cns = DB.getAllCoins()
