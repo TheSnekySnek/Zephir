@@ -125,7 +125,7 @@ function createUser(member) {
         pvploses: 0,
         gamesToday: 0,
         alchemy: false,
-        autoBattle = false,
+        autoBattle: false,
         maxDungeon: 0,
         inventory: {
             helmet: [],
