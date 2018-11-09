@@ -125,6 +125,7 @@ function createUser(member) {
         pvploses: 0,
         gamesToday: 0,
         alchemy: false,
+        autoBattle = false,
         maxDungeon: 0,
         inventory: {
             helmet: [],
@@ -1145,6 +1146,13 @@ if (ADB.getBattleSettings().enabled) {
                     await msg.react('💧')
                     await msg.react('🔥')
                     await msg.react('🌱')
+
+                    if(user.autoBattle == true){
+                        usrSel = elements[Math.floor(Math.random() * elements.length)];
+                        msg.delete()
+                        resolve()
+                    }
+
                     var filter = (reaction, usr) => {
                         if (usr.id == user.id && (reaction.emoji.name == '💧' || reaction.emoji.name == '🔥' || reaction.emoji.name == '🌱')) {
                             return true
