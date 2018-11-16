@@ -1,6 +1,8 @@
 
-const banTreshold = 3
+const banTreshold = 4
 const monTime = 15 // 15min
+const SMALL_MSG_TIME = 750
+const BIG_MSG_TIME = 3000
 var memberFlagCount = {}
 
 
@@ -24,17 +26,18 @@ module.exports.monitor = function(message) {
       if(checkSpam(message)){
          memberFlagCount[message.member.id].flags++ 
          if(memberFlagCount[message.member.id].flags > 1)
-            message.channel.send(message.member.displayName + "Stop Spamming you have " + (banTreshold - memberFlagCount[message.member.id].flags) + " chance to stop")
+            message.channel.send(message.member.displayName + " Stop Spamming you have " + (banTreshold - memberFlagCount[message.member.id].flags) + " chance to stop")
       }
       memberFlagCount[message.member.id].lastTime = new Date()
       if(memberFlagCount[message.member.id] >= banTreshold){
-         message.channel.send(message.member.displayName + " was banned")
+         message.member.kick("Spam")
+         message.channel.send(message.member.displayName + " was kicked")
       }
    }
 }
 
 function checkSpam(message){
    var nt = new Date()
-   return ((message.content.length > 75 && nt - memberFlagCount[message.member.id].lastTime < 5000) || nt - memberFlagCount[message.member.id].lastTime < 1000)
+   return ((message.content.length > 75 && nt - memberFlagCount[message.member.id].lastTime < BIG_MSG_TIME) || nt - memberFlagCount[message.member.id].lastTime < SMALL_MSG_TIME)
 }
 

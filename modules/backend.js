@@ -274,6 +274,21 @@ io.on('connection', function(socket){
         }
             socket.emit('getCHs', {vcs: vcs, tcs, tcs})
     })
+    socket.on('getUsrMb', function(msg){
+        var userID = msg.id
+        var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
+        if(vc){
+            vcID = vc.id
+            if(vcID){
+                var mb = DB.getMBinVC(vcID)
+                if(mb && mb.id && mb.playing){
+                    if(mb.playing.thumbnail.indexOf("sddefault") < 0)
+                        mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
+                    socket.emit('gsong', {id: mb.id, data: mb.playing})
+                }
+            }
+        }
+    })
     socket.on('getSong', function(msg){
         var mbUser = DB.getMobileUserToken(msg.token)
         if(mbUser){
