@@ -33,6 +33,7 @@ schedule.scheduleJob('0 0 * * *', () => {
     var users = db.get('users').value()
     users.forEach(user => {
         db.get("users").find({ id: user.id }).assign({ gamesToday: 0 }).write()
+        db.get("users").find({ id: user.id }).assign({ status: true }).write()
     });
 })
 
@@ -96,7 +97,7 @@ function getLootZ(type, id, lvl, luck) {
     var items = db.get('items').value()
     var dungeons = db.get('mobs').value()
     var i1dc = 100
-    var i2dc = 40
+    var i2dc = 25
     var i1bdc = 40
     var i2bdc = 1
     var itemDropChance = ((((((i1bdc-(i2bdc-1))/100)/items[type].length) * ((items[type][id].lvl-1)-items[type].length)*-1)) + ((i2bdc-1)/100)) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items[type].length/100)) * items[type][id].lvl-1)/100)) / (dungeons.length-1) * lvl-1) - (((items[type].length/100)/(dungeons.length-1)) * lvl-1)
@@ -626,7 +627,63 @@ if (ADB.getBattleSettings().enabled) {
             }
 
         },
+/*
+        fuse: function (message, command, args) {
+            var items = db.get('items').value()
+            var user = getUser(message.author.id)
+            var kind = args[0]
 
+            if (!user) {
+                message.channel.send("You are not registered. Please do !profile to register")
+                return
+            }
+
+            if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon") {
+                message.channel.send("Invalid equipment type.")
+                return
+            }
+            if ((parseInt(args[1]) != 0 || parseInt(args[1]) > items[kind].length - 1) && (!parseInt(args[1]) || parseInt(args[1]) > items[kind].length - 1)) {
+                message.channel.send("Invalid Item ID.")
+                return
+            }
+
+            if (args[0] && args[0] == "helmet" || args[0] == "chest" || args[0] == "pants" || args[0] == "boots" || args[0] == "accessory" || args[0] == "weapon" || args[0] == "consumable") {
+                var type = args[0]
+                var ItemsType = []
+                //for each items in database
+                for (let i = 0; i < items[type].length; i++) {
+                    var tot = 0
+                    for (let k = 0; k < user.inventory[type].length; k++) {
+                        //If we have the item
+                        if (user.inventory[type][k] == i)
+                            // Quantity +1
+                            tot++
+                    }
+                    //Add quantity of items
+                    ItemsType.push(tot)
+                }
+                console.log(ItemsType)
+              }
+
+            var id = parseInt(args[1])
+            var fusItem = user.inventory[kind].indexOf(id)
+
+            if (ItemsType[i] < 3) {
+                message.channel.send("You do not have 3 of this item.")
+                return
+            }
+
+            if (items[kind][id]) {
+                user.inventory[kind].splice(fusItem, 3)
+                var items = db.get('items').value()
+                user.inventory[kind].push(id + 1)
+                db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+            }
+
+            message.channel.send("You have successfully fused **" + items[kind][id].name + "** into **" + items[kind][id+1].name + "**!\nThree versions of **" + items[kind][id].name + "** have been removed from your inventory.")
+
+          },
+*/
         sell: function (message, command, args) {
             if (!ADB.getBattleSettings().allowSell) {
                 return
@@ -634,13 +691,39 @@ if (ADB.getBattleSettings().enabled) {
             var items = db.get('items').value()
             var user = getUser(message.author.id)
             var kind = args[0]
-
+            var usrCoins = ADB.getCoins(message.author.id).amount
 
             if (!user) {
                 message.channel.send("You are not registered. Please do !profile to register")
                 return
             }
 
+//sellall
+/*
+            var ty = ""
+            var typ = parseInt(user.inventory[ty])
+            if (kind == "all") {
+
+              for (var t in typ) {
+                for (let i = 0; i < user.inventory[k].length; i++) {
+                  for (var p in typ[i] && !items["consumable"]) {
+
+                  user.inventory[typ].splice(i, 1)
+                  db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
+
+                  ADB.setCoins(message.author.id, usrCoins + (items[typ][i].lvl * 75))
+                  message.channel.send("Sold **" + items[typ][i].name + "**:" + "\n+ " + (items[typ][i].lvl * 75) + " Arkoins!")
+
+                  if (message.channel.type == "dm") {
+                      client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + client.guilds.get(ADB.getBotData().guild).members.get(message.author.id).displayName + "__ sold **" + items[typ][i].name + "**:" + "\n+ " + (items[typ][i].lvl * 75) + " Arkoins!")
+                  }
+                  }
+                }
+              }
+              return
+            }
+
+*/
             if (kind != "helmet" && kind != "chest" && kind != "pants" && kind != "boots" && kind != "accessory" && kind != "weapon") {
                 message.channel.send("Invalid equipment type.")
                 return
@@ -661,7 +744,7 @@ if (ADB.getBattleSettings().enabled) {
                 db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
             }
 
-            var usrCoins = ADB.getCoins(message.author.id).amount
+
             if (!usrCoins) {
                 ADB.addCoins(message.author.id)
                 usrCoins = ADB.getCoins(message.author.id).amount
@@ -717,7 +800,7 @@ if (ADB.getBattleSettings().enabled) {
 
             var selItem = user.inventory[kind].indexOf(id)
             if (selItem < 0) {
-                message.channel.send("Invalid Item ID.")
+                message.channel.send("You do not have this item.")
                 return
             }
             if ((items[kind][id].hp < 0 && (stats.hp + items[kind][id].hp) < 1) || (items[kind][id].atk < 0 && (stats.atk + items[kind][id].atk) < 1) || (items[kind][id].bp < 0 && (stats.bp + items[kind][id].bp) < 1)) {
@@ -745,6 +828,7 @@ if (ADB.getBattleSettings().enabled) {
                         .setTitle("- " + cap(type) + " -")
                         .setColor("#dcbc3f")
                         .setThumbnail("https://cdn.discordapp.com/attachments/233701911168155649/488095324527919104/battle-slots.png")
+
                     for (let i = 0; i < items[type].length; i++) {
 
                         for (var t in items[type][i]) {
@@ -886,20 +970,22 @@ if (ADB.getBattleSettings().enabled) {
                 if (availPotions[1] || availPotions[2] || availPotions[3]) {
 
                     //INPUT BATTLE CHANNEL HERE
+                    /*
                     if (message.channel.type != "dm") {
                         client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("A BP Potion is Available!\nCheck your private messages.")
                     }
-                    var con = await message.author.send(timeForReset() + "\n\n > Do you want to use a BP Potion and refill now?")
-                    for (let i = 0; i < 3; i++) {
+                    */
+                    var con = await message.channel.send(timeForReset() + "\n\n > Do you want to use a BP Potion and refill now?")
+                    for (let i = 1; i < 4; i++) {
                         if (availPotions[i]) {
                             switch (i) {
-                                case 0:
+                                case 1:
                                     await con.react("🌠")
                                     break;
-                                case 1:
+                                case 2:
                                     await con.react("🎆")
                                     break;
-                                case 2:
+                                case 3:
                                     await con.react("🌌")
                                     break;
                                 default:
@@ -920,7 +1006,7 @@ if (ADB.getBattleSettings().enabled) {
                                 message.author.send("You have been granted: BP +" + items.consumable[1].bp)
 
                                 //INPUT BATTLE CHANNEL HERE
-                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[0].bp)
+                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[1].bp)
 
                                 break;
                             case "🎆":
@@ -930,7 +1016,7 @@ if (ADB.getBattleSettings().enabled) {
                                 message.author.send("You have been granted: BP +" + items.consumable[2].bp)
 
                                 //INPUT BATTLE CHANNEL HERE
-                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[1].bp)
+                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[2].bp)
 
                                 break;
                             case "🌌":
@@ -940,7 +1026,7 @@ if (ADB.getBattleSettings().enabled) {
                                 message.author.send("Your BP has been MAXED!")
 
                                 //INPUT BATTLE CHANNEL HERE
-                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: BP +" + items.consumable[2].bp)
+                                client.guilds.get(ADB.getBotData().guild).channels.get(ADB.getBattleSettings().textChannel).send("__" + auth + "__ has used a potion and been granted: MAX BP!")
 
                                 break;
                             default:
@@ -979,7 +1065,7 @@ if (ADB.getBattleSettings().enabled) {
                     db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
                     db.get('users').find({ id: message.author.id }).assign({ "status": true }).write()
 
-                    message.channel.send("Magic flows through your body. You have been revived!")
+                    message.channel.send("A strange magic flows through your body... You have been revived!")
                     break;
                     }
                     con.delete()
