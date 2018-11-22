@@ -440,7 +440,7 @@ async function confirm(message, text) {
     var quest = await message.channel.send(text)
     await quest.react("✅")
     await quest.react("❎")
-    var filter = (reaction, usr) => usr.id == message.user.id
+    var filter = (reaction, usr) => usr.id == message.author.id
     var collector = quest.createReactionCollector(filter);
     collector.on('collect', r => {
       switch (r.emoji.name) {
