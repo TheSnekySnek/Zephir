@@ -206,8 +206,8 @@ module.exports = {
             message.reply("You already have unlocked colors")
             return
           }
-          var res = await question(message, "This will deduct " + REWARDS.colors + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
-          if (res === "yes") {
+          var res = await confirm(message, "This will deduct " + REWARDS.colors + " coins from your stash.\n               Would you like to continue?")
+          if (res) {
             DB.addUnlock(message.author.id, "color")
             DB.deleteCoins(message.author.id, REWARDS.colors)
             message.reply("You have unlocked the !color command")
@@ -219,8 +219,8 @@ module.exports = {
             message.reply("Not enough coins")
             return
           }
-          var res = await question(message, "This will deduct " + REWARDS.specialRole + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
-          if (res === "yes") {
+          var res = await confirm(message, "This will deduct " + REWARDS.specialRole + " coins from your stash.\n               Would you like to continue?")
+          if (res) {
             var name = await question(message, "Type the name of your new role.")
             if (name != "") {
               var type = await question(message, "Would you like this role to be private or public ?", ["private", "public"])
@@ -248,8 +248,8 @@ module.exports = {
               }
               else {
                 message.channel.send(gUrl)
-                var isOK = await question(message, "Is the gif correctly displayed ?", ["yes", "no"])
-                if (isOK == "yes") {
+                var isOK = await confirm(message, "Is the gif correctly displayed ?")
+                if (isOK) {
                   var com = await question(message, "What should be the command ? (DO NOT SPECIFY THE '!')")
                   if (com == "") {
                     break loop1
@@ -272,8 +272,8 @@ module.exports = {
             message.reply("Not enough coins")
             return
           }
-          var res = await question(message, "This will deduct " + REWARDS.sound + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
-          if (res === "yes") {
+          var res = await confirm(message, "This will deduct " + REWARDS.sound + " coins from your stash.\n               Would you like to continue?")
+          if (res) {
             var sUrl = await question(message, "Type the URL of your sound (MUST BE A DIRECT LINK)")
             if (sUrl != "") {
               var com = await question(message, "What should be the command ? (DO NOT SPECIFY THE '!')")
@@ -286,8 +286,8 @@ module.exports = {
               message.reply("Not enough coins")
               return
             }
-            var res = await question(message, "This will deduct " + REWARDS.music + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
-            if (res === "yes") {
+            var res = await confirm(message, "This will deduct " + REWARDS.music + " coins from your stash.\n               Would you like to continue?")
+            if (res) {
               message.channel.send("<@&227173735533117440>" + "\nPlease be patient, an Admin will come help you set up your Music Bot!")
               }
 
