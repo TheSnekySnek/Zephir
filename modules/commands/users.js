@@ -439,7 +439,7 @@ async function confirm(message, text) {
   return new Promise(async function (resolve, reject){
     var quest = await message.channel.send(text)
     await quest.react("✅")
-    await quest.react("❎")
+    await quest.react("❌")
     var filter = (reaction, usr) => usr.id == message.author.id
     var collector = quest.createReactionCollector(filter);
     collector.on('collect', r => {
@@ -447,7 +447,7 @@ async function confirm(message, text) {
           case "✅":
               resolve(true)
               break;
-          case "❎":
+          case "❌":
               resolve(false)
               break;
           default:
