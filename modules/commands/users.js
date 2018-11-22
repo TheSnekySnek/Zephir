@@ -435,7 +435,7 @@ async function addGIF(message, url, com) {
   }
 }
 
-function confirm(message, text) {
+async function confirm(message, text) {
   return new Promise(function (resolve, reject){
     message.channel.send(text)
     var quest = await message.channel.send(text)
