@@ -448,12 +448,12 @@ async function confirm(message, text) {
               resolve(true)
               break;
           case "❎":
-            resolve(false)
+              resolve(false)
               break;
           default:
               break;
       }
-      con.delete()
+      quest.delete()
       collector.stop()
     });
   })
