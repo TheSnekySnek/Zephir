@@ -234,8 +234,8 @@ module.exports = {
             message.reply("Not enough coins")
             return
           }
-          var res = await question(message, "This will deduct " + REWARDS.gif + " coins from your stash.\n               Would you like to continue?", ["yes", "no"])
-          if (res === "yes") {
+          var res = await confirm(message, "This will deduct " + REWARDS.gif + " coins from your stash.\n               Would you like to continue?")
+          if (res) {
             loop1:
             do {
               var gUrl = await question(message, "Type the url of the gif")
@@ -433,6 +433,31 @@ async function addGIF(message, url, com) {
   else {
     message.reply("Not enough coins")
   }
+}
+
+function confirm(message, text) {
+  return new Promise(function (resolve, reject){
+    message.channel.send(text)
+    var quest = await message.channel.send(text)
+    await quest.react("✔️")
+    await quest.react("❌")
+    var filter = (reaction, usr) => usr.id == message.user.id
+    var collector = con.createReactionCollector(filter);
+    collector.on('collect', r => {
+      switch (r.emoji.name) {
+          case "✔️":
+              resolve(true)
+              break;
+          case "❌":
+            resolve(false)
+              break;
+          default:
+              break;
+      }
+      con.delete()
+      collector.stop()
+    });
+  })
 }
 
 
