@@ -436,8 +436,7 @@ async function addGIF(message, url, com) {
 }
 
 async function confirm(message, text) {
-  return new Promise(function (resolve, reject){
-    message.channel.send(text)
+  return new Promise(async function (resolve, reject){
     var quest = await message.channel.send(text)
     await quest.react("✔️")
     await quest.react("❌")
