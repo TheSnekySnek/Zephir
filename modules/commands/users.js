@@ -438,16 +438,16 @@ async function addGIF(message, url, com) {
 async function confirm(message, text) {
   return new Promise(async function (resolve, reject){
     var quest = await message.channel.send(text)
-    await quest.react("✔️")
-    await quest.react("❌")
+    await quest.react("✅")
+    await quest.react("❎")
     var filter = (reaction, usr) => usr.id == message.user.id
     var collector = con.createReactionCollector(filter);
     collector.on('collect', r => {
       switch (r.emoji.name) {
-          case "✔️":
+          case "✅":
               resolve(true)
               break;
-          case "❌":
+          case "❎":
             resolve(false)
               break;
           default:
