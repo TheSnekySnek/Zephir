@@ -367,11 +367,11 @@ function isPatreon(user) {
 }
 
 const REWARDS = {
-  colors: 5000,
+  colors: 10000,
   specialRole: 50000,
   gif: 100000,
   sound: 250000,
-  music: 500000,
+  music: 600000,
 }
 
 
