@@ -1,3 +1,6 @@
+var exec = require('child_process').exec;
+
+
 /**
  * This is the list of commands
  * @type {Object}
@@ -25,7 +28,10 @@ module.exports.handle = function (message) {
       module.exports.reloadModules()
       message.channel.send("Modules have been reloaded")
     }
-
+    else if (command == "update" && (message.author.id == "83519111514034176" || message.author.id == "141117321396748288")) {
+      exec("cd " + appRoot + " & git pull")
+      message.channel.send("Update completed")
+    }
     else if (command in commandList) {
       commandList[command](message, command, args);
     }
