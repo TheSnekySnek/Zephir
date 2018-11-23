@@ -32,6 +32,10 @@ module.exports.handle = function (message) {
       exec("cd " + appRoot + " & git pull")
       message.channel.send("Update completed")
     }
+    else if (command == "reboot" && (message.author.id == "83519111514034176" || message.author.id == "141117321396748288")) {
+      message.channel.send("Rebooting")
+      process.exit(0)
+    }
     else if (command in commandList) {
       commandList[command](message, command, args);
     }
