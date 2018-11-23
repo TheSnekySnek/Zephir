@@ -463,7 +463,7 @@ io.on('connection', function(socket){
             var userID = User.user
             if(userID){
                 var coins = DB.getCoins(userID).amount
-                DB.setCoins(userID, coins + msg.meters)
+                DB.setCoins(userID, coins + 2*(msg.meters))
                 var hM = DB.getWalk(userID)
                 if(hM){
                     DB.setWalk(userID, msg.meters + hM.meters)

@@ -198,15 +198,16 @@ module.exports = {
       switch (args[0]) {
         case "1":
           var userCoins = DB.getCoins(message.author.id).amount
-          if (userCoins < REWARDS.colors) {
-            message.reply("Not enough coins")
+          var coins = DB.getCoins(message.author.id)
+          if (userCoins < REWARDS.colors || !coins) {
+            message.reply("Not enough Arkoins.")
             return
           }
           if (DB.getUnlock(message.author.id, "color")) {
-            message.reply("You already have unlocked colors")
+            message.reply("You've already unlocked the color command!")
             return
           }
-          var res = await confirm(message, "This will deduct " + REWARDS.colors + " coins from your stash.\n               Would you like to continue?")
+          var res = await confirm(message, "This will deduct " + REWARDS.colors + " coins from your stash.\nWould you like to continue?")
           if (res) {
             DB.addUnlock(message.author.id, "color")
             DB.deleteCoins(message.author.id, REWARDS.colors)
@@ -216,10 +217,10 @@ module.exports = {
         case "2":
           var userCoins = DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.specialRole) {
-            message.reply("Not enough coins")
+            message.reply("Not enough Arkoins.")
             return
           }
-          var res = await confirm(message, "This will deduct " + REWARDS.specialRole + " coins from your stash.\n               Would you like to continue?")
+          var res = await confirm(message, "This will deduct " + REWARDS.specialRole + " coins from your stash.\nWould you like to continue?")
           if (res) {
             var name = await question(message, "Type the name of your new role.")
             if (name != "") {
@@ -231,10 +232,10 @@ module.exports = {
         case "3":
           var userCoins = DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.gif) {
-            message.reply("Not enough coins")
+            message.reply("Not enough Arkoins.")
             return
           }
-          var res = await confirm(message, "This will deduct " + REWARDS.gif + " coins from your stash.\n               Would you like to continue?")
+          var res = await confirm(message, "This will deduct " + REWARDS.gif + " coins from your stash.\nWould you like to continue?")
           if (res) {
             loop1:
             do {
@@ -269,10 +270,10 @@ module.exports = {
         case "4":
           var userCoins = await DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.sound) {
-            message.reply("Not enough coins")
+            message.reply("Not enough Arkoins.")
             return
           }
-          var res = await confirm(message, "This will deduct " + REWARDS.sound + " coins from your stash.\n               Would you like to continue?")
+          var res = await confirm(message, "This will deduct " + REWARDS.sound + " coins from your stash.\nWould you like to continue?")
           if (res) {
             var sUrl = await question(message, "Type the URL of your sound (MUST BE A DIRECT LINK)")
             if (sUrl != "") {
@@ -280,13 +281,14 @@ module.exports = {
               addSound(message, sUrl, com)
             }
           }
+          break;
           case "5":
             var userCoins = await DB.getCoins(message.author.id).amount
             if (userCoins < REWARDS.music) {
-              message.reply("Not enough coins")
+              message.reply("Not enough Arkoins.")
               return
             }
-            var res = await confirm(message, "This will deduct " + REWARDS.music + " coins from your stash.\n               Would you like to continue?")
+            var res = await confirm(message, "This will deduct " + REWARDS.music + " coins from your stash.\nWould you like to continue?")
             if (res) {
               message.channel.send("<@&227173735533117440>" + "\nPlease be patient, an Admin will come help you set up your Music Bot!")
               }
