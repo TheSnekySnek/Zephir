@@ -29,6 +29,7 @@ module.exports.handle = function (message) {
       message.channel.send("Modules have been reloaded")
     }
     else if (command == "update" && (message.author.id == "83519111514034176" || message.author.id == "141117321396748288")) {
+      message.channel.send("Updating...")
       exec("cd " + appRoot + " & git pull")
       message.channel.send("Update completed")
     }
