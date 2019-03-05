@@ -186,6 +186,9 @@ function getMBs() {
             <input type="checkbox" class="js-switcher mb-enable" checked onchange="manMB(this.checked, '${com.id}')" />
             </td>
             <td class="text-right">
+                <button style="width: 36px;height: 30px;position: relative;margin-right: 20px;" type="button" data-toggle="modal" data-target="#modsModal" onClick="loadMbMods('${com.id}')" class="btn btn-secondary mb-1 mods-btn com-del">
+                        <i class="fas fa-crown" style="position: absolute;top: 6px;left: 7px;"></i>
+                </button>
                 <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
                         <i class="fas fa-trash-alt" style="position: absolute;top: 6px;left: 7px;"></i>
                 </button>
@@ -203,6 +206,9 @@ function getMBs() {
             <input type="checkbox" class="js-switcher mb-enable" onchange="manMB(this.checked, '${com.id}')" />
             </td>
             <td class="text-right">
+                <button style="width: 36px;height: 30px;position: relative;margin-right: 20px;" type="button" data-toggle="modal" data-target="#modsModal" onClick="loadMbMods('${com.id}')" class="btn btn-secondary mb-1 mods-btn com-del">
+                        <i class="fas fa-crown" style="position: absolute;top: 6px;left: 7px;"></i>
+                </button>
                 <button style="width: 30px;height: 30px;position: relative;margin-right: 20px;" type="button" onClick="deleteMB('${com.id}')" class="btn btn-secondary mb-1 del-btn com-del">
                         <i class="fas fa-trash-alt" style="position: absolute;top: 6px;left: 7px;"></i>
                 </button>
@@ -235,6 +241,27 @@ function manMB(state, id) {
     socket.emit('stopMB', {jwt: getCookie("jwt"), data: id});
   } 
 }
+
+function loadMbMods(id) {
+  socket.on('getMBMods', function(mods){
+    $('#MBModsId').val(id)
+    if(mods)
+      $('#MBMods').val(mods.join(', '))
+    else{
+      $('#MBMods').val("")
+    }
+  })
+  socket.emit('getMBMods', {jwt: getCookie("jwt"), data: {id: id}});
+}
+
+function setMbMods(id, mods) {
+  console.log(id, mods)
+  socket.emit('setMBMods', {jwt: getCookie("jwt"), data: {id: id, mods: mods}});
+}
+
+$('#setMBMods').click(function(e) {
+  setMbMods($('#MBModsId').val(), $('#MBMods').val().replace(' ').split(','))
+})
 
 function addMB(data) {
   socket.emit('addMB', {jwt: getCookie("jwt"), data: data});

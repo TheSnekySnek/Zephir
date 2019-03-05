@@ -14,7 +14,7 @@ const COLORS =
     black: "Black",
     blue: "Blue",
     cyan: "Cyan",
-    darkblue: "Dark Souls",
+    darkblue: "Dark Blue",
     darkred: "Dark Red",
     electricblue: "Electric Blue",
     green: "Green",
@@ -308,27 +308,27 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
           color: 0x33FFBB,
           fields: [
             {
-              name: "Tier 1 | Color - 5,000 Arkoins",
+              name: "Tier 1 | Color - 20,000 Arkoins",
               value: "Gain permanent access to the !color command and change your color at will! \nHow progressive of us...",
               inline: false
             },
             {
-              name: "Tier 2 | Roles - 50,000 Arkoins",
+              name: "Tier 2 | Roles - 100,000 Arkoins",
               value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins!",
               inline: false
             },
             {
-              name: "Tier 3 | GIFs - 100,000 Arkoins",
+              name: "Tier 3 | GIFs - 300,000 Arkoins",
               value: "No longer will your memes be dreams with this amazing GIF command! \nFind a pic and let it rip :smiling_imp:",
               inline: false
             },
             {
-              name: "Tier 4 | Sound - 250,000 Arkoins",
+              name: "Tier 4 | Sound - 500,000 Arkoins",
               value: "Create a custom sound command to use in Voice Channels, Arkhos will personally come in and play a sound (.mp3) of your choosing! (PS: Batteries not included)",
               inline: false
             },
             {
-              name: "Tier 5 | Music - 600,000 Arkoins",
+              name: "Tier 5 | Music - 1,000,000 Arkoins",
               value: "A Private Music Bot you say?! Deal. \nHere's your very own Music Bot to use and abuse as you please! \n#EnslaveTheBots",
               inline: false
             },

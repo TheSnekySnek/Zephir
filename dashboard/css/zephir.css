@@ -43,6 +43,10 @@
     background-color: #d22307;
     border-color: #d22307;
 }
+.mods-btn:hover{
+    background-color: #0770d2;
+    border-color: #0770d2;
+}
 .animsition, .animsition-overlay{
     opacity: 1;
 }

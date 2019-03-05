@@ -1,3 +1,4 @@
 node_modules
 .vscode
-mblogs.txt
+/mblogs.txt
+/package-lock.json

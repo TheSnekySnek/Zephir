@@ -11,6 +11,18 @@ var crStream;
 var loop = false;
 var lock = false;
 var volume = 0.2
+
+async function isMod(id) {
+  return new Promise(async function(resolve, reject) {
+    var mods = await api.getMods()
+    mods.forEach(mod => {
+      if(mod == id)
+        resolve(true)
+    });
+    resolve(false)
+  })
+}
+
 module.exports = {
   start: function (connection) {
     voice_connection = connection;
@@ -18,9 +30,10 @@ module.exports = {
     //managePlayer();
     //watchListeners();
   },
-  loop: function (message) {
+  loop: async function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+    var isAMod = await isMod(message.member.id)
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner" || isAMod) {
       if(loop){
         loop = false
         message.channel.send("Loop disabled")
@@ -40,24 +53,27 @@ module.exports = {
   isLocked: function () {
     return lock
   },
-  lock: function (message) {
+  lock: async function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+    var isAMod = await isMod(message.member.id)
+    console.log("inlock")
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner" || isAMod) {
       lock = true
       message.channel.send("MusicBot is now locked")
     }
   },
-  unlcock: function (message) {
+  unlock: async function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+    var isAMod = await isMod(message.member.id)
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner" || isAMod) {
       lock = false
       message.channel.send("MusicBot is now unlocked")
     }
   },
-  skip: function (message) {
+  skip: async function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-    console.log(HR)
-    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner") {
+    var isAMod = await isMod(message.member.id)
+    if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner" || isAMod) {
       textChannel.send("Skipping song...")
       voice_stream.end()
     }
@@ -65,7 +81,7 @@ module.exports = {
       let usersInChannel = voiceChannel.members.array().length;
       if (!songSkipPoll.includes(message.author.id)) {
         songSkipPoll.push(message.author.id)
-        if (songSkipPoll.length >= (usersInChannel - 1) / 2) {
+        if (songSkipPoll.length > (usersInChannel - 1) / 2) {
           textChannel.send("Skipping song...")
           songSkipPoll = [];
           voice_stream.end()
@@ -75,16 +91,16 @@ module.exports = {
         }
       }
       else {
-        textChannel.send("You already voted")
+        textChannel.send("You already voted!")
       }
     }
     else{
-      message.channel.send("This music bot is locked")
+      message.channel.send("This music bot is locked, you cannot skip.")
     }
   },
 
   time: function () {
-    var obj = { time: 0, song: currSong.duration, total: 0 };
+    var obj = { time: 0, song: currSong.duration ? currSong.duration : 0, total: 0 };
     if (voice_stream) {
       obj = { time: Math.floor(voice_stream.time / 1000), song: currSong.duration, total: Math.floor(voice_stream.totalStreamTime / 1000) };
     }

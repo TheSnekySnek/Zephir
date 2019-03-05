@@ -159,8 +159,10 @@ module.exports = {
 
   coins: async function (message, command, args) {
     try {
+      var HR = message.guild.members.get(message.author.id).highestRole.name
       var coins = DB.getCoins(message.author.id)
       var usr = args[0]
+      var amt = parseInt(args[1])
 
       if (!usr) {
         if (coins) {
@@ -171,22 +173,56 @@ module.exports = {
         }
       }
 
-      else {
+      if (usr && isNaN(usr) && (usr != "all")) {
+        message.channel.send("Invalid User ID.")
+        return
+      }
+
+      if ((HR == "Owner" || HR == "Co-Owner") && (usr == "all") && (!args[1] || isNaN(args[1]))) {
+      message.channel.send("Please enter a coin amount.")
+      return
+      }
+
+      if ((HR == "Owner" || HR == "Co-Owner") && (usr == "all")) {
+        var members = client.guilds.get(message.guild.id).members.array()
+        var amt = parseInt(args[1])
+
+
+        for (let i = 0; i < members.length; i++) {
+            if (!DB.getCoins(members[i].id)){
+              DB.addCoins(members[i].id)
+              var coins = DB.getCoins(members[i].id).amount
+              DB.setCoins(members[i].id, coins + 200)
+              }
+            DB.setCoins(members[i].id, DB.getCoins(members[i].id).amount + amt)
+            }
+
+        message.channel.send("<@" + "everyone" + "> \nTotal Arkoins Received: **" + amt + "**")
+        return
+      }
+      if (!isNaN(usr)) {
 
         var HR = message.guild.members.get(message.author.id).highestRole.name
         var user = message.guild.members.get(usr).displayName
         var amt = parseInt(args[1])
         var usrCoins = DB.getCoins(usr)
 
+        if (!args[1]) {
+          message.channel.send("__" + user + "__\nArkoins: **" + usrCoins.amount + "**")
+        }
+
+        if ((HR == "Owner" || HR == "Co-Owner") && ((usrCoins.amount + amt) < 0)) {
+          message.channel.send("__" + user + "__ \nArkoins: " + usrCoins.amount + "\nUser does not have **" + Math.abs(amt) + "** Arkoins.")
+          return
+        }
+
         if ((HR == "Owner" || HR == "Co-Owner") && amt) {
           DB.setCoins(usr, usrCoins.amount + amt)
           message.channel.send("<@" + usr + "> \nTotal Arkoins Received: **" + amt + "**")
         }
       }
-
     }
-
-    catch (e) {
+    catch(e){
       console.log(e)
     }
   },
@@ -196,13 +232,19 @@ module.exports = {
   claim: async function (message, command, args) {
     try {
       switch (args[0]) {
-        case "1":
+        
+        case "1":        
+          var wallet = DB.getCoins(message.author.id)
+          if (!wallet) {
+            message.reply("You don't have a stash.\nType !daily to obtain a stash and start earning Arkoins!")
+            return
+          }        
           var userCoins = DB.getCoins(message.author.id).amount
-          var coins = DB.getCoins(message.author.id)
-          if (userCoins < REWARDS.colors || !coins) {
+          if (userCoins < REWARDS.colors) {
             message.reply("Not enough Arkoins.")
             return
           }
+
           if (DB.getUnlock(message.author.id, "color")) {
             message.reply("You've already unlocked the color command!")
             return
@@ -215,6 +257,11 @@ module.exports = {
           }
           break
         case "2":
+          var wallet = DB.getCoins(message.author.id)
+          if (!wallet) {
+            message.reply("You don't have a stash.\nType !daily to obtain a stash and start earning Arkoins!")
+            return
+          }        
           var userCoins = DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.specialRole) {
             message.reply("Not enough Arkoins.")
@@ -230,6 +277,11 @@ module.exports = {
           }
           break;
         case "3":
+          var wallet = DB.getCoins(message.author.id)
+            if (!wallet) {
+              message.reply("You don't have a stash.\nType !daily to obtain a stash and start earning Arkoins!")
+              return
+          }        
           var userCoins = DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.gif) {
             message.reply("Not enough Arkoins.")
@@ -268,7 +320,12 @@ module.exports = {
           }
           break;
         case "4":
-          var userCoins = await DB.getCoins(message.author.id).amount
+          var wallet = DB.getCoins(message.author.id)
+          if (!wallet) {
+            message.reply("You don't have a stash.\nType !daily to obtain a stash and start earning Arkoins!")
+            return
+          }        
+          var userCoins = DB.getCoins(message.author.id).amount
           if (userCoins < REWARDS.sound) {
             message.reply("Not enough Arkoins.")
             return
@@ -283,7 +340,12 @@ module.exports = {
           }
           break;
           case "5":
-            var userCoins = await DB.getCoins(message.author.id).amount
+            var wallet = DB.getCoins(message.author.id)
+            if (!wallet) {
+              message.reply("You don't have a stash.\nType !daily to obtain a stash and start earning Arkoins!")
+              return
+            }        
+            var userCoins = DB.getCoins(message.author.id).amount
             if (userCoins < REWARDS.music) {
               message.reply("Not enough Arkoins.")
               return
@@ -369,11 +431,11 @@ function isPatreon(user) {
 }
 
 const REWARDS = {
-  colors: 10000,
-  specialRole: 50000,
-  gif: 100000,
-  sound: 250000,
-  music: 600000,
+  colors: 20000,
+  specialRole: 100000,
+  gif: 300000,
+  sound: 500000,
+  music: 1000000,
 }
 
 

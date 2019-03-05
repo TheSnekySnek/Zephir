@@ -1,0 +1,30 @@
+{
+    "id": "",
+    "damageTaken": 0,
+    "wins": 0,
+    "loses": 0,
+    "pvpwins": 0,
+    "pvploses": 0,
+    "gamesToday": 0,
+    "maxDungeon": 0,
+    "alchemy": false,
+    "autoBattle": false,
+    "status": true,
+    "inventory": {
+        "helmet": [],
+        "chest": [],
+        "pants": [],
+        "boots": [],
+        "accessory": [],
+        "weapon": [],
+        "consumable": []
+    },
+    "equiped": {
+        "helmet": 0,
+        "chest": 0,
+        "pants": 0,
+        "boots": 0,
+        "accessory": 0,
+        "weapon": 0
+    }
+}

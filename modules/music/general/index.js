@@ -16,7 +16,7 @@ global.player = require('./includes/player');
 global.lyrics = require('./includes/lyrics');
 global.queue = require('./includes/queue');
 global.search = require('./includes/search');
-global.voice = require('./includes/voice');
+//global.voice = require('./includes/voice');
 global.stats = require('./includes/statManager');
 MH = require('./includes/mh');
 
@@ -28,7 +28,7 @@ client.on('disconnect', () => console.log('I just disconnected, making sure you 
 
 client.on('reconnecting', () => console.log('I am reconnecting now!'));
 
-client.on('guildMemberSpeaking', voice.handleSpeaking.bind(this));
+//client.on('guildMemberSpeaking', voice.handleSpeaking.bind(this));
 
 process.on('message', function(m) {
     MH.handle(m)

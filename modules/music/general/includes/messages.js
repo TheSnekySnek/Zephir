@@ -13,6 +13,19 @@ module.exports.commandHandler = function(message) {
   }
 }
 
+async function isMod(id) {
+  var mods = await api.getMods()
+  console.log("MODS")
+  console.log(mods)
+  if(mods.length > 0){
+    mods.forEach(mod => {
+      if(mod == id)
+        return true
+    });
+  }
+  return false
+}
+
 var commands = [
   {
     key: "play",
@@ -20,7 +33,7 @@ var commands = [
     usage: "!play [name / youtube ID / youtube link / Spotify Playlist]",
     run: function(message, content, args) {
       var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
         message.channel.send("This Music Bot is locked")
         return
       }
@@ -122,6 +135,7 @@ var commands = [
     description: "Skips the current song or the specified song from the queue",
     usage: "!skip ([number])",
     run: async function(message, content, args) {
+      console.log("SKIP")
       if (args[1]) {
         let num = parseInt(args[1])
         if (num) {
@@ -145,7 +159,21 @@ var commands = [
     description: "loops the current song",
     usage: "!skip ([number])",
     run: async function(message, content, args) {
-      player.loop(message)
+      await player.loop(message)
+    }
+  },
+  {
+    key: "setavatar",
+    description: "sets the bot's avatar",
+    usage: "!setavatar ([url])",
+    run: async function(message, content, args) {
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if((HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
+        message.channel.send("Check your privileges")
+        return
+      }
+      client.user.setAvatar(request(content))
+      message.channel.send("Request submitted. Allow up to 10 minutes for it to update")
     }
   },
   {
@@ -153,7 +181,7 @@ var commands = [
     description: "loops the current song",
     usage: "!skip ([number])",
     run: async function(message, content, args) {
-      player.lock(message)
+      await player.lock(message)
     }
   },
   {
@@ -161,7 +189,7 @@ var commands = [
     description: "loops the current song",
     usage: "!skip ([number])",
     run: async function(message, content, args) {
-      player.unlock(message)
+      await player.unlock(message)
     }
   }/*,
   {
@@ -250,7 +278,7 @@ var commands = [
     usage: "!clear",
     run: function(message, content, args) {
       var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
         message.channel.send("This Music Bot is locked")
         return
       }
@@ -262,7 +290,11 @@ var commands = [
     description: "Adds a song to the playlist",
     usage: "!pa [song]",
     run: async function(message, content, args) {
-      
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if((HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
+        message.channel.send("Check your privileges")
+        return
+      }
       let pl = await api.getPlaylist(playlistID);
       let song = await search.search(message, content);
       let playlist = pl.playlist;
@@ -282,13 +314,17 @@ var commands = [
     description: "Removes a song from the playlist",
     usage: "!pd [number]",
     run: async function(message, content, args) {
-      if(mods.includes(message.author.id)){
-        let pl = await api.getPlaylist(playlistID);
-        let playlist = pl.playlist;
-        playlist.splice(parseInt(content), 1);
-        await api.setPlaylist(playlist);
-        message.reply("Song has been removed from the playlist")
+      var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
+      if((HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
+        message.channel.send("Check your privileges")
+        return
       }
+      let pl = await api.getPlaylist(playlistID);
+      let playlist = pl.playlist;
+      playlist.splice(parseInt(content), 1);
+      await api.setPlaylist(playlist);
+      message.reply("Song has been removed from the playlist")
+      
     }
   },
   {
@@ -297,7 +333,7 @@ var commands = [
     usage: "!change [number] [number]",
     run: async function(message, content, args) {
       var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner")){
+      if(player.isLocked() && (HR != "Owner" && HR != "Admin" && HR != "Voice Mod" && HR != "Chat Mod" && HR != "Co-Owner") && !isMod(message.member.id)){
         message.channel.send("This Music Bot is locked")
         return
       }

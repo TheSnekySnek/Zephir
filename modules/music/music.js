@@ -65,6 +65,14 @@ module.exports = {
                         data: pl
                     }))
                     break;
+
+                case "getMods":
+                    var mods = DB.getMBMods(id)
+                    child.send(JSON.stringify({
+                        type: "getMods",
+                        data: mods
+                    }))
+                    break;
                 
                 case "setqueue":
                     DB.setMBQueue(id, m.data)

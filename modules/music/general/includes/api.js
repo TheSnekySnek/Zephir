@@ -72,5 +72,23 @@ module.exports = {
         }))
         resolve()
     });
+  },
+  getMods: function(user) {
+    return new Promise(function(resolve, reject) {
+        function lis(m) {
+            console.log(m)
+            var msg = JSON.parse(m)
+            if(msg.type == "getMods"){
+                console.log("API GM")
+                resolve(msg.data)
+                process.removeListener('message', lis)
+            }
+        }
+        process.on('message', lis);
+        process.send(JSON.stringify({
+            type: "getMods"
+        }))
+        console.log("SENT")
+    });
   }
 }

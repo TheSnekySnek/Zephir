@@ -101,6 +101,19 @@ module.exports.setMBQueue = function(botId, queue) {
      .assign({"playing": data})
      .write()
  }
+ module.exports.setMBMods = function(botId, data) {
+    return db.get('music.mb')
+     .find({"id": botId})
+     .assign({"mods": data})
+     .write()
+ }
+ module.exports.getMBMods = function(botId) {
+    var mb = db.get('music.mb').find({"id": botId}).value()
+    if(mb.mods)
+        return mb.mods
+    else
+        return []
+ }
  module.exports.setMBPlaylist = function(id, pl) {
     return db.get('music.playlist')
      .find({"id": id})

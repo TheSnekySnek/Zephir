@@ -225,6 +225,23 @@ io.on('connection', function(socket){
         if(verifyID(msg.jwt))
         socket.emit('getMBs', DB.getMBs())
     })
+    socket.on('setMB', function(msg){
+        if(verifyID(msg.jwt)){
+            console.log(msg.data)
+            DB.setMBState(msg.data, false)
+        }
+    })
+    socket.on('setMBMods', function(msg){
+        if(verifyID(msg.jwt)){
+            console.log(msg.data)
+            DB.setMBMods(msg.data.id, msg.data.mods)
+        }
+    })
+    socket.on('getMBMods', function(msg){
+        if(verifyID(msg.jwt)){
+            socket.emit('getMBMods', DB.getMBMods(msg.data.id))
+        }
+    })
     socket.on('stopMB', function(msg){
         if(verifyID(msg.jwt)){
             console.log(msg.data)
@@ -274,8 +291,16 @@ io.on('connection', function(socket){
         }
             socket.emit('getCHs', {vcs: vcs, tcs, tcs})
     })
+    socket.on('getMembers', function(msg){
+        if(verifyID(msg.jwt)){
+            var members = client.guilds.get(DB.getBotData().guild).members.array()
+            socket.emit('getMembers', {members: members})
+        }
+    })
     socket.on('getUsrMb', function(msg){
         var userID = msg.id
+        if(!userID)
+            return
         var vc = client.guilds.get(DB.getBotData().guild).members.get(userID).voiceChannel
         if(vc){
             vcID = vc.id
