@@ -21,6 +21,23 @@ client.on('message', msg => {
     filter.monitor(msg)
 })
 
+client.on('message', async message => {
+  if(message.content.includes('https://www.youtube.com/watch') || message.content.includes('.gif') ||  message.content.includes('.mp4') || message.content.includes('.webm') || message.content.includes('https://clips.twitch.tv') || (message.content.includes('https://www.twitch.tv') && message.content.includes('/clip/')) ) {
+    
+      let R1 = message.guild.emojis.find('name', "1R")
+      let R2 = message.guild.emojis.find('name', "2R")
+      let R3 = message.guild.emojis.find('name', "3R")
+      let R4 = message.guild.emojis.find('name', "4R")
+      let R5 = message.guild.emojis.find('name', "5R")
+    
+    await message.react(R1)
+	  await message.react(R2)
+	  await message.react(R3)
+	  await message.react(R4)
+    await message.react(R5)
+  }
+});
+
 client.on("guildMemberAdd", (member) => {
     if(member.displayName.includes("gg/") || member.displayName.includes("discord.gg")){
         member.kick("No Advertising!")
@@ -40,7 +57,7 @@ client.on('presenceUpdate', (oldm, newm) => {
             let rol = client.guilds.get(DB.getBotData().guild).roles.find('name', rep)
             console.log(rep)
             if(tc && rol){
-                tc.send(rol + " " + newm.displayName + " is now LIVE :tada:\n" + newm.presence.game.url)
+                tc.send(rol + " " + newm.displayName + " is now... LIVE :Hype: :tada:\n" + newm.presence.game.url)
             }
         }
     }

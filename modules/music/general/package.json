@@ -22,9 +22,9 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/icreatemac/musicbotv2#readme",
   "dependencies": {
-    "bufferutil": "^3.0.2",
-    "cheerio": "^1.0.0-rc.2",
-    "discord.js": "^11.4.2",
+    "bufferutil": "latest",
+    "cheerio": "latest",
+    "discord.js": "latest",
     "erlpack": "github:hammerandchisel/erlpack",
     "lyricist": "^0.1.2",
     "mongoose": "^4.11.5",
@@ -32,10 +32,10 @@
     "node-schedule": "^1.2.5",
     "pm2": "^2.6.1",
     "random-js": "^1.0.8",
-    "request": "^2.81.0",
+    "request": "latest",
     "socket.io-client": "latest",
     "uws": "latest",
-    "ytdl-core": "latest",
+    "ytdl-core": "^0.29.3",
     "ytpl": "^0.1.8"
   }
 }

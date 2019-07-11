@@ -98,7 +98,7 @@ function getLootZ(type, id, lvl, luck) {
     var dungeons = db.get('mobs').value()
     var i1dc = 100
     var i2dc = 25
-    var i1bdc = 40
+    var i1bdc = 30
     var i2bdc = 1
     var itemDropChance = ((((((i1bdc-(i2bdc-1))/100)/items[type].length) * ((items[type][id].lvl-1)-items[type].length)*-1)) + ((i2bdc-1)/100)) + (( ((i1dc/100) - ( (((i1dc-i2dc)/100)/(items[type].length/100)) * items[type][id].lvl-1)/100)) / (dungeons.length-1) * lvl-1) - (((items[type].length/100)/(dungeons.length-1)) * lvl-1)
     if (luck == 1)
@@ -701,7 +701,7 @@ if (ADB.getBattleSettings().enabled) {
                     }
         */
 
-					var con = await message.channel.send("This will deduct " + ((args[1] * 1000)+1000) + " Arkoins from your stash.\nWould you like to continue?")
+					var con = await message.channel.send("This will deduct " + ("**" + (args[1] * 1000)+1000) + "** Arkoins from your stash.\nWould you like to continue?")
 
 					await con.react("✅")
 					await con.react("❌")
@@ -739,7 +739,7 @@ if (ADB.getBattleSettings().enabled) {
 								user.inventory[kind].push(id + 1)
 								db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
 								ADB.deleteCoins(message.author.id, ((args[1] * 1000)+1000))
-								message.channel.send("You have successfully fused **" + items[kind][id].name + "** into **" + items[kind][id+1].name + "**!\n**(X2)** versions of **" + items[kind][id].name + "** have been removed from your inventory.\n\n" + ((args[1] * 1000)+1000) + " Arkoins have been removed from your stash.")
+								message.channel.send("You have successfully fused **" + items[kind][id].name + "** into **" + items[kind][id+1].name + "**!\n**(X2)** versions of **" + items[kind][id].name + "** have been removed from your inventory.\n\n**" + ((args[1] * 1000)+1000) + "** Arkoins have been removed from your stash.")
 							}
 
 
@@ -758,7 +758,7 @@ if (ADB.getBattleSettings().enabled) {
 
 								user.inventory[kind].push(id + 1)
 								db.get('users').find({ id: message.author.id }).assign({ inventory: user.inventory }).write()
-								message.channel.send("You have successfully fused **" + items[kind][id].name + "** into **" + items[kind][id+1].name + "**!\n**(X3)** versions of **" + items[kind][id].name + "** have been removed from your inventory.\n\n" + ((args[1] * 1000)+1000) + " Arkoins have been removed from your stash.")
+								message.channel.send("You have successfully fused **" + items[kind][id].name + "** into **" + items[kind][id+1].name + "**!\n**(X3)** versions of **" + items[kind][id].name + "** have been removed from your inventory.\n\n**" + ((args[1] * 1000)+1000) + "** Arkoins have been removed from your stash.")
 							}
 
 							break;
@@ -930,6 +930,9 @@ if (ADB.getBattleSettings().enabled) {
                 return
             }
             printInventory(user, message, args)
+            if (message.channel.type != "dm") {
+            message.channel.send("Check private messages to see your inventory.")
+            }
         },
 
         inv: function (message, command, args) {
@@ -939,6 +942,9 @@ if (ADB.getBattleSettings().enabled) {
                 return
             }
             printInventory(user, message, args)
+            if (message.channel.type != "dm") {
+            message.channel.send("Check private messages to see your inventory.")
+            }
         },
 
         equip: function (message, command, args) {

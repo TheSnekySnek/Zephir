@@ -623,6 +623,12 @@ if (ADB.getBattleSettings().enabled) {
                     return
                 }
 
+//fillmescotty
+                if (kind == "consumable" && (parseInt(args[1]) == 3)) {
+                    message.channel.send("You cannot buy this item anymore.\nIt can now be found in high level dungeon drops.")
+                    return
+                }
+
                 var id = parseInt(args[1])
                 if (kind == "consumable") {
                     user.inventory[kind].push(id)
@@ -1085,9 +1091,14 @@ if (ADB.getBattleSettings().enabled) {
                             msg += "\nPrice: " + items.consumable[i].price
                         }
 
-
                     }
                 }
+                
+ //fillmescottyfix
+                if (items.consumable[i].name == "Fill Me Up Scotty"){
+                  embed.addField(+ i + ". " + "~~" + items.consumable[i].name + "~~", msg, true)
+                }                               
+                
                 embed.addField(+ i + ". " + items.consumable[i].name, msg, true)
             }
             message.channel.send(embed)

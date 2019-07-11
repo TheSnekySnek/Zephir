@@ -72,7 +72,7 @@ module.exports = {
   },
   skip: async function (message) {
     var HR = client.guilds.get(guildID).members.get(message.author.id).highestRole.name
-    var isAMod = await isMod(message.member.id)
+    var isAMod = await isMod(message.author.id)
     if (HR == "Owner" || HR == "Admin" || HR == "Voice Mod" || HR == "Chat Mod" || HR == "Co-Owner" || isAMod) {
       textChannel.send("Skipping song...")
       voice_stream.end()
@@ -182,8 +182,7 @@ function playSong(song) {
   console.log("Playing " + song.name);
   currSong = song;
   songSkipPoll = []
-
-  voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1, volume: 0.1 })
+  voice_stream = voice_connection.playStream(yt(song.link, { audioonly: true }), { passes : 1, volume: 0.2, bitrate: "auto"})
   voice_stream.on('start', () => {
     console.log("start playing song")
     voice_stream.streamingData.pausedTime = 0;
@@ -206,7 +205,7 @@ function playLivestream(song) {
   currSong = song;
   songSkipPoll = []
   api.setPlaying(currSong)
-
+  console.log("IS LIVBE")
   var spawn = require('child_process').spawn;
 
   var process = spawn('streamlink', [song.link, 'worst', '-O']);
@@ -216,7 +215,7 @@ function playLivestream(song) {
   })
 
   process.stdout.on('data', function (data) {
-    //console.log(data.length)
+    console.log(data.length)
   });
 
   process.stderr.on('data', function (data) {

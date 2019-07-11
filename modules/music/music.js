@@ -84,8 +84,8 @@ module.exports = {
                     break;
                 case "setplaying":
                     DB.setMBPlaying(id, m.data)
-                    if(m.data.thumbnail.indexOf("sddefault") < 0)
-                        m.data.thumbnail = m.data.thumbnail.replace("default", "sddefault")
+                    if(m.data.thumbnail && m.data.thumbnail.indexOf("sddefault") < 0)
+                        m.data.thumbnail = m.data.thumbnail.replace("hqdefault", "sddefault")
                     socketC.emit("song", {id: id, data: m.data})
                     break;
                 case "ping":

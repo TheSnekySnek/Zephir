@@ -314,7 +314,7 @@ ${icn} **Weather:** ${wData.weather[0].main} (${wData.weather[0].description})
             },
             {
               name: "Tier 2 | Roles - 100,000 Arkoins",
-              value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins!",
+              value: "Create your own custom Role, you can make it Private/Public, you chose! \nPersonally, i'd keep it private... You worked hard for those coins! (Lasts 1 month)",
               inline: false
             },
             {

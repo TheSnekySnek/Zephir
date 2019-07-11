@@ -7,7 +7,7 @@ var spawn = require('child_process').spawn;
 const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var music = require('../modules/music/music')
+global.music = require('../modules/music/music')
 const fs = require('fs')
 
 app.use(cookieParser())
@@ -307,8 +307,8 @@ io.on('connection', function(socket){
             if(vcID){
                 var mb = DB.getMBinVC(vcID)
                 if(mb && mb.id && mb.playing){
-                    if(mb.playing.thumbnail.indexOf("sddefault") < 0)
-                        mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
+                    if(mb.playing.thumbnail && mb.playing.thumbnail.indexOf("sddefault") < 0)
+                        mb.playing.thumbnail = mb.playing.thumbnail.replace("hqdefault", "sddefault")
                     socket.emit('gsong', {id: mb.id, data: mb.playing})
                 }
             }
@@ -330,7 +330,7 @@ io.on('connection', function(socket){
                         console.log(mb)
                         if(mb && mb.id && mb.playing){
                             if(mb.playing.thumbnail.indexOf("sddefault") < 0)
-                                mb.playing.thumbnail = mb.playing.thumbnail.replace("default", "sddefault")
+                                mb.playing.thumbnail = mb.playing.thumbnail.replace("hqdefault", "sddefault")
                             socket.emit('gsong', {id: mb.id, data: mb.playing})
                             return
                         }

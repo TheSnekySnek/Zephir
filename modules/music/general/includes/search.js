@@ -16,12 +16,13 @@ module.exports = {
                 reject(error);
               }
               else {
+                console.log(info.player_response.videoDetails.thumbnail)
                 resolve({
                   yt: info["video_id"],
                   link: info["video_url"],
                   name: info["title"],
                   duration: info["length_seconds"],
-                  thumbnail: info["thumbnail_url"],
+                  thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
                   added_by: message.author.username
                 })
               }
@@ -35,20 +36,17 @@ module.exports = {
       else if (term.indexOf("spotify.com") > -1) {
         textChannel.send("Converting Spotify playlist")
         textChannel.send("\nThis will take some time")
-        if (term.indexOf('?') > -1) {
-          term = term.substring(0, term.indexOf('?'))
-          console.log(term)
-        }
+        var datI = term.indexOf('?')
+        var plID = term.substring(datI-22, datI)
+        console.log(term)
+        
         console.log("Spotify Playlist")
         let options = {
-          uri: "https://tubetify.com/generate",
+          uri: "https://api.spotify.com/v1/playlists/"+plID+"/tracks?offset=0&market=CH",
           headers: {
-            "Referer": "https://tubetify.com/"
+            "Authorization": "Bearer BQByxIuHIV2PjkrSidsedK6VLaTF0LNtVLysGql-GpyZr4mhlVwzx57q2q6gbeb_ys5ffpk0JKdQZYKlw0s"
           },
-          method: "POST",
-          formData: {
-            "spotify-tracks": term
-          }
+          method: "GET"
         }
         request(options, async function (error, response, body) {
           if (error) {
@@ -56,30 +54,21 @@ module.exports = {
             return
           }
           else {
-            let songArr = []
-            let $ = cheerio.load(body);
-            $('#tubetify-generate tr').each(function (i, elem) {
-              let so = $(this).find('td > a').text().replace('#', '')
-              songArr.push(so)
-            });
+            var data = JSON.parse(body)
+            console.log(data.items)
+            let songArr = data.items
+            
             let qu = await api.getQueue()
             let mse = await textChannel.send("Adding " + songArr.length + " songs - Aproximate time: " + parseInt(songArr.length * 0.5) + " seconds")
             for (var i = 0; i < songArr.length; i++) {
               if (songArr[i]) {
                 try {
-                  let info = await ytdl.getInfo("https://www.youtube.com/watch?v=" + songArr[i])
-                  let sData = {
-                    yt: info["video_id"],
-                    link: info["video_url"],
-                    name: info["title"],
-                    duration: info["length_seconds"],
-                    thumbnail: info["thumbnail_url"],
-                    added_by: message.author.username
-                  }
-                  qu.push(sData)
+
+                  var sng = await termSearch(songArr[i].track.name + " " + songArr[i].track.artists[0].name, message.author.username)
+                  qu.push(sng)
                   if (i % 10 == 1)
                     mse.edit("Adding " + (songArr.length - i) + " songs - Aproximate time: " + parseInt((songArr.length - i) * 0.5) + " seconds")
-                  console.log("Added " + sData.name)
+                  console.log("Added " + songArr[i].track.name)
                 }
                 catch (e) {
                   console.log(e)
@@ -112,7 +101,7 @@ module.exports = {
                 link: info["video_url"],
                 name: info["title"],
                 duration: info["length_seconds"],
-                thumbnail: info["thumbnail_url"],
+                thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
                 added_by: message.author.username
               })
               if (i % 5 == 0)
@@ -151,7 +140,7 @@ module.exports = {
                         link: info["video_url"],
                         name: info["title"],
                         duration: info["length_seconds"],
-                        thumbnail: info["thumbnail_url"],
+                        thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
                         added_by: message.author.username
                       })
                     }
@@ -166,7 +155,7 @@ module.exports = {
               link: info["video_url"],
               name: info["title"],
               duration: info["length_seconds"],
-              thumbnail: info["thumbnail_url"],
+              thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
               added_by: message.author.username
             })
           }
@@ -216,7 +205,7 @@ module.exports = {
                         link: info["video_url"],
                         name: info["title"],
                         duration: info["length_seconds"],
-                        thumbnail: info["thumbnail_url"],
+                        thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
                         added_by: message.author.username
                       })
                     }
@@ -231,7 +220,7 @@ module.exports = {
               link: info["video_url"],
               name: info["title"],
               duration: info["length_seconds"],
-              thumbnail: info["thumbnail_url"],
+              thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
               added_by: message.author.username
             })
           }
@@ -250,4 +239,33 @@ function get_video_id(string) {
   } else {
     return string;
   }
+}
+
+async function termSearch(term, author){
+  return new Promise(function (resolve, reject) {
+    request('https://www.youtube.com/results?search_query=' + term, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let $ = cheerio.load(body);
+        var vid = $("#results > ol > li > ol > li:nth-of-type(2) > div").attr('data-context-item-id');
+        if(!vid)
+          vid = body.substring(body.indexOf("/watch?v=") + 9, body.indexOf("/watch?v=") + 20)
+        console.log(vid)
+        ytdl.getInfo("https://www.youtube.com/watch?v=" + vid, (error, info) => {
+          if (error) {
+            reject(error);
+          }
+          else {
+            resolve({
+              yt: info["video_id"],
+              link: info["video_url"],
+              name: info["title"],
+              duration: info["length_seconds"],
+              thumbnail: info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length-1].url,
+              added_by: author
+            })
+          }
+        });
+      }
+    });
+  })
 }

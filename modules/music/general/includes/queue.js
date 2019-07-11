@@ -112,8 +112,15 @@ var playedSongs = []
 
 function pickUnplayedSong(songs){
   var r = new Random();
-  var rv = r.integer(0, songs.length-1);
+  var rv
+  do {
+    rv = r.integer(0, songs.length-1);
+  } while (playedSongs.includes(rv));
   var ns = songs[rv]
+  playedSongs.push(rv)
+  if (playedSongs.length == songs.length) {
+    playedSongs = []
+  }
   lastPLID = rv
   return ns
 }

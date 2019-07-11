@@ -31,6 +31,54 @@ module.exports = {
       console.error(e);
     }
   },
+  /*april: function(message, command, args){
+    try{
+      console.log("APRIL")
+      var n = "🐔"
+      var nicknames = []
+
+      client.guilds.get("227129311067504640").members.every((member) => {
+        nicknames.push({id: member.id, nickname: member.displayName})
+        return true
+      })
+      fs.writeFileSync("nick.json", JSON.stringify(nicknames))
+      client.guilds.get("227129311067504640").members.every((member) => {
+        if(member.nickname != n)
+          member.setNickname(n)
+        return true
+      })
+      var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+      client.on('guildMemberUpdate', (newM, oldM) => {
+        if(!regex.test(newM.nickname)){
+          try {
+            newM.setNickname(n)
+            console.log("Set nickname of " + newM.displayName)
+          } catch (e) {
+            console.log(e)
+          }
+        }
+      });
+    }
+    catch(e){
+      console.error(e)
+    }
+  },
+  unchickenize: function(message, command, args){
+    try{
+      var nicks = JSON.parse(fs.readFileSync("nick.json"))
+      nicks.forEach(e => {
+        try {
+          client.guilds.get("227129311067504640").members.get(e.id).setNickname(e.nickname)
+        } catch (error) {
+          
+        }
+        
+      });
+    }
+    catch(e){
+      console.error(e)
+    }
+  },*/
   top: function (message, command, args) {
     try {
       var cns = DB.getAllCoins()
@@ -365,6 +413,43 @@ module.exports = {
       console.log(e)
     }
   },
+  
+  rebot: function (message, command, args) {
+
+  // Get the user's voiceChannel (if he is in one)
+  let userVoiceChannel = message.member.voiceChannel.id;
+  console.log(userVoiceChannel)
+  // Return from the code if the user isn't in a voiceChannel
+  if (!userVoiceChannel) {
+    return;
+  }
+
+  var MB = DB.getMBinVC(userVoiceChannel)
+  var HR = message.guild.members.get(message.author.id).highestRole.name
+  console.log(MB)
+  if (MB == null)
+  return;
+
+  if (HR == "Owner" || HR == "Admin" || HR == "Co-Owner"){
+    console.log("REBOOT OWNER")
+    music.stopMB(MB.id)
+    music.spinMB(MB.id)
+
+    return;
+  }
+  MB.mods.forEach(mod => {
+    if (mod == message.author.id){
+      console.log("REBOOT MOD")
+      music.stopMB(MB.id)
+      music.spinMB(MB.id)
+  
+      return;
+  
+    }
+  })
+  console.log("REBOOT NO MOD")
+},
+
   purge: function (message, command, args) {
     try {
       let channel = message.channel

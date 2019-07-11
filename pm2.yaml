@@ -1,0 +1,15 @@
+# pm2 stop|start|restart|reload|delete pm2.yaml # stop|start|restart|reload|delete all
+# example - pm2 start forever.yaml
+#           pm2 stop forever.yaml --only mock-be
+# reload is a no downtime restart
+
+apps:
+  - name: zephir
+    script: ./index.js
+    instances: 1
+    min_uptime: 5000
+    max_restarts": 5
+    restart_delay: 1000
+    error_file: "err.log"
+    out_file: "out.log"
+    log-date-format: "YYYY-MM-DD HH:mm Z"

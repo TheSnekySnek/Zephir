@@ -1,4 +1,5 @@
 var path = require('path');
+require('console-stamp')(console, 'mm-dd HH:MM:ss');
 
 const readline = require('readline');
 const fs = require('fs')
