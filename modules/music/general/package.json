@@ -27,7 +27,7 @@
     "discord.js": "latest",
     "erlpack": "github:hammerandchisel/erlpack",
     "lyricist": "^0.1.2",
-    "mongoose": "^4.11.5",
+    "mongoose": "^5.7.7",
     "node-opus": "latest",
     "node-schedule": "^1.2.5",
     "pm2": "^2.6.1",
