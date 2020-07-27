@@ -18,7 +18,7 @@
     "image-downloader": "^3.4.1",
     "imagemin": "^6.0.0",
     "imagemin-giflossy": "^5.1.10",
-    "jpeg-js": "^0.3.4",
+    "jpeg-js": "^0.4.1",
     "jsonwebtoken": "^8.3.0",
     "lootastic": "^1.0.2",
     "lowdb": "^1.0.0",
